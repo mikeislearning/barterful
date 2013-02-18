@@ -14,6 +14,7 @@ function __construct()
 	function index()
 	{
 		$this->load->view('landingpage');//NOT ILANA BEER!
+		//YOU ARE A MONKEYS UNCLE
 	}
 	
 	function send()
