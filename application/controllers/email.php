@@ -13,7 +13,7 @@ function __construct()
 	
 	function index()
 	{
-		$this->load->view('landingpageILANABEER');
+		$this->load->view('landingpage');//NOT ILANA BEER!
 	}
 	
 	function send()
