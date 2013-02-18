@@ -19,7 +19,7 @@ class Site extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('landingpage');
+		$this->load->view('landingpage');//I AM TESTING ZIS THING
 	}
 	
 	public function realhome()
