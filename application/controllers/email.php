@@ -13,7 +13,7 @@ function __construct()
 	
 	function index()
 	{
-		$this->load->view('landingpage');
+		$this->load->view('landingpageILANA');
 	}
 	
 	function send()
