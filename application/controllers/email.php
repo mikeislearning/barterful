@@ -15,6 +15,7 @@ function __construct()
 	{
 		$this->load->view('landingpage');//NOT ILANA BEER!
 		//YOU ARE A MONKEYS UNCLE
+		//this is my branch
 	}
 	
 	function send()
