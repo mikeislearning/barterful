@@ -15,7 +15,7 @@
 		     	<li> Media </li>
 		     	<li> Terms of Use</li>
 		     	<li> Privacy Policy</li>
-		     	<li> Contact Us</li>
+		     	<li><a href="<?php echo base_url('index.php/site/contact');?>"> Contact Us </a></li>
 		     </ul>
 		     <p>  &copy; <?php echo date("Y"); ?> Barterful Inc. </p>
 	     </footer>

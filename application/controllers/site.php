@@ -23,10 +23,16 @@ class Site extends CI_Controller {
 	}
 	
 	public function realhome()
-	{	$this->load->view('includes/top');
-		$this->load->view('includes/headerout');
-		$this->load->view('mainpage');
-		$this->load->view('includes/footer');
+	{	$data['main_content'] = 'mainpage';
+		$data['header_content'] = 'includes/headerout';
+		$this->load->view('includes/template', $data);
+	}
+	
+	public function contact()
+	{
+		$data['main_content'] = 'contact';
+		$data['header_content'] = 'includes/headerout';
+		$this->load->view('includes/template', $data);
 	}
 }
 
