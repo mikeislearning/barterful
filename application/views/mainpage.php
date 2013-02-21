@@ -1,41 +1,8 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0 "/>
-        <link rel="stylesheet" type="text/css" href="<?php echo base_url('_styles/main.css');?>" media="all" />
 
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700|Open+Sans+Condensed:300,300italic,700' rel='stylesheet' type='text/css' />
-       
-       
-              
-<!--[if lt IE 9]>
-<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
-        
-
-        
-        <title>Welcome to Barterful</title>
-        
-    </head>
-    <body>
     
     
         
-<!-- ************************ Header ************************** -->
 
-	<div id="headerWrapper">
-		<header>
-		     <a href="index.php" class="logo">barterful</a>
-		    
-			<nav>
-			    <ul>
-			       <li> <a href="login.php">Log in </a> </li>
-			       <li> <a href="signup.php">Sign up</a> </li>
-			    </ul>
-			</nav>
-		</header>
-	</div>
     
 <!-- ************************ Hero Unit ************************** -->
 
@@ -47,13 +14,9 @@
 		            <h3>Barterful is a network of online bartering communities. <a href="#">Learn More </a> </h3>
 		            <div id="inputWrapper">
 		            	<input type="text"  placeholder="Search"/>
-		            	<a href="#" class="foundicon-search"></a>
+		            	<a href="#" class="general foundicon-trash"></a>
 		            </div>
 	        	</article>
-	           
-	            
-	            <!--<i class="general foundicon-search"></i>-->
-	                         
 	        </section>
 	
 		</div>
@@ -159,37 +122,4 @@
         </div><!-- /end allContentWrapper -->
 
         <hr />
-<!-- ************************ Footer ************************** -->
-        
-   <div id="footerWrapper">
-	     <footer>
-	      
-		     <ul>
-			     <li> Facebook </li>
-			     <li> Twitter</li>
-			     <li> YouTube </li>
-			     <li> Pinterest</li>
-			     <li> Blog </li>
-		     </ul>
-		     <ul>
-		     	<li> About </li>
-		     	<li> How it Works</li>
-		     	<li> Media </li>
-		     	<li> Terms of Use</li>
-		     	<li> Privacy Policy</li>
-		     	<li> Contact Us</li>
-		     </ul>
-		     <p>  &copy; <?php echo date("Y"); ?> Barterful Inc. </p>
-	     </footer>
-   </div>
 
-
-
-</body>
-                <!-- including javascript stuff -->
-    <script src="<?php echo base_url('_js/jquery-1.9.0.min.js');?>"></script>
-    <script src="<?php echo base_url('_js/modernizr.js');?>"></script>
-    <script src="<?php echo base_url('_js/main.js');?>"></script>
-    
-
-</html>
