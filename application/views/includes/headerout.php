@@ -3,7 +3,7 @@
 
 	<div id="headerWrapper">
 		<header>
-		     <a href="index.php" class="logo">barterful</a>
+		     <a href="<?php echo base_url('index.php/site/realhome');?>" class="logo">barterful</a>
 		    
 			<nav>
 			    <ul>
