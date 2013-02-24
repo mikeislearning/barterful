@@ -2,12 +2,13 @@
         
    <div id="footerWrapper">
 	     <footer>
+	     
 	      
 		     <ul>
-			     <li> <a href="http://www.facebook.com/barterful" class="social foundicon-facebook"></a> </li>
-			     <li> <a href="http://www.twitter.com/barterful" class="social foundicon-twitter"></a></li>
-			     <li> <a href="http://www.youtube.com/barterfulmike" class="social foundicon-youtube"></a> </li>
-			     <li> <a href="http:///www.pinterest.com/barterful" class="social foundicon-pinterest"></a></li>
+			     <li> <a href="http://www.facebook.com/barterful"><i class="social foundicon-facebook"></i></a> </li>
+			     <li> <a href="http://www.twitter.com/barterful"><i class="social foundicon-twitter"></i></a></li>
+			     <li> <a href="http://www.youtube.com/barterfulmike"><i class="social foundicon-youtube"></i></a> </li>
+			     <li> <a href="http:///www.pinterest.com/barterful"><i class="social foundicon-pinterest"></i></a></li>
 		     </ul>
 		     <ul>
 		     	<li> About </li>
@@ -20,14 +21,11 @@
 		     <p>  &copy; <?php echo date("Y"); ?> Barterful Inc. </p>
 	     </footer>
    </div>
-
+   
+                <!-- including javascript stuff -->
+    <script src="<?php echo base_url('refs/_js/jquery-1.9.0.min.js');?>"></script>
+    <script src="<?php echo base_url('refs/_js/main.js');?>"></script>
 
 
 </body>
-                <!-- including javascript stuff -->
-    <script src="<?php echo base_url('refs/_js/jquery-1.9.0.min.js');?>"></script>
-    <script src="<?php echo base_url('refs/_js/modernizr.js');?>"></script>
-    <script src="<?php echo base_url('refs/_js/main.js');?>"></script>
-    
-
 </html>

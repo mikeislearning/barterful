@@ -17,22 +17,17 @@ table{border-collapse:collapse;border-spacing:0}
 
 /* LESS elements : http://lesselements.com/ */
 @import "elements.less";
-
 @import "tabs.less";
 
-/* Foundicons http://www.zurb.com/playground/foundation-icons */
-@import "general_foundicons.css";
-@import "general_foundicons_ie7.css";
-@import "social_foundicons.css";
-@import "social_foundicons_ie7.css";
 
-/******* semantic grid stuff ....if I decide to use it
+
+/******* semantic grid stuff ....if I decide to use it*/
 @import "grid.less";
-60pxs:12;
-60px-width:60;
-60px-width:20;
+@column-width: 60;
+@gutter-width: 20;
+@columns: 12;
 @total-width:100%;
-********/
+/********/
 
 
 /* ================================================================================
@@ -65,13 +60,16 @@ body{
 font-size:16px/1em;
 font-family:@baseFont;
 font-weight:100;
-line-height:1.5;
-margin:0 auto;
+//margin:0 auto;
+//line-height:1.5;
+}
+
+p{
 
 
 }
 
-header, #contentWrapper, #heroUnit, footer{
+.wrapper, #contentWrapper, #heroUnit, footer{
 max-width: 980px;
 margin: 0 auto;
 }
@@ -79,9 +77,9 @@ margin: 0 auto;
 
 //all the header tags
 h1 {
-  font-size:1.75em;
-  line-height:1.1429;
-  margin:0.8571em 0 0;
+  font-size:3.3em;
+  //line-height:1.1429;
+  //margin:0.8571em 0 0;
 }
 
 h2 {
@@ -94,6 +92,37 @@ h2 {
   padding:0.6111em 0 0.6667em;
   text-transform:uppercase;
 }
+
+input{
+	//margin-top:20px;
+	font-size:1em;
+	.rounded(10px);
+	height:1.5em;
+	border:1px solid black;
+	text-indent: 10px;
+
+	}
+
+.button1{
+text-transform: uppercase;
+padding:10px;
+
+color:@logoColour;
+border:1px solid @logoColour;
+.rounded(10px);
+	&:hover{
+	color:white;
+	background:@logoColour;
+	}
+}
+
+li{
+display:inline;
+}	
+
+		
+
+
 /*
 h3 {
   color:#2C1C16;
@@ -107,7 +136,7 @@ h4, h5, h6 {
   line-height:1;
   margin:0.75em 0 -0.25em;
 }
-*/
+
 
 hr {
   border-top-color:white;
@@ -119,9 +148,10 @@ hr {
   padding:0;
   clear:both;
 }
-
+*/
 a{
 text-decoration:none;
+
 	
 }
 
@@ -130,40 +160,32 @@ text-decoration:none;
 
 
 header{
+.column(12);
 
+section{
+.column(8)
+}
+
+	h1{
+	.column(5);
+	}
+	form,button{
+	.column(3);
+	}
 	.logo
 	{
-	float:left;
-	font-size:2.8em;
 	font-family:@logoFont;
 	color:@logoColour;
-	line-height: 1.2em;
 	&:hover{
 		opacity:.8;
 	       }
 	}
 	
 	nav{
-		float:right;
-		li{
-		display:inline;
-		margin-right:15px;
-			a{
-			text-transform: uppercase;
-			padding:10px;
-			opacity:.7;
-			color:@logoColour;
-			border:1px solid @logoColour;
-			.rounded(10px);
-			.box-shadow(50px);
-				&:hover{
-				color:white;
-				background:@logoColour;
-				opacity:1;
-						}
-			 }
-		   }		
-	   }
+	.column(4);
+	position:relative;
+	top:20px;
+		}
 }
 
 /***************************** Hero Unit *****************************************/
@@ -193,14 +215,7 @@ header{
 	}
 	#inputWrapper{
 
-		input{
-		margin-top:20px;
-		font-size:1.3em;
-		.rounded(10px);
-		height:1.5em;
-		border:none;
-		margin-right:-25px;
-		}
+		
 		a{
 		position:relative;
 		top:.02em;
@@ -226,6 +241,10 @@ header{
 		text-align: center;
 	}
 	
+}
+
+.push{
+padding:50px;
 }
 
 /***************************** Main Content *****************************************/

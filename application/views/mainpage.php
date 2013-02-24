@@ -14,7 +14,7 @@
 		            <h3>Barterful is a network of online bartering communities. <a href="#">Learn More </a> </h3>
 		            <div id="inputWrapper">
 		            	<input type="text"  placeholder="Search"/>
-		            	<a href="#" class="general foundicon-trash"></a>
+		            	<?php echo form_submit('submit', 'Search');//two parameters refer to name and value ?>
 		            </div>
 	        	</article>
 	        </section>
