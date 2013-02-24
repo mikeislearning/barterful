@@ -28,3 +28,5 @@ application/config/routes.php
 application/config/smileys.php
 
 application/config/user_agents.php
+
+application/config/email.php
