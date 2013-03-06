@@ -1,125 +1,103 @@
 
     
     
-        
-
-    
+            
 <!-- ************************ Hero Unit ************************** -->
 
-		<div id="heroWrapper">
-	        <section id="heroUnit">
-	        	<article class="titleText">
-		            <h1>So what are you good at? </h1>
+		<div class="bgWrapper" id="heroWrapper" >
+	        <section class="mainWrapper">
+	        	<article class="row">
+		            <h2>So what are you good at? </h2>
 		            
-		            <h3>Barterful is a network of online bartering communities. <a href="#">Learn More </a> </h3>
-		            <div id="inputWrapper">
-		            	<input type="text"  placeholder="Search"/>
-		            	<?php echo form_submit('submit', 'Search');//two parameters refer to name and value ?>
-		            </div>
+		            <h3>Barterful is a network of online bartering communities. </h3>
+		            
+		            <a href="#">Learn More </a>
 	        	</article>
 	        </section>
-	
 		</div>
         
-<!-- ************************ Main Content ************************** -->
-        
-        <div id="contentWrapper">
- 
-        
 
-        <section id="mainContent">
-        <h2> Your closest barterspot is <a href="#"> Humber College</a></h2>
-                
-        <div id="tabContainer">
-		    <div class="tabs">
-		      <ul>
-		        <li id="tabHeader_1"> Offering</li>
-		        <li id="tabHeader_2">Top Rated</li>
-		        <li id="tabHeader_3">Newest</li>
-		        <li id="tabHeader_4">Wanting</li>
-		      </ul>
-		    </div>
-		    <div class="tabscontent">
-		      <div class="tabpage" id="tabpage_1">
-		        <h3>Page 1</h3>
-		        <article>
-                <ul>
-                    <li>Mike</li>
-                    <li>27M</li>
-                    <li>Can: Give massage</li>
-                    <li>Wants: Food </li>
-                    <li> 3/5 stars </li>
-                </ul>
-            </article>
-		      </div>
-		      <div class="tabpage" id="tabpage_2">
-		        <h3>Page 2</h3>
-		        <article>
-                <ul>
-                    <li>Mike</li>
-                    <li>27M</li>
-                    <li>Can: Give massage</li>
-                    <li>Wants: Food </li>
-                    <li> 3/5 stars </li>
-                </ul>
-            </article>
-		      </div>
-		      <div class="tabpage" id="tabpage_3">
-		        <h3>Page 3</h3>
-		        <article>
-                <ul>
-                    <li>Mike</li>
-                    <li>27M</li>
-                    <li>Can: Give massage</li>
-                    <li>Wants: Food </li>
-                    <li> 3/5 stars </li>
-                </ul>
-            </article>
-		      </div>
-		      <div class="tabpage" id="tabpage_4">
-		        <h3>Page 4</h3>
-		        <article>
-                <ul>
-                    <li>Mike</li>
-                    <li>27M</li>
-                    <li>Can: Give massage</li>
-                    <li>Wants: Food </li>
-                    <li> 3/5 stars </li>
-                </ul>
-            </article>
-		      </div>
-		    </div>
         
-            
-        </section>
         
+        
+        
+<!-- ************************ Drop down list ************************** -->
+        <div class="bgWrapper">
+        <section class="mainWrapper">
+        <div class="row" id="dropdown">
+          <form>
+		       <fieldset>
+		             <label>Barterspot</label><!-- this should be populated with php -->
+		             <select id = "barterspot">
+		               <option value = "1">Humber</option>
+		               <option value = "2">U of T</option>
+		               <option value = "3">Queens</option>
+		               <option value = "4">York</option>
+		             </select>
+		       </fieldset>
+		    </form>
+		    <form>
+		       <fieldset>
+		             <label>Categories</label><!-- this should be populated with php -->
+		             <select id = "categories">
+		               <option value = "1">Design</option>
+		               <option value = "2">Web Development</option>
+		               <option value = "3">Clothing</option>
+		               <option value = "4">Food</option>
+		             </select>		          
+		       </fieldset>
+		    </form>
+		      <form>
+		       <fieldset>
+		             <label>Sorted by</label><!-- this should be populated with php -->
+		             <select id = "sortedby">
+		               <option value = "1">All</option>
+		               <option value = "2">Top Rated</option>
+		               <option value = "3">Popularity</option>
+		               <option value = "4">Most Recent</option>
+		             </select>
+		       </fieldset>
+		    </form>
+		    <form>
+			    <input id="offering" type="radio" checked="checked">Offering</input>
+			    <input id="wanting" type="radio">Wanting</input>
+		    </form>
        
-        
-<!-- ************************ Side Bar ************************** -->
-        
-     
-        
-	        <aside id="sideBar">
-	           
-	           <h2>Categories </h2>
-	           <form>
-	           <ul>
-	               <li> <input id="all" name="all" type="checkbox" checked="checked"> All </input></li>
-	               <li> <input id="food" name="food" type="checkbox"> Food </input> </li>
-	               <li> <input id="massage" name="massage" type="checkbox"> Massage  </input></li>
-	               <li> <input id="lanuages" name="languages" type="checkbox"> Languages </input></li>
-	               <li> <input id="tutoring" name="tutoring" type="checkbox"> Tutoring </input></li>
-	               <li> <input id="photography" name="photography" type="checkbox"> Photography </input></li>
-	               <li> <input id="graphicDesign" name="graphicDesign" type="checkbox"> Graphic Design </input></li>
-	               <li> <input id="sewing" name="sewing" type="checkbox"> Sewing </input></li>
-	               <li> <input id="fashion" name="fashion" type="checkbox"> Fashion </input></li>
-	            </ul>
-	            </form>
+       </div>
+    </section>  
+    </div><!-- /end dropdown bgWrapper -->
+       
+       
+<!-- ************************ Main Content ************************** -->    
+        <div class="bgWrapper">
+        <section class="mainWrapper">
+         
+          <div class="row">
+            <main>
+            
+            <article class="profile">
+            <img src="./refs/_img/irrelephant.jpg" class="left clearfix" alt="elephant" width="100" height="100" />
+	            <section class="info">
 	            
+		            <p>I will make you an awesome website</p>
+		            <a href="#">User Rating: 4.3/5 </a><br/>
+		            <button>Contact Mike </button>
+	            </section>
+            </article>
+            	
+            
+            </main>   
+<!-- ************************ Side Bar ************************** -->
+
+	        <aside>
+	           <img src="./refs/_img/bestadever.jpg" />
+
+	           
+	           
 	        </aside>
-	        
+	      </div>
+        </section>
+        </div>      
+	      
 
-        </div><!-- /end allContentWrapper -->
-
-        <hr />
-
+        

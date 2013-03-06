@@ -6,12 +6,23 @@
         
         <link rel="shortcut icon" href="./refs/_img/thinkpink.ico" type="image/x-icon" >
         
-       <link rel="stylesheet" type="text/css" href="<?php //echo base_url('refs/_styles/main.css');?>" media="all" /><!-- used on the server-->
+       <!--<link rel="stylesheet/less" type="text/css" href="<?php echo base_url('refs/_styles/main.less');?>" media="all" />used on the server-->
        
+
        
-       <link rel="stylesheet" type="text/css" href="./refs/_styles/main.css" media="all" /> <!-- used on localhost-->
+   <!--   FOR THE SERVER
+     <link rel="stylesheet" type="text/css" href="./refs/_styles/main.css" media="all" />-->
        
-       
+          <!-- <script src="<?php echo base_url('refs/_js/less.js');?>"></script>-->
+          
+          
+          
+          <!-- FOR THE LOCAL HOST-->
+                  <link rel="stylesheet/less" type="text/css" href="./refs/_styles/main.less" media="all" />
+           <script src="./refs/_js/less.js"></script>
+           
+           
+           
        
        <!-- Foundicons http://www.zurb.com/playground/foundation-icons -->
        <link rel="stylesheet" type="text/css" href="./refs/_styles/general_foundicons_ie7.css" />
