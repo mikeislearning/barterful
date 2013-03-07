@@ -17,11 +17,8 @@ table{border-collapse:collapse;border-spacing:0}
 
 /* LESS elements : http://lesselements.com/ */
 @import "elements.less";
-@import "tabs.less";
 
-
-
-/******* semantic grid stuff ....if I decide to use it*/
+/******* semantic grid  http://semantic.gs *******/
 @import "grid.less";
 
 @total-width:100%;
@@ -77,14 +74,7 @@ margin:0 auto;
 	.row(12);
 }
 
-input{
 
-	font-size:1em;
-	.rounded(10px);
-	height:1.5em;
-	border:1px solid black;
-	text-indent: 10px;
-	}
 
 .button1{
 text-transform: uppercase;
@@ -127,6 +117,16 @@ text-decoration:none;
 
 
 header{
+
+input{
+
+	font-size:1em;
+	.rounded(10px);
+	height:1.5em;
+	border:1px solid black;
+	text-indent: 10px;
+	}
+	
 	h1{.column(4);}
 	
 	form{.column(4);}

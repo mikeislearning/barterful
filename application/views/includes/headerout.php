@@ -4,7 +4,7 @@
 	<div class="bgWrapper">
 	<section class="mainWrapper">
 		<header class="row">
-		    <h1> <a href="<?php echo base_url('index.php/site/realhome');?>" class="logo">Barterful</a> </h1>
+		    <h1> <a href="<?php echo base_url()?>" class="logo">Barterful</a> </h1>
 
 		     		<?php echo form_open('') ?>
 		     		<input type="text" placeholder="Search" name="search" id="search" value="<?php echo set_value('search');?>">
@@ -23,3 +23,17 @@
 		</header>
 	</section><!-- mainWrapper -->
 	</div><!-- bgWrapper -->
+	
+	<!-- ************************ Hero Unit ************************** -->
+
+		<div class="bgWrapper" id="heroWrapper" >
+	        <section class="mainWrapper">
+	        	<article class="row">
+		            <h2>So what are you good at? </h2>
+		            
+		            <h3>Barterful is a network of online bartering communities. </h3>
+		            
+		            <a href="#">Learn More </a>
+	        	</article>
+	        </section>
+		</div>

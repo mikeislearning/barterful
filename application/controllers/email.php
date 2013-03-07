@@ -23,14 +23,16 @@ function __construct()
 		$this->load->library('form_validation');
 		
 		//can set 3 parameters: field name, error message, validation rules separated by |'s
-		
+		$data['main_content'] = 'contact';
+		$data['header_content'] = 'includes/headerout';
 		
 		$this->form_validation->set_rules('email','Email','trim|required|valid_email');
 		$this->form_validation->set_rules('message','Message','required');
 		//id name, name it prints out, the rules
 		
 		if($this->form_validation->run()==FALSE){
-			$this->load->view('landingpage');		
+		
+		$this->load->view('includes/template', $data);		
 		}
 		
 		else
@@ -52,14 +54,13 @@ function __construct()
 
 			if($this->email->send())
 			{	
-				
-				$this->load->view('index');	
+				$this->load->view('includes/template', $data);	
 				echo 'Send is successful!';
 				//$this->load->view('signup_confirmation_view');
 			}
 			else
 			{
-				$this->load->view('index');	
+				$this->load->view('includes/template', $data);	
 				echo 'Send failed. Sorry :( ' ;
 				show_error($this->email->print_debugger());
 			}

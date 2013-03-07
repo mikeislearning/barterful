@@ -2,6 +2,9 @@
 
     <div class="bgWrapper">
         <section class="mainWrapper">
+        	<div class="row">
+            <main>
+        
             <?php echo form_open('email/send'); //this creates the following <form method="post" action="http://codeigniter/index.php/email/send"/> ?><?php
                  $message_data=array(
                     'name'=> 'message',
@@ -19,6 +22,9 @@
              <!-- this input inputs the information directly --></p>
 
             <p><?php echo form_submit('submit', 'Submit');//two parameters refer to name and value ?></p><?php echo form_close(); ?><?php echo validation_errors('<p class="error">'); ?><!-- Print out the validation errors -->
+            
+            </main>
+            </div>
         </section>
     </div>
 

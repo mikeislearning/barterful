@@ -23,7 +23,8 @@ class Site extends CI_Controller {
 	}
 	
 	public function index()
-	{	$data['main_content'] = 'mainpage';
+	{	
+		$data['main_content'] = 'mainpage';
 		$data['header_content'] = 'includes/headerout';
 		$this->load->view('includes/template', $data);
 	}

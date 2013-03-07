@@ -1,26 +1,3 @@
-
-    
-    
-            
-<!-- ************************ Hero Unit ************************** -->
-
-		<div class="bgWrapper" id="heroWrapper" >
-	        <section class="mainWrapper">
-	        	<article class="row">
-		            <h2>So what are you good at? </h2>
-		            
-		            <h3>Barterful is a network of online bartering communities. </h3>
-		            
-		            <a href="#">Learn More </a>
-	        	</article>
-	        </section>
-		</div>
-        
-
-        
-        
-        
-        
 <!-- ************************ Drop down list ************************** -->
         <div class="bgWrapper">
         <section class="mainWrapper">
@@ -76,7 +53,7 @@
             <main>
             
             <article class="profile">
-            <img src="./refs/_img/irrelephant.jpg" class="left clearfix" alt="elephant" width="100" height="100" />
+            <img src="<?php echo base_url('refs/_img/irrelephant.jpg');?>" class="left clearfix" alt="elephant" width="100" height="100" />
 	            <section class="info">
 	            
 		            <p>I will make you an awesome website</p>
@@ -90,9 +67,9 @@
 <!-- ************************ Side Bar ************************** -->
 
 	        <aside>
-	           <img src="./refs/_img/bestadever.jpg" />
+	           <img src="<?php echo base_url('/refs/_img/bestadever.jpg');?>" />
 
-	           
+	               
 	           
 	        </aside>
 	      </div>
