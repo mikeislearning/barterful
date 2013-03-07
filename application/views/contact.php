@@ -4,6 +4,8 @@
         <section class="mainWrapper">
         	<div class="row">
             <main>
+            
+            <h1> Contact Us</h1><br />
         
             <?php echo form_open('email/send'); //this creates the following <form method="post" action="http://codeigniter/index.php/email/send"/> ?><?php
                  $message_data=array(
@@ -24,7 +26,5 @@
             <p><?php echo form_submit('submit', 'Submit');//two parameters refer to name and value ?></p><?php echo form_close(); ?><?php echo validation_errors('<p class="error">'); ?><!-- Print out the validation errors -->
             
             </main>
-            </div>
-        </section>
-    </div>
+         
 

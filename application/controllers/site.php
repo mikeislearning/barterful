@@ -17,6 +17,10 @@ class Site extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+	 
+	 
+	 
+	 
 	public function landing()
 	{
 		$this->load->view('landingpage');//I AM TESTING ZIS THING
@@ -26,6 +30,7 @@ class Site extends CI_Controller {
 	{	
 		$data['main_content'] = 'mainpage';
 		$data['header_content'] = 'includes/headerout';
+		$data['aside_content'] = 'includes/aside';
 		$this->load->view('includes/template', $data);
 	}
 	
@@ -33,6 +38,7 @@ class Site extends CI_Controller {
 	{
 		$data['main_content'] = 'contact';
 		$data['header_content'] = 'includes/headerout';
+		$data['aside_content'] = 'includes/aside';
 		$this->load->view('includes/template', $data);
 	}
 }
