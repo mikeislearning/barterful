@@ -1,31 +1,5 @@
-<html>
-<head>
-	<title>Newsletter</title>
-	
-	<link rel="stylesheet" href="<?php echo base_url();?>css/main.css" type="text/css"/>
-	<style type="text/css">
-	
-	label{
-		display:block;
-	}
-	
-	.error{
-		color:red;
-	}
-	
-	input[type=submit]{
-		cursor:pointer;
-		border: 1px solid green;
-		background:yellow;
-		padding:.5em;
-	}
-	
-	</style>
-	
-</head>
-<body>
 
-<div id="newsletter_form">
+
 
 
 
@@ -51,6 +25,3 @@
 <?php echo validation_errors('<p class="error">'); ?><!-- Print out the validation errors -->
 	
 	
-</div>
-</body>
-</html>

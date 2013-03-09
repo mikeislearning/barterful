@@ -111,6 +111,24 @@ text-decoration:none;
 	float:right;
 }
 
+input[type="text"],input[type="password"], textarea{
+	font-size:1em;
+	.rounded(10px);
+	height:1.5em;
+	border:1px solid black;
+	text-indent: 10px;
+	}
+
+input[type="submit"]{
+	cursor:pointer;
+}
+//used for validation error messages
+.error{
+	color:#393939;
+	font-size:15px;
+}
+
+
 
 
 /***************************** Header *****************************************/
@@ -118,14 +136,7 @@ text-decoration:none;
 
 header{
 
-input{
 
-	font-size:1em;
-	.rounded(10px);
-	height:1.5em;
-	border:1px solid black;
-	text-indent: 10px;
-	}
 	
 	h1{.column(4);}
 	
@@ -195,6 +206,11 @@ main{
 	.rounded(2px);
 	height:100px;
 			}
+			
+input{
+	display:block;
+	margin-bottom:20px;
+}
 }
 
 

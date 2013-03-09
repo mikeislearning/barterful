@@ -16,8 +16,8 @@
 	
 			<nav>
 			    <ul>
-			       <li> <a href="login.php" class="button1">Log in </a> </li>
-			       <li> <a href="signup.php" class="button1">Sign up</a> </li>
+			       <li> <a href="<?php echo base_url('index.php/login');?>" class="button1">Log in </a> </li>
+			       <li> <a href="<?php echo base_url('index.php/login/signup');?>" class="button1">Sign up</a> </li>
 			    </ul>
 			</nav>
 		</header>

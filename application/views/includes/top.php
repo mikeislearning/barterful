@@ -9,8 +9,8 @@
      
       
        
-   <!--   FOR THE SERVER -->
-   <link rel="stylesheet" type="text/css" href="<?php echo base_url('refs/_styles/main.css');?>"/>
+   <!--   CSS FILE ISFOR THE SERVER 
+   <link rel="stylesheet" type="text/css" href="<?php echo base_url('refs/_styles/main.css');?>"/>-->
 <link rel="stylesheet/less" type="text/css" href="<?php echo base_url('refs/_styles/main.less');?>" media="all" />
           <script src="<?php echo base_url('refs/_js/less.js');?>"></script>
           
