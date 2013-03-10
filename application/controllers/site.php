@@ -18,6 +18,29 @@ class Site extends CI_Controller {
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 	 
+	 function __construct()
+	 {
+		 parent::__construct();
+		 $this->logged_in();
+		 
+		 
+	 }
+	 
+	 var $data;
+	 
+	 public function logged_in(){
+		 $logged_in = $this->session->userdata('logged_in');
+		 
+		 if(!isset($logged_in)|| $logged_in != true)
+		 {
+			 //echo 'You do not have permission to access this page.';
+			 $this->data['header_content'] = 'includes/headerout';
+		 }
+		 else{
+			 $this->data['header_content'] = 'includes/headerin';
+		 }
+	 }
+	 
 	 
 	 
 	 
@@ -28,20 +51,18 @@ class Site extends CI_Controller {
 	
 	public function index()
 	{	
-		$data['main_content'] = 'mainpage';
-		$data['header_content'] = 'includes/headerout';
-		$data['aside_content'] = 'includes/aside';
-		$this->load->view('includes/template', $data);
+		$this->data['main_content'] = 'mainpage';
+		//$data['header_content'] = 'includes/headerout';
+		$this->data['aside_content'] = 'includes/aside';
+		$this->load->view('includes/template',$this->data);
 	}
 	
 	public function contact()
 	{
-		$data['main_content'] = 'contact';
-		$data['header_content'] = 'includes/headerout';
-		$data['aside_content'] = 'includes/aside';
-		$this->load->view('includes/template', $data);
+		$this->data['main_content'] = 'contact';
+		$this->data['aside_content'] = 'includes/aside';
+		$this->load->view('includes/template', $this->data);
 	}
+	
+	
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */

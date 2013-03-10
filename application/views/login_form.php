@@ -10,10 +10,12 @@
 	<?php }?>
 	<?php
 	echo form_open('login/validate_credentials');
-	echo form_input('username', 'Username');
+	echo form_input('username', '','placeholder="Username"');
 	echo form_password('password', '', 'placeholder="Password" class="password"');
 	echo form_submit('submit','Login');
+	//echo validation_errors('<p class="error">');
 	echo anchor('login/signup', 'Create Account');
+	
 	echo form_close();
 	?>
 

@@ -18,7 +18,6 @@ class Membership_model extends CI_Model {
 		$username = $this->input->post('username');
 		
 		$new_member_insert_data = array (
-		
 		'first_name' => $this->input->post('first_name'),
 		'last_name' => $this->input->post('last_name'),
 		'email' => $this->input->post('email'),
@@ -42,7 +41,7 @@ class Membership_model extends CI_Model {
 		}
 		else
 		{
-		return TRUE; //username cna be reg'd
+		return TRUE; //username can be reg'd
 		
 		}
 		

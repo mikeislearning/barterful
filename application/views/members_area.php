@@ -5,5 +5,8 @@
             
 	YOU MADE IT
 	
+	<br />
+	WELCOME TO THE MEMBERS PAGE
+	
 	
             </main>

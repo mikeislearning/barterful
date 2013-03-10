@@ -1,5 +1,5 @@
 <!-- ************************ Header ************************** -->
-<!-- This is the header that shows up when you are logged out -->
+<!-- This is the header that shows up when you are logged in -->
 
 	<div class="bgWrapper">
 	<section class="mainWrapper">
@@ -16,8 +16,8 @@
 	
 			<nav>
 			    <ul>
-			    <li> <?php echo anchor('login','Log in','class="button1"');?> </li>
-			    <li> <?php echo anchor('login/signup','Sign up','class="button1"');?> </li>
+			       <li> <?php echo anchor('login/logout','Logout','class="button1"');?> </li>
+			       <li> <?php echo anchor('login/logout','Logout','class="button1"');?></a> </li>
 			    </ul>
 			</nav>
 		</header>
