@@ -54,7 +54,22 @@ class Site extends CI_Controller {
 		$this->data['main_content'] = 'mainpage';
 		//$data['header_content'] = 'includes/headerout';
 		$this->data['aside_content'] = 'includes/aside';
+
+		//load the postings
+		$this->load->model('listings_model');
+		$this->data['row'] = $this->listings_model->listAll();
+
 		$this->load->view('includes/template',$this->data);
+	}
+
+	
+	public function test()
+	{	
+		//load the postings
+		$this->load->model('listings_model');
+		$listing['row'] = $this->listings_model->listAll();
+
+		$this->load->view('test_search', $listing);
 	}
 	
 	public function contact()
