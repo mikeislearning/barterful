@@ -61,16 +61,6 @@ class Site extends CI_Controller {
 
 		$this->load->view('includes/template',$this->data);
 	}
-
-	
-	public function test()
-	{	
-		//load the postings
-		$this->load->model('listings_model');
-		$listing['row'] = $this->listings_model->listAll();
-
-		$this->load->view('test_search', $listing);
-	}
 	
 	public function contact()
 	{
