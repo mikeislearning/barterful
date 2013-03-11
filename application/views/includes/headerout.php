@@ -9,7 +9,7 @@
 		     		<?php echo form_open('') ?>
 		     		<input type="text" placeholder="Search" name="search" id="search" value="<?php echo set_value('search');?>">
 		     		
-		     		<button type="submit" id="submit">
+		     		<button type="submit" id="search">
 		     		<i class="general foundicon-heart"> </i> </button>
 		     				     	
 		     		<?php echo form_close(); ?>

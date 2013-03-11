@@ -6,7 +6,7 @@ class Members extends CI_Controller {
 	 function __construct()
 	 {
 	   parent::__construct();
-	   		 $this->logged_in();
+	   $this->logged_in();
 		 
 	 }
 	 
@@ -34,7 +34,6 @@ class Members extends CI_Controller {
 		$session_data['username'] = $newdata['username'];
 		
 	    $this->data['main_content'] = 'members_area';
-		//$data['header_content'] = 'includes/headerout';
 		$this->data['aside_content'] = 'includes/aside';
 		$this->load->view('includes/template', $this->data);
 
@@ -47,6 +46,14 @@ class Members extends CI_Controller {
 	     redirect('login', 'refresh');
 	    
 	   }
+ }
+ 
+ function profile()
+ {
+	 if($this->session->userdata('logged_in'))
+	   {
+	 
+	 }
  }
  
  }

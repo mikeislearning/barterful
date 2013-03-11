@@ -3,9 +3,12 @@
         	<div class="row">
             <main>
             
-	<?php echo "Welcome to ".$this->session->userdata('username')."'s profile"; ?>
-	
-	<br />
-
-	
+            <h1> Thanks for your message! </h1>
+            
+            
+            
+            
+            
+            
+            
             </main>

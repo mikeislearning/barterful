@@ -34,17 +34,15 @@ class Login extends CI_Controller {
 			redirect('site');
 		}
 
-		//$data['header_content'] = 'includes/headerout';
 		$this->data['aside_content'] = 'includes/aside';
 		$this->load->view('includes/template', $this->data);
-
 	}
 
 	function validate_credentials() {
 		$this->load->model('membership_model');
 		$query = $this->membership_model->validate();
 
-		if($query)//if the user's creddentials validated..
+		if($query)//if the user's credentials validated..
 			{
 			$newdata = array(
 				'username'=> $this->input->post('username'),
@@ -103,20 +101,13 @@ class Login extends CI_Controller {
 			{
 				//you make a data variable in this block
 				$this->data['account_created'] = 'Your account has been created. <br/><br/>You may now login';
-
 				$this->login();
-
-
 			}
 			else
 			{
-
 				$this->signup();
-
 			}
 		}
-
-
 	}
 
 	function check_if_username_exists($requested_username) { //custom callback function
@@ -149,16 +140,8 @@ class Login extends CI_Controller {
 
 	function logout()
 	{
-
-
 		$this->session->unset_userdata('logged_in');
-
 		redirect('members');
-
-		/*$this->load->view('login_form');
-    $this->session->unset_userdata('logged_in');
-    session_destroy();
-    */
 	}
 
 }

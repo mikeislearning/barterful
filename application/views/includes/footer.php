@@ -21,16 +21,14 @@
 		     	<li> Media </li>
 		     	<li> Terms of Use</li>
 		     	<li> Privacy Policy</li>
-		     	<li><a href="<?php echo base_url('index.php/site/contact');?>"> Contact Us </a></li>
+		     	<li><?php echo anchor('site/contact','Contact Us');?>
+		     	
 		     </ul>
 		     <p>  &copy; <?php echo date("Y"); ?> Barterful Inc. </p>
 	     </footer>
    </section>
    </div>
    
-                <!-- including javascript stuff -->
-    <script src="<?php echo base_url('refs/_js/jquery-1.9.0.min.js');?>"></script>
-    <script src="<?php echo base_url('refs/_js/main.js');?>"></script>
         
 
 
