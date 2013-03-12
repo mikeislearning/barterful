@@ -76,7 +76,7 @@ class listings_model extends CI_Model{
 			JOIN members m on p.m_id = m.m_id
 			JOIN skill_profiles sp on p.p_id = sp.p_id
 			JOIN skills s on sp.s_id = s.s_id
-			WHERE m_active = TRUE AND p.p_id != $userid;");	
+			WHERE m_active = TRUE AND p.p_id !=" . $userid . ";");	
 			
 		//query to compare wants
 		$currentUserWants = $this->db->query("
