@@ -1,4 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+//--------------------------------------------------------------------------//
+
+//--------------NOTE: THIS CONTROLLER IS NOT CURRENTLY IN USE!!!-------------//
+
+//--------------------------------------------------------------------------//
 
 class Members_area extends CI_Controller {
 
