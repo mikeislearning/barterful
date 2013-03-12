@@ -12,6 +12,17 @@ class Membership_model extends CI_Model {
 			return true;
 		}
 	}
+
+	//uses the username to get the user id
+	function getID(){
+		$query = $this->db->query('SELECT m_id from members where m_name ="' . $this->input->post('username') . '"');
+		if($query->num_rows == 1){
+			foreach($query->result() as $key => $row){
+				$user[]=$row;
+			}
+			return $user;
+		}
+	}
 	
 	function create_member() {
 		//getting the username from the post array storing it in username and getting the data ready to insert

@@ -46,6 +46,7 @@ class Login extends CI_Controller {
 			{
 			$newdata = array(
 				'username'=> $this->input->post('username'),
+				'userid'=> $this->membership_model->getID(),
 				'logged_in' => true
 			);
 			/*leave this!*/
@@ -101,7 +102,7 @@ class Login extends CI_Controller {
 			{
 				//you make a data variable in this block
 				$this->data['account_created'] = 'Your account has been created. <br/><br/>You may now login';
-				$this->login();
+				$this->index();
 			}
 			else
 			{
