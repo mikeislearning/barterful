@@ -22,7 +22,7 @@ class listings_model extends CI_Model{
 			foreach($columns as $key => $column) { 
 				if ($key != $sortby) { 
 					$params[] = &$column; 
-					$params[] = SORT_ASC; 
+					$params[] = SORT_DESC; 
 				} 
 			} 
 	  
@@ -35,15 +35,32 @@ class listings_model extends CI_Model{
 	}
 	
 	//Get all skill profiles posted for users not logged in
-	function listAll(){
-		$query = $this->db->query("
-			Select p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, s.s_id
-			FROM skill_profiles sp
-			JOIN profiles p on sp.p_id = p.p_id
-			JOIN members m on p.m_id = m.m_id
-			JOIN skills s on sp.s_id = s.s_id
-			WHERE m_active = TRUE;
-			");
+	function listAll($type){
+		switch($type)
+		{
+			case "skills":
+				$query = $this->db->query("
+				Select p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, s.s_id
+				FROM skill_profiles sp
+				JOIN profiles p on sp.p_id = p.p_id
+				JOIN members m on p.m_id = m.m_id
+				JOIN skills s on sp.s_id = s.s_id
+				WHERE m_active = TRUE;
+				");
+				break;
+			case "wants":
+				$query = $this->db->query("
+				Select p_fname, p_last_updated, p_avg_rating, s_name, wp_description as sp_heading, s.s_id
+				FROM want_profiles wp
+				JOIN profiles p on wp.p_id = p.p_id
+				JOIN members m on p.m_id = m.m_id
+				JOIN skills s on wp.s_id = s.s_id
+				WHERE m_active = TRUE;
+				");
+				break;
+
+		}
+		
 		if($query->num_rows > 0){
 			foreach($query->result() as $key => $row){
 				
@@ -63,6 +80,38 @@ class listings_model extends CI_Model{
 			//uasort($listing, array($this, 'cmp'));
 			$listing = $this->sortDataset($listing, 'sort', 'DESC');
 			return $listing;
+		}
+		
+	}
+
+	function listAllWants(){
+		$query = $this->db->query("
+			Select p_fname, p_last_updated, p_avg_rating, s_name, wp_description as sp_heading, s.s_id
+			FROM want_profiles wp
+			JOIN profiles p on wp.p_id = p.p_id
+			JOIN members m on p.m_id = m.m_id
+			JOIN skills s on wp.s_id = s.s_id
+			WHERE m_active = TRUE;
+			");
+		if($query->num_rows > 0){
+			foreach($query->result() as $key => $row){
+				
+				//give sort value based on date added
+				$now = strtotime(date("Y-m-d"));
+				$then = strtotime($row->p_last_updated);
+				$date_diff = abs($now - $then);
+				$days_diff = floor($date_diff/(60*60*24));
+				$row->sort =  max(10-round($days_diff/7), 0);
+				
+				//give sort value based on rating
+				$row->sort += round($row->p_avg_rating * 5);
+				
+				$wlisting[]=$row;
+			}
+			//array_multisort($sort, SORT_DESC, $listing);
+			//uasort($listing, array($this, 'cmp'));
+			$wlisting = $this->sortDataset($wlisting, 'sort', 'DESC');
+			return $wlisting;
 		}
 		
 	}
@@ -158,6 +207,22 @@ class listings_model extends CI_Model{
 			$listing = $this->sortDataset($listing, 'sort', 'DESC');
 			return $listing;
 		}
+		
+	}
+
+	function skillList()
+	{
+		
+		$skillList = $this->db->query("
+			SELECT s_id, s_name FROM skills;
+			");
+
+		foreach($skillList->result() as $k=>$r)
+		{
+			$skills[]=$r;
+		}
+
+		return $skills;
 		
 	}
 }

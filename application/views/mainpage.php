@@ -6,10 +6,10 @@
         <section class="mainWrapper">
          
           <div class="row">
-            <main>
-            
+            <main>         
             
 	            <?php foreach ($row as $r): ?>
+	            
 	            <article class="profile">
             <img src="<?php echo base_url('refs/_img/irrelephant.jpg');?>" class="left clearfix" alt="elephant" width="100" height="100" />
 	            <section class="info">

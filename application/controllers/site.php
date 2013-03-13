@@ -57,7 +57,17 @@ class Site extends CI_Controller {
 
 		//load the postings
 		$this->load->model('listings_model');
-		$this->data['row'] = $this->listings_model->listAll();
+
+		$type = "skills";
+		//$type = $this->input->get('type');
+		if(isset($_POST['type']))
+		{
+			echo ('in the controller');
+			$type = $_POST['type'];
+		}
+
+		$this->data['row'] = $this->listings_model->listAll($type);
+		$this->data['skills'] = $this->listings_model->skillList();
 
 		$this->load->view('includes/template',$this->data);
 	}

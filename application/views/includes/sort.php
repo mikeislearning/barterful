@@ -6,10 +6,10 @@
 		       <fieldset>
 		             <label>Barterspot</label><!-- this should be populated with php -->
 		             <select id = "barterspot">
-		               <option value = "1">Humber</option>
-		               <option value = "2">U of T</option>
-		               <option value = "3">Queens</option>
-		               <option value = "4">York</option>
+		               <option value = "Humber College">Humber</option>
+		               <option value = "UofT">U of T</option>
+		               <option value = "Queens">Queens</option>
+		               <option value = "York">York</option>
 		             </select>
 		       </fieldset>
 		    </form>
@@ -17,10 +17,9 @@
 		       <fieldset>
 		             <label>Categories</label><!-- this should be populated with php -->
 		             <select id = "categories">
-		               <option value = "1">Design</option>
-		               <option value = "2">Web Development</option>
-		               <option value = "3">Clothing</option>
-		               <option value = "4">Food</option>
+		             	<?php foreach($skills as $r): ?>
+			               <option value=<?php echo $r->s_id; ?>><?php echo $r->s_name; ?></option>
+		           		<?php endforeach; ?>
 		             </select>		          
 		       </fieldset>
 		    </form>
@@ -28,16 +27,48 @@
 		       <fieldset>
 		             <label>Sorted by</label><!-- this should be populated with php -->
 		             <select id = "sortedby">
-		               <option value = "1">All</option>
-		               <option value = "2">Top Rated</option>
-		               <option value = "3">Popularity</option>
-		               <option value = "4">Most Recent</option>
+		               <option value = "sort">Smart Sort</option>
+		               <option value = "p_avg_rating">Top Rated</option>
+		               <option value = "p_last_updated">Most Recent</option>
 		             </select>
 		       </fieldset>
 		    </form>
 		    <form>
-			    <input id="offering" type="radio" checked="checked">Offering</input>
-			    <input id="wanting" type="radio">Wanting</input>
+		    	<script>
+		    		$(document).ready(function(e)
+		    		{
+
+		    			$('input[name=viewtype]:radio').change(function(e)
+		    			{
+		    				var type = $('input[name=viewtype]:checked').val();
+
+		    				/*$.post('<?php echo base_url().'site/index';?>',
+						      	{ type:type }).done(function()
+						      	{alert('success!');});*/
+
+						     $.ajax({
+					            url: '<?php echo base_url('site/index');?>',
+					            type:'POST',
+					            data {type:type},
+					            dataType: 'json'}).done(function(){
+					                    alert('success!');
+					                }); // End of ajax call 
+
+		    				/*$.ajax({
+								type: "GET",
+								url: "mainpage.php",
+								data: { type: list },
+								error: function(){alert('there was an error');}
+								}).done(function() {
+								alert(list);
+								});*/
+
+		    				return false;
+		    			});
+		    		})
+		    	</script>
+			    <input id="viewtype1" name="viewtype" value="skills" type="radio" checked="checked">Offering</input>
+			    <input id="viewtype2" name="viewtype" value="wants" type="radio">Wanting</input>
 		    </form>
        
        </div>
