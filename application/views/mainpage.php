@@ -5,9 +5,7 @@
         <section class="mainWrapper">
          
           <div class="row">
-            <main>         
-            
-	            
+            <main>                    
             	<?php require_once ('includes/list.php'); ?>
             
             </main>   
