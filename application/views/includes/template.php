@@ -2,8 +2,6 @@
 
 <?php $this->load->view($header_content); ?>
 
-<?php $this->load->view($sort); ?>
-
 <?php $this->load->view($main_content); ?>
 
 <?php $this->load->view($aside_content); ?>

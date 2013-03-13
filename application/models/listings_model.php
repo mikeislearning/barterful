@@ -35,7 +35,16 @@ class listings_model extends CI_Model{
 	}
 	
 	//Get all skill profiles posted for users not logged in
-	function listAll($type){
+	function listAll($type, $sortset, $category){
+		if($category == 'all')
+		{
+			$category = "";
+		}
+		else
+		{
+			$category = " AND s_name = '" . $category . "'";
+		}
+
 		switch($type)
 		{
 			case "skills":
@@ -45,7 +54,7 @@ class listings_model extends CI_Model{
 				JOIN profiles p on sp.p_id = p.p_id
 				JOIN members m on p.m_id = m.m_id
 				JOIN skills s on sp.s_id = s.s_id
-				WHERE m_active = TRUE;
+				WHERE m_active = TRUE" . $category . " ORDER BY " . $sortset . " DESC;
 				");
 				break;
 			case "wants":
@@ -55,7 +64,7 @@ class listings_model extends CI_Model{
 				JOIN profiles p on wp.p_id = p.p_id
 				JOIN members m on p.m_id = m.m_id
 				JOIN skills s on wp.s_id = s.s_id
-				WHERE m_active = TRUE;
+				WHERE m_active = TRUE" . $category . " ORDER BY " . $sortset . " DESC;
 				");
 				break;
 
@@ -78,40 +87,8 @@ class listings_model extends CI_Model{
 			}
 			//array_multisort($sort, SORT_DESC, $listing);
 			//uasort($listing, array($this, 'cmp'));
-			$listing = $this->sortDataset($listing, 'sort', 'DESC');
+			if($sortset=='p_fname') {$listing = $this->sortDataset($listing, 'sort', 'DESC');}
 			return $listing;
-		}
-		
-	}
-
-	function listAllWants(){
-		$query = $this->db->query("
-			Select p_fname, p_last_updated, p_avg_rating, s_name, wp_description as sp_heading, s.s_id
-			FROM want_profiles wp
-			JOIN profiles p on wp.p_id = p.p_id
-			JOIN members m on p.m_id = m.m_id
-			JOIN skills s on wp.s_id = s.s_id
-			WHERE m_active = TRUE;
-			");
-		if($query->num_rows > 0){
-			foreach($query->result() as $key => $row){
-				
-				//give sort value based on date added
-				$now = strtotime(date("Y-m-d"));
-				$then = strtotime($row->p_last_updated);
-				$date_diff = abs($now - $then);
-				$days_diff = floor($date_diff/(60*60*24));
-				$row->sort =  max(10-round($days_diff/7), 0);
-				
-				//give sort value based on rating
-				$row->sort += round($row->p_avg_rating * 5);
-				
-				$wlisting[]=$row;
-			}
-			//array_multisort($sort, SORT_DESC, $listing);
-			//uasort($listing, array($this, 'cmp'));
-			$wlisting = $this->sortDataset($wlisting, 'sort', 'DESC');
-			return $wlisting;
 		}
 		
 	}

@@ -16,9 +16,10 @@
 		    <form>
 		       <fieldset>
 		             <label>Categories</label><!-- this should be populated with php -->
-		             <select id = "categories">
+		             <select id = "category">
+		             	<option value="all">All</option>
 		             	<?php foreach($skills as $r): ?>
-			               <option value=<?php echo $r->s_id; ?>><?php echo $r->s_name; ?></option>
+			               <option value=<?php echo "'" . $r->s_name . "'"; ?>><?php echo $r->s_name; ?></option>
 		           		<?php endforeach; ?>
 		             </select>		          
 		       </fieldset>
@@ -27,7 +28,7 @@
 		       <fieldset>
 		             <label>Sorted by</label><!-- this should be populated with php -->
 		             <select id = "sortedby">
-		               <option value = "sort">Smart Sort</option>
+		               <option value = "default">Smart Sort</option>
 		               <option value = "p_avg_rating">Top Rated</option>
 		               <option value = "p_last_updated">Most Recent</option>
 		             </select>
@@ -40,32 +41,44 @@
 
 		    			$('input[name=viewtype]:radio').change(function(e)
 		    			{
+		    				sortset = $('#sortedby').val();
+		    				category = $('#category').val();
 		    				listtype = $('input[name=viewtype]:checked').val();
+		    				runAJAX(sortset,category,listtype);
 
-		    				/*$.post('<?php echo base_url().'site/index';?>',
-						      	{ type:type }).done(function()
-						      	{alert('success!');});*/
-		    				
+		    			});
+
+		    			$('#sortedby').change(function(e)
+		    			{
+		    				sortset = $('#sortedby').val();
+		    				category = $('#category').val();
+		    				listtype = $('input[name=viewtype]:checked').val();
+		    				runAJAX(sortset,category,listtype);
+
+		    			});
+
+		    			$('#category').change(function(e)
+		    			{
+		    				sortset = $('#sortedby').val();
+		    				category = $('#category').val();
+		    				listtype = $('input[name=viewtype]:checked').val();
+		    				runAJAX(sortset,category,listtype);
+		    			});
+
+		    			function runAJAX(listsortset,listcategory,listtype)
+		    			{		    		
+
 		    				var base_url = '<?=base_url()?>';
 						     $.ajax({
 					            url: base_url + 'index.php/site/ajax',
 					            type:'POST',
-					            data: {type: listtype}
+					            data: {type: listtype, category: listcategory, sortset: listsortset}
 					        }).done(function(msg){
 					                    $('main').html(msg);
+					                    $('main').removeClass('bgWrapper');
+					                    $('main').removeClass('mainWrapper');
 					                }); // End of ajax call 
-					        
-					        //alert($('input[name=viewtype]:checked').val());
-
-		    				/*$.ajax({
-								type: "GET",
-								url: "mainpage.php",
-								data: { type: list },
-								error: function(){alert('there was an error');}
-								}).done(function() {
-								alert(list);
-								});*/
-		    			});
+		    			}
 		    		})
 		    	</script>
 			    <input id="viewtype1" name="viewtype" value="skills" type="radio" checked="checked">Offering</input>
