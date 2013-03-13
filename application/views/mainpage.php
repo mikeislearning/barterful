@@ -1,5 +1,4 @@
-
-<?php include_once ('includes/sort.php'); ?>       
+  
        
 <!-- ************************ Main Content ************************** -->    
         <div class="bgWrapper">

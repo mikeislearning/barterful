@@ -40,7 +40,7 @@
 
 		    			$('input[name=viewtype]:radio').change(function(e)
 		    			{
-		    				//var type = $('input[name=viewtype]:checked').val();
+		    				listtype = $('input[name=viewtype]:checked').val();
 
 		    				/*$.post('<?php echo base_url().'site/index';?>',
 						      	{ type:type }).done(function()
@@ -48,11 +48,11 @@
 		    				
 		    				var base_url = '<?=base_url()?>';
 						     $.ajax({
-					            url: base_url + 'list/index',
+					            url: base_url + 'index.php/site/ajax',
 					            type:'POST',
-					            data: {type: '1'}
-					        }).fail(function(){
-					                    alert('fail');
+					            data: {type: listtype}
+					        }).done(function(msg){
+					                    $('main').html(msg);
 					                }); // End of ajax call 
 					        
 					        //alert($('input[name=viewtype]:checked').val());
