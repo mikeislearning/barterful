@@ -50,16 +50,17 @@
 		    			});
 
 		    			function runAJAX(listsortset,listcategory,listtype)
-		    			{		    		
+		    			{		
+		    				//determine which call to used based on whether user is logged in or not
+		    				var logstatus = '<?=$this->session->userdata('logged_in')?>';  
+		    				if(logstatus == 1) {ext_url = 'index.php/ajax/re_sort';}
+		    				else{ext_url = 'index.php/site/ajax';}
 
-		    				var base_url = '<?=base_url()?>';
-						     $.ajax({
-					            url: base_url + 'index.php/site/ajax',
-					            type:'POST',
-					            data: {type: listtype, category: listcategory, sortset: listsortset}
-					        }).done(function(msg){
+		    				var send_url = '<?=base_url()?>' + ext_url;
+
+		    				$.post(send_url, { type: listtype, category: listcategory, sortset: listsortset }).done(function(msg){
 					                    $('main').html(msg);
-					                }); // End of ajax call 
+					                }).fail(function(){$('main').html('Could not load!');});
 		    			}
 		    		})
 		    	</script>

@@ -87,22 +87,56 @@ class listings_model extends CI_Model{
 			}
 			//array_multisort($sort, SORT_DESC, $listing);
 			//uasort($listing, array($this, 'cmp'));
-			if($sortset=='p_fname') {$listing = $this->sortDataset($listing, 'sort', 'DESC');}
+			$listing = $this->sortDataset($listing, $sortset, 'DESC');
 			return $listing;
 		}
 		
 	}
 	
 	//Get all skill profiles that match the user logged in
-	function listLoggedIn($userid){
+	function listLoggedIn($userid,$type,$sortset,$category){
+		if($category == 'all')
+		{
+			$category = "";
+		}
+		else
+		{
+			$category = " AND s_name = '" . $category . "'";
+		}
+
+		switch($type)
+		{
+			case "skills":
+				$query = $this->db->query("
+				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, sp_heading
+				FROM profiles p
+				JOIN members m on p.m_id = m.m_id
+				JOIN skill_profiles sp on p.p_id = sp.p_id
+				JOIN skills s on sp.s_id = s.s_id
+				WHERE m_active = TRUE" . $category . " ORDER BY " . $sortset . " DESC;
+				");
+				break;
+			case "wants":
+				$query = $this->db->query("
+				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, wp_description as sp_heading
+				FROM profiles p
+				JOIN members m on p.m_id = m.m_id
+				JOIN want_profiles wp on p.p_id = wp.p_id
+				JOIN skills s on wp.s_id = s.s_id
+				WHERE m_active = TRUE" . $category . " ORDER BY " . $sortset . " DESC;
+				");
+				break;
+
+		}
+		
 		//query that displays results
-		$query = $this->db->query("
+		/*$query = $this->db->query("
 			Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, sp_heading
 			FROM profiles p
 			JOIN members m on p.m_id = m.m_id
 			JOIN skill_profiles sp on p.p_id = sp.p_id
 			JOIN skills s on sp.s_id = s.s_id
-			WHERE m_active = TRUE AND p.p_id !=" . $userid . ";");	
+			WHERE m_active = TRUE AND p.p_id !=" . $userid . ";");	*/
 			
 		//query to compare wants
 		$currentUserWants = $this->db->query("
@@ -181,7 +215,7 @@ class listings_model extends CI_Model{
 				
 				$listing[]=$row;
 			}
-			$listing = $this->sortDataset($listing, 'sort', 'DESC');
+			$listing = $this->sortDataset($listing, $sortset, 'DESC');
 			return $listing;
 		}
 		
