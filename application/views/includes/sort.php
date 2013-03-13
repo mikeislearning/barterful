@@ -40,19 +40,22 @@
 
 		    			$('input[name=viewtype]:radio').change(function(e)
 		    			{
-		    				var type = $('input[name=viewtype]:checked').val();
+		    				//var type = $('input[name=viewtype]:checked').val();
 
 		    				/*$.post('<?php echo base_url().'site/index';?>',
 						      	{ type:type }).done(function()
 						      	{alert('success!');});*/
-
+		    				
+		    				var base_url = '<?=base_url()?>';
 						     $.ajax({
-					            url: '<?php echo base_url('site/index');?>',
+					            url: base_url + 'list/index',
 					            type:'POST',
-					            data {type:type},
-					            dataType: 'json'}).done(function(){
-					                    alert('success!');
+					            data: {type: '1'}
+					        }).fail(function(){
+					                    alert('fail');
 					                }); // End of ajax call 
+					        
+					        //alert($('input[name=viewtype]:checked').val());
 
 		    				/*$.ajax({
 								type: "GET",
@@ -62,8 +65,6 @@
 								}).done(function() {
 								alert(list);
 								});*/
-
-		    				return false;
 		    			});
 		    		})
 		    	</script>
