@@ -5,6 +5,7 @@
 	            <section class="info">
 	            
 		            <p><?php echo $r->sp_heading ?></p>
+		            <p><?php echo $r->s_name ?></p>
 		            <a href="#">User Rating: <?php echo $r->p_avg_rating*100 . "%" ?> </a><br/>
 		            <button>Contact <?php echo $r->p_fname ?> </button>
 	            </section>

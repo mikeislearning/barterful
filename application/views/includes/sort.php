@@ -39,30 +39,14 @@
 		    		$(document).ready(function(e)
 		    		{
 
-		    			$('input[name=viewtype]:radio').change(function(e)
+		    			//if any of the sort options are changed, get their values and pass them to the AJAX function
+		    			$('input[name=viewtype]:radio, #sortedby, #category').change(function(e)
 		    			{
 		    				sortset = $('#sortedby').val();
 		    				category = $('#category').val();
 		    				listtype = $('input[name=viewtype]:checked').val();
 		    				runAJAX(sortset,category,listtype);
 
-		    			});
-
-		    			$('#sortedby').change(function(e)
-		    			{
-		    				sortset = $('#sortedby').val();
-		    				category = $('#category').val();
-		    				listtype = $('input[name=viewtype]:checked').val();
-		    				runAJAX(sortset,category,listtype);
-
-		    			});
-
-		    			$('#category').change(function(e)
-		    			{
-		    				sortset = $('#sortedby').val();
-		    				category = $('#category').val();
-		    				listtype = $('input[name=viewtype]:checked').val();
-		    				runAJAX(sortset,category,listtype);
 		    			});
 
 		    			function runAJAX(listsortset,listcategory,listtype)
@@ -75,8 +59,6 @@
 					            data: {type: listtype, category: listcategory, sortset: listsortset}
 					        }).done(function(msg){
 					                    $('main').html(msg);
-					                    $('main').removeClass('bgWrapper');
-					                    $('main').removeClass('mainWrapper');
 					                }); // End of ajax call 
 		    			}
 		    		})
