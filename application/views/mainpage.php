@@ -6,7 +6,7 @@
          
           <div class="row">
             <main>                    
-            	<?php require_once ('includes/list.php'); ?>
+            	<?php require_once ('includes/listPostings.php'); ?>
             
             </main>   
 <!-- ************************ Side Bar ************************** -->

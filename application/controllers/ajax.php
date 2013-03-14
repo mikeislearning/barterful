@@ -76,7 +76,7 @@ class ajax extends CI_Controller {
 
 				$this->data['row'] = $this->listings_model->listLoggedIn($id,$type,$sortset,$category);
 
-				$this->load->view('includes/list',$this->data);
+				$this->load->view('includes/listPostings',$this->data);
 		     
 		   }
 	   else
@@ -87,6 +87,40 @@ class ajax extends CI_Controller {
 	    
 	   }
 	}
+
+	public function inbox()
+ {
+	 if($this->session->userdata('logged_in'))
+	   {		
+		$this->load->model('inbox_model');
+
+		$view = 'inbox';
+		if(isset($_POST['view']))
+		{
+			$view = $_POST['view'];
+		}
+		//---------------------------------------------------------------------------------//
+		//this section loads the listings displayed based on the user's id in the session
+		//---------------------------------------------------------------------------------//
+		//get the array of id's (there should just be one in the array)
+		$id = $this->session->userdata('userid');
+		//get the id value from the first pair in the array
+		$id = $id[0]->m_id;
+		//send the id through to the query function
+
+		$this->data['row'] = $this->inbox_model->listAll($id,$view);
+
+		$this->load->view('includes/listInbox', $this->data);
+	     
+	   }
+	   else
+	   {
+	       session_destroy();
+	     //If no session, redirect to login page
+	     redirect('login', 'refresh');
+	    
+	   }
+ }
 	
 	
 }

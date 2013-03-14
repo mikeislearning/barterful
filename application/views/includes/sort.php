@@ -38,7 +38,7 @@
 		    	<script>
 		    		$(document).ready(function(e)
 		    		{
-
+		    			
 		    			//if any of the sort options are changed, get their values and pass them to the AJAX function
 		    			$('input[name=viewtype]:radio, #sortedby, #category').change(function(e)
 		    			{

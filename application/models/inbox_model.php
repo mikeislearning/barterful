@@ -2,8 +2,11 @@
 
 class inbox_model extends CI_Model{
 
-function listAll($id)
+function listAll($id, $view = 'inbox')
 	{
+		if($view == 'inbox')
+			{$view = 'mes_to';}
+		else{$view = 'mes_from';}
 		
 		$query = $this->db->query("
 			SELECT mes_from, mes_to, mes_message, mes_date, sk.s_name as s_from, mes_from_unit, mes_to_unit, s.s_name as s_to, pr.p_fname as receiver, p.p_fname as sender
@@ -12,7 +15,7 @@ function listAll($id)
 				JOIN skills sk ON mes.mes_from_s = sk.s_id
 				JOIN profiles pr ON mes.mes_to = pr.p_id
 				JOIN profiles p ON mes.mes_from = p.p_id
-				where mes_to=" . $id . ";
+				where " . $view . "=" . $id . ";
 			");
 		if($query->num_rows > 0){
 			foreach($query->result() as $k=>$r)

@@ -1,21 +1,33 @@
 <div class="bgWrapper">
         <section class="mainWrapper">
-         
+         <a href="#" id="inbox">Inbox</a> --- <a href='#' id="sent">Sent</a>
+          	<script>
+          	$(document).ready(function(e)
+		    		{
+		    			$('#inbox').click(function(e)
+		    			{
+		    				switchview('inbox');
+		    			});
+
+		    			$('#sent').click(function(e)
+		    			{
+		    				switchview('sent');
+		    			});
+
+		    			function switchview(type){
+		          			var send_url = '<?=base_url()?>' + 'index.php/ajax/inbox';
+
+		    				$.post(send_url, { view: type }).done(function(msg){
+					                    $('main').html(msg);
+					                }).fail(function(){$('main').html('Could not load!');});
+		          		}
+		    		})
+          	
+          	</script>
           <div class="row">
+          	
             <main>                    
 
-            	<?php if($row) foreach ($row as $r):?>
-	            
-	            <article class="profile">
-                <section class="info">
-	            
-		            <p><?php echo $r->sender ?> offers <?php echo $r->s_from ?> (<?php echo $r->mes_from_unit ?>) for <?php echo $r->s_to ?> (<?php echo $r->mes_to_unit ?>)</p>
-		            <p><?php echo $r->mes_date ?></p>
-		            <p>"<?php echo $r->mes_message ?>"</p>
-	            </section>
-	        </article>
-	            <?php endforeach; ?>
-
-				<?php if(!$row) echo "There are no messages in your inbox!"; ?>
+            	<?php require_once ('includes/listInbox.php'); ?>
             
             </main>  
