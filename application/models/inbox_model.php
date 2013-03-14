@@ -6,7 +6,7 @@ function listAll($id)
 	{
 		
 		$query = $this->db->query("
-			SELECT mes_from, mes_to, mes_message, mes_date, sk.s_name as s_from, s.s_name as s_to, pr.p_fname as receiver, p.p_fname as sender
+			SELECT mes_from, mes_to, mes_message, mes_date, sk.s_name as s_from, mes_from_unit, mes_to_unit, s.s_name as s_to, pr.p_fname as receiver, p.p_fname as sender
 				FROM messages mes
 				JOIN skills s ON mes.mes_to_s = s.s_id
 				JOIN skills sk ON mes.mes_from_s = sk.s_id
