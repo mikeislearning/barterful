@@ -46,6 +46,7 @@ class Login extends CI_Controller {
 			{
 			$newdata = array(
 				'username'=> $this->input->post('username'),
+				'userid'=> $this->membership_model->getID(),
 				'logged_in' => true
 			);
 			/*leave this!*/

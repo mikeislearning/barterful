@@ -54,7 +54,45 @@ class Site extends CI_Controller {
 		$this->data['main_content'] = 'mainpage';
 		//$data['header_content'] = 'includes/headerout';
 		$this->data['aside_content'] = 'includes/aside';
+
+		//load the postings
+		$this->load->model('listings_model');
+
+		$this->data['row'] = $this->listings_model->listAll('skills','p_fname', 'all');
+		$this->data['skills'] = $this->listings_model->skillList();
+
 		$this->load->view('includes/template',$this->data);
+
+	}
+
+	public function ajax()
+	{
+
+		//load the postings
+		$this->load->model('listings_model');
+
+		$type = "skills";
+		$sortset = "p_fname";
+		$category = "all";
+		//$type = $this->input->get('type');
+		if(isset($_POST['type']))
+		{
+			$type = $_POST['type'];
+		}
+
+		if(isset($_POST['sortset']) AND $_POST['sortset'] != 'default')
+		{
+			$sortset = $_POST['sortset'];
+		}
+
+		if(isset($_POST['category']))
+		{
+			$category = $_POST['category'];
+		}
+
+		$this->data['row'] = $this->listings_model->listAll($type,$sortset,$category);
+
+		$this->load->view('includes/list',$this->data);
 	}
 	
 	public function contact()
