@@ -101,7 +101,7 @@ class Login extends CI_Controller {
 			{
 				//you make a data variable in this block
 				$this->data['account_created'] = 'Your account has been created. <br/><br/>You may now login';
-				$this->login();
+				$this->index();
 			}
 			else
 			{

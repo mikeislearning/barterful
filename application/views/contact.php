@@ -43,7 +43,7 @@
             
             <script type="text/javascript">
             
-            /*$('#submit').click(function(){
+            $('#submit').click(function(){
             	var form_data ={
 	            	name:$('#name').val(),
 	            	email:$('#email').val(),
@@ -55,13 +55,13 @@
 		        	url:"<?php echo site_url('email/send');?>",
 		        	type: 'POST',
 		        	data: form_data,
-		        	success: function(msg){
-		        		alert(msg);
+		        	success: function(){
+		        		$('main').html("Thank you");
 		        	} 
 	            });
 	            return false;
             });
-            */
+            
             
             
             </script>
