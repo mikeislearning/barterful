@@ -1,4 +1,9 @@
 <?php if($row) foreach ($row as $r):?>
+
+<?php 
+	$datetime = strtotime($r->date);
+	$newdate = date("m/d/y g:i A", $datetime);
+?>
 	            
 	<article class="profile">
 		<section class="info">
@@ -13,7 +18,7 @@
 		    	from
 		    	<?php echo $r->receiver ?>
 		    </p>
-		    <p><?=$r->date ?></p>
+		    <p><?=$newdate ?></p>
 		    <p>Message: <?php echo $r->mes_message ?></p>
 		    <form id="seemore" name="seemore" action='<?=base_url()?>index.php/ajax/conversation' method="post">
 			    <input name="sender" id="sender" type="hidden" value='<?php echo $r->mes_from ?>' />

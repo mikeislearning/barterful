@@ -44,6 +44,11 @@
 <!--display the most recent message (the array is already sorted by date DESC) -->
 <article class="profile">
 	<section class="info">
+
+<?php 
+	$datetime = strtotime($row[0]->date);
+	$newdate = date("m/d/y g:i A", $datetime);
+?>
 	    <p>
 	    	<?=$row[0]->sender ?> 
 	    	offers 
@@ -55,7 +60,7 @@
 	    	from
 	    	<?=$row[0]->receiver ?>
 	    </p>
-	    <p><?=$row[0]->date ?></p>
+	    <p><?=$newdate ?></p>
 	    <p>Message: <?=$row[0]->mes_message ?></p>
 	</section>
 </article>
@@ -163,6 +168,10 @@
 
 	<!-- array_slice cuts out the first row in the array since it is already shown above -->
 	<?php if($row) foreach (array_slice($row,1) as $r):?>
+	<?php 
+		$datetime = strtotime($r->date);
+		$newdate = date("m/d/y g:i A", $datetime);
+	?>
 
 		<article class="profile">
 			<section class="info">
@@ -176,7 +185,7 @@
 			    	from
 			    	<?=$r->receiver ?>
 			    </p>
-			    <p><?=$r->date ?></p>
+			    <p><?=$newdate ?></p>
 			    <p>Message: <?=$r->mes_message ?></p>
 			</section>
 		</article>
