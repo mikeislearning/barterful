@@ -65,16 +65,18 @@ class Site extends CI_Controller {
 
 	}
 
-	public function ajax()
+	public function sortListings()
 	{
 
 		//load the postings
 		$this->load->model('listings_model');
 
+		//set the default values to send through to the sort function
 		$type = "skills";
 		$sortset = "p_fname";
 		$category = "all";
-		//$type = $this->input->get('type');
+
+		//check if these values were sent through and assign them to the variables
 		if(isset($_POST['type']))
 		{
 			$type = $_POST['type'];
@@ -90,6 +92,7 @@ class Site extends CI_Controller {
 			$category = $_POST['category'];
 		}
 
+		//get the new listing from the listings_model
 		$this->data['row'] = $this->listings_model->listAll($type,$sortset,$category);
 
 		$this->load->view('includes/listPostings',$this->data);

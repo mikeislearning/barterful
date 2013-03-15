@@ -1,7 +1,7 @@
 <?php if($row) foreach ($row as $r):?>
 
 <?php 
-	//reformat the mySQL DateTime so that it shows the time is AM/PM formal
+	//reformat the mySQL DateTime so that it shows the time is AM/PM format
 	$datetime = strtotime($r->date);
 	$newdate = date("m/d/y g:i A", $datetime);
 ?>
