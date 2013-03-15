@@ -74,8 +74,6 @@ class ajax extends CI_Controller {
 				//get the id value from the first pair in the array
 				$id = $id[0]->m_id;
 
-echo "sorted: " . $id;
-
 				$this->data['row'] = $this->listings_model->listLoggedIn($id,$type,$sortset,$category);
 
 				$this->load->view('includes/listPostings',$this->data);
@@ -110,8 +108,6 @@ echo "sorted: " . $id;
 		$id = $id[0]->m_id;
 		//send the id through to the query function
 
-echo "inbox: " . $id;
-
 		$this->data['row'] = $this->inbox_model->listAll($id,$view,'');
 
 		$this->load->view('includes/listInbox', $this->data);
@@ -132,11 +128,19 @@ echo "inbox: " . $id;
 	   {		
 		$this->load->model('inbox_model');
 
-		$with = "";
-		if(isset($_POST['sender']))
-		{
-			$with = $_POST['sender'];
-		}
+			$with = "";
+
+			$senderid = $_POST['sender'];
+			$receiverid = $_POST['receiver'];
+			//get the current user id
+			$id = $this->session->userdata('userid');
+			$id = $id[0]->m_id;
+			//Check the id of the participants in the conversation selected against the current 
+			//user id to send the right variables to the controller
+			if($senderid == $id)
+				{$with = $receiverid;}
+			else{$with = $senderid;}
+
 		//---------------------------------------------------------------------------------//
 		//this section loads the listings displayed based on the user's id in the session
 		//---------------------------------------------------------------------------------//
@@ -145,7 +149,6 @@ echo "inbox: " . $id;
 		//get the id value from the first pair in the array
 		$id = $id[0]->m_id;
 
-echo "conversation: " . $id;
 		//send the id through to the query function
 
 		$this->data['row'] = $this->inbox_model->listAll($id,'conversation',$with);
@@ -154,7 +157,9 @@ echo "conversation: " . $id;
 		$this->load->model('listings_model');
 		$this->data['skills'] = $this->listings_model->skillList();
 
-		$this->load->view('includes/message_view', $this->data);
+		$this->data['main_content'] = 'includes/message_view';
+		$this->data['aside_content'] = 'includes/aside';
+		$this->load->view('includes/template', $this->data);
 	     
 	   }
 	   else
@@ -178,7 +183,7 @@ echo "conversation: " . $id;
 		$to_unit = "";
 		$from_skill = "";
 		$from_unit = "";
-		$message = "";
+		$message = "-";
 		$response = "";
 
 		if(isset($_POST['to']))

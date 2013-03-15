@@ -41,8 +41,6 @@ class Members extends CI_Controller {
 		//get the id value from the first pair in the array
 		$id = $id[0]->m_id;
 
-echo "index: " . $id;
-
 		$this->load->model('listings_model');
 		//send the id through to the query function
 		$this->data['row'] = $this->listings_model->listLoggedIn($id,'skills','p_fname', 'all');
@@ -85,8 +83,7 @@ echo "index: " . $id;
 		//get the id value from the first pair in the array
 		$id = $id[0]->m_id;
 		$this->load->model('inbox_model');
-		
-echo "inbox: " . $id;
+
 		//send the id through to the query function
 
 		$this->data['row'] = $this->inbox_model->listAll($id,'inbox','');

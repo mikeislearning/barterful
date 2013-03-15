@@ -28,6 +28,6 @@
           	
             <main>                    
 
-            	<?php require_once ('includes/listInbox.php'); ?>
+            	<?php $this->load->view('includes/listInbox.php'); ?>
             
             </main>  
