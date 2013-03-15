@@ -92,7 +92,7 @@ class Site extends CI_Controller {
 
 		$this->data['row'] = $this->listings_model->listAll($type,$sortset,$category);
 
-		$this->load->view('includes/list',$this->data);
+		$this->load->view('includes/listPostings',$this->data);
 	}
 	
 	public function contact()
