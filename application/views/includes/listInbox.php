@@ -13,7 +13,7 @@
 		    	from
 		    	<?php echo $r->receiver ?>
 		    </p>
-		    <p><?=$r->max_date ?></p>
+		    <p><?=$r->date ?></p>
 		    <p>Message: <?php echo $r->mes_message ?></p>
 		    <form id="seemore" name="seemore" action='<?=base_url()?>index.php/ajax/conversation' method="post">
 			    <input name="sender" id="sender" type="hidden" value='<?php echo $r->mes_from ?>' />

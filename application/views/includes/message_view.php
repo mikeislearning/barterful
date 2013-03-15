@@ -177,7 +177,7 @@
 			    	<?=$r->receiver ?>
 			    </p>
 			    <p><?=$r->date ?></p>
-			    <p>"<?=$r->mes_message ?>"</p>
+			    <p>Message: <?=$r->mes_message ?></p>
 			</section>
 		</article>
 	<?php endforeach; ?>
