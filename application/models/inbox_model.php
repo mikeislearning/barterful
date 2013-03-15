@@ -17,7 +17,7 @@ function listAll($id, $view = 'inbox', $to = "")
 		}
 		
 		$query = $this->db->query("
-			SELECT mes_id, mes_from, mes_to, mes_message, " . $date . " mes_date as date, sk.s_name as s_from, mes_from_s, mes_from_unit, mes_to_unit, mes_to_s, s.s_name as s_to, pr.p_fname as receiver, p.p_fname as sender
+			SELECT mes_from, mes_to, mes_message, " . $date . " mes_date as date, sk.s_name as s_from, mes_from_s, mes_from_unit, mes_to_unit, mes_to_s, s.s_name as s_to, pr.p_fname as receiver, p.p_fname as sender
 				FROM messages mes
 				JOIN skills s ON mes.mes_to_s = s.s_id
 				JOIN skills sk ON mes.mes_from_s = sk.s_id
