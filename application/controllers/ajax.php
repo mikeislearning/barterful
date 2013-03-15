@@ -184,11 +184,15 @@ class ajax extends CI_Controller {
 
  public function sendmessage()
  {
+
 	 if($this->session->userdata('logged_in'))
 	   {		
 		$this->load->model('inbox_model');
 
-		$info = [];
+ 	//------------------------------------------------------------------------------------------------------------//
+ 	//	I'd like to be able to come back here and send all these variables through more efficiently (in an array) //
+ 	//------------------------------------------------------------------------------------------------------------//
+
 		$to = "";
 		$to_skill = "";
 		$to_unit = "";
@@ -197,6 +201,7 @@ class ajax extends CI_Controller {
 		$message = "-";
 		$response = "";
 
+		//check that each value has been provided and assign it to a variable
 		if(isset($_POST['to']))
 		{
 			$to = $_POST['to'];
@@ -231,15 +236,18 @@ class ajax extends CI_Controller {
 		{
 			$response = $_POST['response'];
 		}
+
 		//---------------------------------------------------------------------------------//
 		//this section loads the listings displayed based on the user's id in the session
 		//---------------------------------------------------------------------------------//
+
 		//get the array of id's (there should just be one in the array)
 		$id = $this->session->userdata('userid');
+
 		//get the id value from the first pair in the array
 		$id = $id[0]->m_id;
-		//send the id through to the query function
 
+		//send the id through to the query function
 		$this->data['row'] = $this->inbox_model->sendMessage($id,$to,$to_skill,$to_unit,$from_skill,$from_unit,$message,$response);
 
 		//send a list of skills for the dropdown function
