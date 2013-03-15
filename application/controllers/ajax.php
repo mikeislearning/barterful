@@ -74,6 +74,8 @@ class ajax extends CI_Controller {
 				//get the id value from the first pair in the array
 				$id = $id[0]->m_id;
 
+echo "sorted: " . $id;
+
 				$this->data['row'] = $this->listings_model->listLoggedIn($id,$type,$sortset,$category);
 
 				$this->load->view('includes/listPostings',$this->data);
@@ -108,7 +110,125 @@ class ajax extends CI_Controller {
 		$id = $id[0]->m_id;
 		//send the id through to the query function
 
-		$this->data['row'] = $this->inbox_model->listAll($id,$view);
+echo "inbox: " . $id;
+
+		$this->data['row'] = $this->inbox_model->listAll($id,$view,'');
+
+		$this->load->view('includes/listInbox', $this->data);
+	     
+	   }
+	   else
+	   {
+	       session_destroy();
+	     //If no session, redirect to login page
+	     redirect('login', 'refresh');
+	    
+	   }
+ }
+
+ public function conversation()
+ {
+	 if($this->session->userdata('logged_in'))
+	   {		
+		$this->load->model('inbox_model');
+
+		$with = "";
+		if(isset($_POST['sender']))
+		{
+			$with = $_POST['sender'];
+		}
+		//---------------------------------------------------------------------------------//
+		//this section loads the listings displayed based on the user's id in the session
+		//---------------------------------------------------------------------------------//
+		//get the array of id's (there should just be one in the array)
+		$id = $this->session->userdata('userid');
+		//get the id value from the first pair in the array
+		$id = $id[0]->m_id;
+
+echo "conversation: " . $id;
+		//send the id through to the query function
+
+		$this->data['row'] = $this->inbox_model->listAll($id,'conversation',$with);
+
+		//send a list of skills for the dropdown function
+		$this->load->model('listings_model');
+		$this->data['skills'] = $this->listings_model->skillList();
+
+		$this->load->view('includes/message_view', $this->data);
+	     
+	   }
+	   else
+	   {
+	       session_destroy();
+	     //If no session, redirect to login page
+	     redirect('login', 'refresh');
+	    
+	   }
+ }
+
+ public function sendmessage()
+ {
+	 if($this->session->userdata('logged_in'))
+	   {		
+		$this->load->model('inbox_model');
+
+		$info = [];
+		$to = "";
+		$to_skill = "";
+		$to_unit = "";
+		$from_skill = "";
+		$from_unit = "";
+		$message = "";
+		$response = "";
+
+		if(isset($_POST['to']))
+		{
+			$to = $_POST['to'];
+		}
+
+		if(isset($_POST['to_skill']))
+		{
+			$to_skill = $_POST['to'];
+		}
+
+		if(isset($_POST['to_unit']))
+		{
+			$to_unit = $_POST['to_unit'];
+		}
+
+		if(isset($_POST['from_skill']))
+		{
+			$from_skill = $_POST['from_skill'];
+		}
+
+		if(isset($_POST['from_unit']))
+		{
+			$from_unit = $_POST['from_unit'];
+		}
+
+		if(isset($_POST['message']))
+		{
+			$message = $_POST['message'];
+		}
+
+		if(isset($_POST['response']))
+		{
+			$response = $_POST['response'];
+		}
+		//---------------------------------------------------------------------------------//
+		//this section loads the listings displayed based on the user's id in the session
+		//---------------------------------------------------------------------------------//
+		//get the array of id's (there should just be one in the array)
+		$id = $this->session->userdata('userid');
+		//get the id value from the first pair in the array
+		$id = $id[0]->m_id;
+		//send the id through to the query function
+
+		$this->data['row'] = $this->inbox_model->sendMessage($id,$to,$to_skill,$to_unit,$from_skill,$from_unit,$message,$response);
+
+		//send a list of skills for the dropdown function
+		$this->load->model('listings_model');
+		$this->data['skills'] = $this->listings_model->skillList();
 
 		$this->load->view('includes/listInbox', $this->data);
 	     

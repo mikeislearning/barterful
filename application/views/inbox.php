@@ -11,7 +11,7 @@
 
 		    			$('#sent').click(function(e)
 		    			{
-		    				switchview('sent');
+		    				switchview('outbox');
 		    			});
 
 		    			function switchview(type){
