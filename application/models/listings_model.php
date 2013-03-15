@@ -2,8 +2,10 @@
 
 class listings_model extends CI_Model{
 		
-	//USED FOR SORTING BY A SPECIFIED COLUMN
+	////////////////////////////////////////////////////////////////////////////
+	//USED FOR SORTING BY A SPECIFIED COLUMN IN PHP - THIS SNIPPET IS AWESOME!!!
 	//http://cyrilmazur.com/2008/11/sort-array-dataset-in-php.html
+	////////////////////////////////////////////////////////////////////////////
 	public static function sortDataset($dataset,$sortby,$order = 'ASC') { 
 		$columns = array(); 
 	  
@@ -33,9 +35,15 @@ class listings_model extends CI_Model{
 	  
 		return $dataset; 
 	}
+	////////////////////////////////////////////////
+	//END - SNIPPET I BORROWED AND DO NOT UNDERSTAND
+	/////////////////////////////////////////////////
+
 	
 	//Get all skill profiles posted for users not logged in
 	function listAll($type, $sortset, $category){
+
+		// if a custom filter variable was provided, apply it to the query
 		if($category == 'all')
 		{
 			$category = "";
@@ -45,6 +53,7 @@ class listings_model extends CI_Model{
 			$category = " AND s_name = '" . $category . "'";
 		}
 
+		//based on whether the user wants to see skills profiles or wants profiles
 		switch($type)
 		{
 			case "skills":
@@ -73,20 +82,31 @@ class listings_model extends CI_Model{
 		if($query->num_rows > 0){
 			foreach($query->result() as $key => $row){
 				
+				//////////////////////////////////////
 				//give sort value based on date added
+				///////////////////////////////////////
+
+				//get the number of days between now and the last updated date
 				$now = strtotime(date("Y-m-d"));
 				$then = strtotime($row->p_last_updated);
 				$date_diff = abs($now - $then);
 				$days_diff = floor($date_diff/(60*60*24));
+
+				//note that the $row->sort is a new column in the record/table
+				//starting at 10, reduce the "score" of this factor by 1 per week old, min score is 0
 				$row->sort =  max(10-round($days_diff/7), 0);
 				
-				//give sort value based on rating
+				//add to the sort score based on rating
+				//the average rating is a decimal value (percentage)
+				//a rating of 100% would raise the sort rating by 5
+				//therefore rating is worth half of the recency of a post
 				$row->sort += round($row->p_avg_rating * 5);
 				
+				//add $row to the array, including the newly created sort column
 				$listing[]=$row;
 			}
-			//array_multisort($sort, SORT_DESC, $listing);
-			//uasort($listing, array($this, 'cmp'));
+
+			//send the array to this AMAZING sort function, sending with it the column to sort by
 			$listing = $this->sortDataset($listing, $sortset, 'DESC');
 			return $listing;
 		}
@@ -95,6 +115,8 @@ class listings_model extends CI_Model{
 	
 	//Get all skill profiles that match the user logged in
 	function listLoggedIn($userid,$type,$sortset,$category){
+
+		// if a custom filter variable was provided, apply it to the query
 		if($category == 'all')
 		{
 			$category = "";
@@ -104,6 +126,7 @@ class listings_model extends CI_Model{
 			$category = " AND s_name = '" . $category . "'";
 		}
 
+		//based on whether the user wants to see skills profiles or wants profiles
 		switch($type)
 		{
 			case "skills":
@@ -157,23 +180,36 @@ class listings_model extends CI_Model{
 		//go through each row, add a sort rating and send the data
 		if($query->num_rows > 0){
 			foreach($query->result() as $key => $row){
+
+				//initialize a new sort column in the record
 				$row->sort = 0;
 				
+				//////////////////////////////////////
 				//give sort value based on date added
+				///////////////////////////////////////
+
+				//get the number of days between now and the last updated date
 				$now = strtotime(date("Y-m-d"));
 				$then = strtotime($row->p_last_updated);
 				$date_diff = abs($now - $then);
 				$days_diff = floor($date_diff/(60*60*24));
 				$row->sort += max(10-round($days_diff/7), 0);
 				
-				//give sort value based on rating
+				//note that the $row->sort is a new column in the record/table
+				//starting at 10, reduce the "score" of this factor by 1 per week old, min score is 0
 				$row->sort += round($row->p_avg_rating * 8);
 				
+				/////////////////////////////////////////////////
 				//give sort value based on matching wants to needs
+				//////////////////////////////////////////////////
+
+				//logged-in user(wants) to row(user) skills
 				foreach($currentUserWants->result() as $keyUW => $rowUW)
 				{
 					//the id of the user of this row in the dataset
 					$userID = $row->p_id;
+
+					//the logged-in users own wants
 					$querySkills = $this->db->query("
 					Select p.p_id, sp.s_id as s_id, wp.s_id as w_id
 					FROM profiles p
@@ -187,16 +223,20 @@ class listings_model extends CI_Model{
 					{
 						if($rowUW->w_id == $rowID->s_id)
 						{
-							$row->sort += 3;
+							//each match adds 2 to the sort score
+							$row->sort += 2;
 						}
 					}
 					
 				}
 				
-				//compare the skills of the user logged in to the wants of the user in this row
+				//logged-in user(skills) to row(user) wants
 				foreach($currentUserSkills->result() as $keyUS => $rowUS)
 				{
+					//the id of the user of this row in the dataset
 					$userID = $row->p_id;
+
+					//the logged-in users own skills
 					$querySkills = $this->db->query("
 					Select p.p_id, sp.s_id as s_id, wp.s_id as w_id
 					FROM profiles p
@@ -204,23 +244,30 @@ class listings_model extends CI_Model{
 					JOIN skill_profiles sp on p.p_id = sp.p_id
 					JOIN want_profiles wp on p.p_id = wp.p_id
 					WHERE m_active = TRUE AND p.p_id = " . $userID . ";");
+
+					//compare the skills of the user logged in to the wants of the user in this row
 					foreach($querySkills->result() as $keyID => $rowID)
 					{
 						if($rowUS->s_id == $rowID->w_id)
 							{
-								$row->sort += 3;
+								//each match adds 2 to the sort score
+								$row->sort += 2;
 							}
 					}
 				}
 				
+				//add the newly modified record to include the sort column to the array
 				$listing[]=$row;
 			}
+
+			//send the array to this AMAZING sort function, sending with it the column to sort by
 			$listing = $this->sortDataset($listing, $sortset, 'DESC');
 			return $listing;
 		}
 		
 	}
 
+	//get all the possible skills to populate the sort bar
 	function skillList()
 	{
 		

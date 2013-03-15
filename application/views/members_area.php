@@ -1,4 +1,4 @@
-<?php include_once ('includes/sort.php'); ?>
+<?php include_once ('includes/sortListings.php'); ?>
 <div class="bgWrapper">
         <section class="mainWrapper">
         	<div class="row">
