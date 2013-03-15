@@ -265,6 +265,26 @@ class ajax extends CI_Controller {
 	    
 	   }
  }
+
+ public function searchPostings()
+ {	
+	$this->load->model('listings_model');
+	$term = "";
+
+	if(isset($_POST['term']))
+	{
+		$term = $_POST['term'];
+	}
+
+	//send the id through to the query function
+	$this->data['row'] = $this->listings_model->simpleSearch($term);
+
+	//send a list of skills for the dropdown function
+	$this->data['skills'] = $this->listings_model->skillList();
+
+	$this->load->view('includes/listSearch', $this->data);
+
+ }
 	
 	
 }

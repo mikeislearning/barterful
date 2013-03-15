@@ -7,17 +7,17 @@
 		    <h1> <a href="<?php echo base_url()?>" class="logo">Barterful</a> </h1>
 
 		     		<?php echo form_open('') ?>
-		     		<input type="text" placeholder="Search" name="search" id="search" value="<?php echo set_value('search');?>">
+		     		<input type="text" placeholder="Search" name="txt_search" id="txt_search" />
 		     		
-		     		<button type="submit" id="search">
+		     		<button type="button" id="btn_search" name="btn_search">
 		     		<i class="general foundicon-heart"> </i> </button>
 		     				     	
 		     		<?php echo form_close(); ?>
 	
 			<nav>
 			    <ul>
-			    <li> <?php echo anchor('login','Log in','class="button1"');?> </li>
-			    <li> <?php echo anchor('login/signup','Sign up','class="button1"');?> </li>
+				    <li> <?php echo anchor('login','Log in','class="button1"');?> </li>
+				    <li> <?php echo anchor('login/signup','Sign up','class="button1"');?> </li>
 			    </ul>
 			</nav>
 		</header>
@@ -37,3 +37,19 @@
 	        	</article>
 	        </section>
 		</div>
+
+<script>
+	$(document).ready(function(){
+		$('#btn_search').click(function(){
+			var term = $('#txt_search').val();
+			var send_url = '<?=base_url()?>' + 'index.php/ajax/searchPostings';
+
+			//send the variables through
+			$.post(send_url, { term:term }).done(function(msg){
+                    $('main').html(msg);
+                }).fail(function(){$('main').html('Could not load!');});
+		});
+
+	})
+
+</script>

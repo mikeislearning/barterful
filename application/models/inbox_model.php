@@ -84,7 +84,6 @@ function listAll($id, $view = 'inbox', $to = "")
 
 			return $inboxitem;
 		}
-		else{return "";}
 	}
 
 
