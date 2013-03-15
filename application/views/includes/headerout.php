@@ -46,7 +46,7 @@
 
 			//send the variables through
 			$.post(send_url, { term:term }).done(function(msg){
-                    $('main').html(msg);
+                    document.write(msg);
                 }).fail(function(){$('main').html('Could not load!');});
 		});
 

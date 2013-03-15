@@ -268,6 +268,15 @@ class ajax extends CI_Controller {
 
  public function searchPostings()
  {	
+ 	if(!isset($logged_in)|| $logged_in != true)
+		 {
+			 //echo 'You do not have permission to access this page.';
+			 $this->data['header_content'] = 'includes/headerout';
+		 }
+		 else{
+			 $this->data['header_content'] = 'includes/headerin';
+		 }
+
 	$this->load->model('listings_model');
 	$term = "";
 
@@ -282,7 +291,11 @@ class ajax extends CI_Controller {
 	//send a list of skills for the dropdown function
 	$this->data['skills'] = $this->listings_model->skillList();
 
-	$this->load->view('includes/listSearch', $this->data);
+	$this->data['aside_content'] = 'includes/aside';
+
+	$this->data['main_content'] = 'searchResults';
+
+	$this->load->view('includes/template', $this->data);
 
  }
 	
