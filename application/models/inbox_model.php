@@ -74,6 +74,7 @@ function listAll($id, $view = 'inbox', $to = "")
 				ORDER BY date DESC;
 			");
 
+		//add each row to the Array and return
 		if($query->num_rows > 0)
 		{
 			foreach($query->result() as $k=>$r)
@@ -90,6 +91,8 @@ function listAll($id, $view = 'inbox', $to = "")
 
 	function sendMessage($id,$to,$to_skill,$to_unit,$from_skill,$from_unit,$message,$response)
 	{		
+		//set the timezone so that the time inputs correctly
+		date_default_timezone_set('America/New_York');
 		$date = date('Y-m-d H:i:s');
 
 		$this->db->set('mes_from', $id);
