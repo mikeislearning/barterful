@@ -7,8 +7,8 @@
   font-style: normal;
 }
 
-/* global foundicon styles */
-[class*="foundicon-"] {
+/* global foundicongen styles */
+[class*="general foundicon-"] {
   display: inline;
   width: auto;
   height: auto;
@@ -19,7 +19,7 @@
   background-repeat: repeat;
 }
 
-[class*="foundicon-"]:before {
+[class*="general foundicon-"]:before {
   font-family: "GeneralFoundicons";
   font-weight: normal;
   font-style: normal;

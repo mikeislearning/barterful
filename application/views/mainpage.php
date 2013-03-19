@@ -3,7 +3,7 @@
        
 <!-- ************************ Main Content ************************** -->    
         <div class="bgWrapper">
-        <section class="mainWrapper">
+        <section class="mainWrapper" id="mainContent">
          
           <div class="row">
             <main>     

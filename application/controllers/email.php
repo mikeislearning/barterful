@@ -42,7 +42,6 @@ function __construct()
 		
 		//can set 3 parameters: field name, error message, validation rules separated by |'s
 		$this->data['main_content'] = 'contact';
-		$this->data['aside_content'] = 'includes/aside'; 
 		
 		$this->form_validation->set_rules('name','Name','required');
 		$this->form_validation->set_rules('email','Email','trim|required|valid_email');

@@ -1,27 +1,42 @@
 <!-- ************************ Header ************************** -->
 <!-- This is the header that shows up when you are logged out -->
 
-	<div class="bgWrapper">
+<div class="bgWrapper">
 	<section class="mainWrapper">
 		<header class="row">
-		    <h1> <a href="<?php echo base_url()?>" class="logo">Barterful</a> </h1>
-
+		<fieldset>
 		     		<?php echo form_open('') ?>
 		     		<input type="text" placeholder="Search" name="txt_search" id="txt_search" />
 		     		
+<<<<<<< HEAD
 		     		<button type="button" id="btn_search" name="btn_search">
 		     		<i class="general foundicon-heart"> </i> </button>
+=======
+		     		<button type="submit" id="search">
+		     		<i class="general foundicon-search"> </i> </button>
+>>>>>>> restyling
 		     				     	
 		     		<?php echo form_close(); ?>
-	
-			<nav>
+		    </fieldset>
+		    <h1> <a href="<?php echo base_url()?>" class="logo">Barterful</a> </h1>
+		    
+		    <nav>
 			    <ul>
+<<<<<<< HEAD
 				    <li> <?php echo anchor('login','Log in','class="button1"');?> </li>
 				    <li> <?php echo anchor('login/signup','Sign up','class="button1"');?> </li>
+=======
+			    <li> <?php echo anchor('login','Log in','class="button1"');?> </li>
+			    <li> <?php echo anchor('login/signup','Sign up','class="button1"');?> </li>
+			    <li> <?php echo anchor('site/contact','Learn More','class="button1"');?> </li>
+>>>>>>> restyling
 			    </ul>
 			</nav>
+		    
+			
 		</header>
 	</section><!-- mainWrapper -->
+<<<<<<< HEAD
 	</div><!-- bgWrapper -->
 	
 	<!-- ************************ Hero Unit ************************** -->
@@ -53,3 +68,6 @@
 	})
 
 </script>
+=======
+</div><!-- bgWrapper -->
+>>>>>>> restyling

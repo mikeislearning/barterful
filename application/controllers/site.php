@@ -52,8 +52,6 @@ class Site extends CI_Controller {
 	public function index()
 	{	
 		$this->data['main_content'] = 'mainpage';
-		//$data['header_content'] = 'includes/headerout';
-		$this->data['aside_content'] = 'includes/aside';
 
 		//load the postings
 		$this->load->model('listings_model');
@@ -101,7 +99,6 @@ class Site extends CI_Controller {
 	public function contact()
 	{
 		$this->data['main_content'] = 'contact';
-		$this->data['aside_content'] = 'includes/aside';
 		$this->load->view('includes/template', $this->data);
 	}
 	

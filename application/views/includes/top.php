@@ -7,7 +7,7 @@
         <link rel="shortcut icon" href="<?php echo base_url('refs/_img/thinkpink.ico');?>" type="image/x-icon" >
         
   
-   <!--   CSS FILE ISFOR THE SERVER 
+   <!--   CSS FILE IS FOR THE SERVER 
    <link rel="stylesheet" type="text/css" href="<?php echo base_url('refs/_styles/main.css');?>"/>-->
 <link rel="stylesheet/less" type="text/css" href="<?php echo base_url('refs/_styles/main.less');?>" media="all" />
           <script src="<?php echo base_url('refs/_js/less.js');?>"></script>

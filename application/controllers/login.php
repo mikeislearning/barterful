@@ -34,7 +34,6 @@ class Login extends CI_Controller {
 			redirect('site');
 		}
 
-		$this->data['aside_content'] = 'includes/aside';
 		$this->load->view('includes/template', $this->data);
 	}
 
@@ -72,7 +71,6 @@ class Login extends CI_Controller {
 		else{
 			redirect('site');
 		}
-		$this->data['aside_content'] = 'includes/aside';
 		$this->load->view('includes/template', $this->data);
 
 	}
