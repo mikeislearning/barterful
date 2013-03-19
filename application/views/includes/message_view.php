@@ -120,103 +120,102 @@
 </main>
 
 
-<!-- ////////////////////////////////////////////////////// -->
-<!-- ///////////         JavaScript            ////////////// -->
-<!-- ////////////////////////////////////////////////////// -->
+<!-- ********************************************************** -->
+<!-- **************         JavaScript            *************** -->
+<!-- *********************************************************** -->
 <script>
-  	$(document).ready(function(e)
+	$(document).ready(function(){
+
+	//this section checks to see if there is a message awaiting a response
+	to = "";
+	//get the id of the user who sent the latest message
+	sender = '<?php echo $row[0]->mes_from; ?>';
+	//get the current user id
+	myid = '<?php $id = $this->session->userdata("userid");
+			$id = $id[0]->m_id;
+			echo $id; ?>';
+	
+	//show the input panel if the most recent message was not sent by the other member
+	if(sender != myid)
+		{$('#panel_response').show();}
+
+	//switch the view between inbox and sent messages based on user input
+	$('#inbox').click(function()
 	{
-		//this section checks to see if there is a message awaiting a response
-		to = "";
-		//get the id of the user who sent the latest message
-		sender = '<?php echo $row[0]->mes_from; ?>';
-		//get the current user id
-		myid = <?php $id = $this->session->userdata('userid');
-				$id = $id[0]->m_id;
-				echo $id; ?>;
+		switchview('inbox');
+	});
+
+	$('#sent').click(function()
+	{
+		switchview('outbox');
+	});
+
+	function switchview(type){
+	//AJAX function sends a request for the data to fill the new view
+		var send_url = '<?=base_url()?>' + 'index.php/ajax/inbox';
+
+		$.post(send_url, { view: type }).done(function(msg){
+                $('main').html(msg);
+            }).fail(function(){$('main').html('Could not load!');});
 		
-		//show the input panel if the most recent message was not sent by the other member
-		if(sender != myid)
-			{$('#panel_response').show();}
+	}		
 
+	//show the response input section if the user selects counteroffer
+	$('input[name=response]:radio').change(function(){
+		if($('input[name=response]:checked').val() == 'counter')
+			{$('#counteroffer').slideDown('slow');}
+		else
+			{$('#counteroffer').hide('fast');}
+	})
 
-		//switch the view between inbox and sent messages based on user input
-		$('#inbox').click(function(e)
+	//send the message
+	$('#send').click(function(){
+		//validation to ensure that a response type was checked off
+		if(!$('input[name=response]:checked').val())
+			{alert('Please select your response')}
+		else
 		{
-			switchview('inbox');
-		});
+			//determine who the message is to, based on the sender and receiver of the most 
+			//recent message (whoever doesnt match the logged-in user)
+			to = "";
+			to_id = '<?php echo $row[0]->mes_from; ?>';
+			from_id = '<?php echo $row[0]->mes_to; ?>';
+			//get the current user id
+			myid = <?php $id = $this->session->userdata('userid');
+					$id = $id[0]->m_id;
+					echo $id; ?>;
+			//Check the id of the participants in the conversation selected against the current 
+			//user id to send the right variables to the controller
+			if(to_id == myid)
+				{to = from_id;}
+			else{to = to_id;}
 
-		$('#sent').click(function(e)
-		{
-			switchview('outbox');
-		});
+			to_skill = $('#to_skill').val();
+			to_unit = $('#unit_to').val();
+			from_skill = $('#from_skill').val();
+			from_unit = $('#unit_from').val();
+			message = $('#message').val();
+			response = $('input[name=response]:checked').val();
 
-		function switchview(type){
-		//AJAX function sends a request for the data to fill the new view
-			var send_url = '<?=base_url()?>' + 'index.php/ajax/inbox';
-
-			$.post(send_url, { view: type }).done(function(msg){
-	                $('main').html(msg);
-	            }).fail(function(){$('main').html('Could not load!');});
-			}
-		})
-
-		//show the response input section if the user selects counteroffer
-		$('input[name=response]:radio').change(function(){
-			if($('input[name=response]:checked').val() == 'counter')
-				{$('#counteroffer').slideDown('slow');}
-			else
-				{$('#counteroffer').hide('fast');}
-		})
-
-		//send the message
-		$('#send').click(function(){
-			//validation to ensure that a response type was checked off
-			if(!$('input[name=response]:checked').val())
-				{alert('Please select your response')}
-			else
-			{
-				//determine who the message is to, based on the sender and receiver of the most 
-				//recent message (whoever doesnt match the logged-in user)
-				to = "";
-				to_id = '<?php echo $row[0]->mes_from; ?>';
-				from_id = '<?php echo $row[0]->mes_to; ?>';
-				//get the current user id
-				myid = <?php $id = $this->session->userdata('userid');
-						$id = $id[0]->m_id;
-						echo $id; ?>;
-				//Check the id of the participants in the conversation selected against the current 
-				//user id to send the right variables to the controller
-				if(to_id == myid)
-					{to = from_id;}
-				else{to = to_id;}
-
-				to_skill = $('#to_skill').val();
-				to_unit = $('#unit_to').val();
-				from_skill = $('#from_skill').val();
-				from_unit = $('#unit_from').val();
-				message = $('#message').val();
-				response = $('input[name=response]:checked').val();
-
-				sendMessage(to,to_skill,to_unit,from_skill,from_unit,message,response);
-			}
-		})
-
-		//AJAX function to send data
-		function sendMessage(to,to_skill,to_unit,from_skill,from_unit,message,response)
-		{	
-			url = '<?=base_url()?>index.php/ajax/sendmessage';
-			$.post(url, { 	to:to,
-							to_skill:to_skill,
-							to_unit:to_unit, 
-							from_skill:from_skill,
-							from_unit:from_unit,
-							message:message,
-							response:response
-						}).done(function(msg){
-		                $('main').html('<p>Your message has been sent!</p>' + msg);
-		            }).fail(function(){alert('Could not send!');});
+			sendMessage(to,to_skill,to_unit,from_skill,from_unit,message,response);
 		}
 	})
+
+	//AJAX function to send data
+	function sendMessage(to,to_skill,to_unit,from_skill,from_unit,message,response)
+	{	
+		url = '<?=base_url()?>index.php/ajax/sendmessage';
+		$.post(url, { 	to:to,
+						to_skill:to_skill,
+						to_unit:to_unit, 
+						from_skill:from_skill,
+						from_unit:from_unit,
+						message:message,
+						response:response
+					}).done(function(msg){
+	                $('main').html('<p>Your message has been sent!</p>' + msg);
+	            }).fail(function(){alert('Could not send!');});
+	}
+})
       	
 </script>

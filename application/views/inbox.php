@@ -15,17 +15,21 @@
         	<?php $this->load->view('includes/listInbox.php'); ?>
         
         </main>  
-
 <script>
-	$(document).ready(function(e)
+      $(document).ready(function(){
+        alert('inbox');
+      })
+    </script>
+<script>
+	$(document).ready(function()
 		{
 			//check which view the user selected, then send it to the AJAX function
-			$('#inbox').click(function(e)
+			$('#inbox').click(function()
 			{
 				switchview('inbox');
 			});
 
-			$('#sent').click(function(e)
+			$('#sent').click(function()
 			{
 				switchview('outbox');
 			});
