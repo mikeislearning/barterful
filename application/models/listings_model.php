@@ -68,12 +68,26 @@ class listings_model extends CI_Model{
 				break;
 			case "wants":
 				$query = $this->db->query("
-				Select p_fname, p_last_updated, p_avg_rating, s_name, wp_description as sp_heading, s.s_id
+				Select p_fname, p_last_updated, p_avg_rating, s_name, wp_expiry, wp_description as sp_heading, s.s_id
 				FROM want_profiles wp
 				JOIN profiles p on wp.p_id = p.p_id
 				JOIN members m on p.m_id = m.m_id
 				JOIN skills s on wp.s_id = s.s_id
-				WHERE m_active = TRUE" . $category . " ORDER BY " . $sortset . " DESC;
+				WHERE m_active = TRUE" . $category . " 
+				AND (wp_expiry IS NULL OR wp_expiry > CURDATE()) 
+				ORDER BY " . $sortset . " DESC;
+				");
+				break;
+			case "projects":
+				$query = $this->db->query("
+				Select p_fname, p_last_updated, p_avg_rating, s_name, wp_expiry, wp_description as sp_heading, s.s_id
+				FROM want_profiles wp
+				JOIN profiles p on wp.p_id = p.p_id
+				JOIN members m on p.m_id = m.m_id
+				JOIN skills s on wp.s_id = s.s_id
+				WHERE m_active = TRUE" . $category . " 
+				AND wp_expiry IS NOT NULL AND wp_expiry > CURDATE() 
+				ORDER BY " . $sortset . " DESC;
 				");
 				break;
 
@@ -146,7 +160,21 @@ class listings_model extends CI_Model{
 				JOIN members m on p.m_id = m.m_id
 				JOIN want_profiles wp on p.p_id = wp.p_id
 				JOIN skills s on wp.s_id = s.s_id
-				WHERE m_active = TRUE" . $category . " ORDER BY " . $sortset . " DESC;
+				WHERE m_active = TRUE" . $category . " 
+				AND (wp_expiry IS NULL OR wp_expiry > CURDATE()) 
+				ORDER BY " . $sortset . " DESC;
+				");
+				break;
+			case "projects":
+				$query = $this->db->query("
+				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, wp_expiry, wp_description as sp_heading
+				FROM profiles p
+				JOIN members m on p.m_id = m.m_id
+				JOIN want_profiles wp on p.p_id = wp.p_id
+				JOIN skills s on wp.s_id = s.s_id
+				WHERE m_active = TRUE" . $category . " 
+				AND wp_expiry IS NOT NULL AND wp_expiry > CURDATE() 
+				ORDER BY " . $sortset . " DESC;
 				");
 				break;
 

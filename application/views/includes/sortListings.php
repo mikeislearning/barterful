@@ -39,6 +39,7 @@
 		    <form>
 			    <input id="viewtype1" name="viewtype" value="skills" type="radio" checked="checked">Offering</input>
 			    <input id="viewtype2" name="viewtype" value="wants" type="radio">Wanting</input>
+			    <input id="viewtype3" name="viewtype" value="projects" type="radio">Projects</input>
 		    </form>
    		</div><!-- dropdown -->
 	</section>  

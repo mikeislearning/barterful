@@ -16,11 +16,6 @@
         
         </main>  
 <script>
-      $(document).ready(function(){
-        alert('inbox');
-      })
-    </script>
-<script>
 	$(document).ready(function()
 		{
 			//check which view the user selected, then send it to the AJAX function
