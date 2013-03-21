@@ -15,8 +15,7 @@ class Membership_model extends CI_Model {
 
 	//uses the username to get the user id
 	function getID(){
-		//$query = $this->db->query('SELECT m_id from members where m_name ="' . $this->input->post('username') . '"');
-		$query = $this->db->query('SELECT id from users where username ="' . $this->input->post('username') . '"');
+		$query = $this->db->query('SELECT m_id from members where m_name ="' . $this->input->post('username') . '"');
 		if($query->num_rows == 1){
 			foreach($query->result() as $key => $row){
 				$user[]=$row;

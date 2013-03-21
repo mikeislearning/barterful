@@ -37,9 +37,9 @@
 		       </fieldset>
 	    	</form>
 		    <form>
-			    <input id="viewtype1" name="viewtype" value="skills" type="radio" checked="checked">Offering</input>
-			    <input id="viewtype2" name="viewtype" value="wants" type="radio">Wanting</input>
-			    <input id="viewtype3" name="viewtype" value="projects" type="radio">Projects</input>
+			    <input id="viewtype1" name="viewtype" value="skills" type="radio" checked="checked"><label>Offering</label>
+			    <input id="viewtype2" name="viewtype" value="wants" type="radio"><label>Wanting</label>
+			    <input id="viewtype3" name="viewtype" value="projects" type="radio"><label>Projects</label>
 		    </form>
    		</div><!-- dropdown -->
 	</section>  

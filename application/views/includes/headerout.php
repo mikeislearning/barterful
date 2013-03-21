@@ -1,57 +1,36 @@
 <!-- ************************ Header ************************** -->
 <!-- This is the header that shows up when you are logged out -->
 
-<div class="bgWrapper">
+	<div class="bgWrapper">
 	<section class="mainWrapper">
 		<header class="row">
 		<fieldset>
 		     		<?php echo form_open('') ?>
 		     		<input type="text" placeholder="Search" name="txt_search" id="txt_search" />
-		     		
-<<<<<<< HEAD
 		     		<button type="button" id="btn_search" name="btn_search">
-		     		<i class="general foundicon-heart"> </i> </button>
-=======
-		     		<button type="submit" id="search">
 		     		<i class="general foundicon-search"> </i> </button>
->>>>>>> restyling
+
+
 		     				     	
 		     		<?php echo form_close(); ?>
 		    </fieldset>
+		    
 		    <h1> <a href="<?php echo base_url()?>" class="logo">Barterful</a> </h1>
 		    
 		    <nav>
 			    <ul>
-<<<<<<< HEAD
-				    <li> <?php echo anchor('login','Log in','class="button1"');?> </li>
-				    <li> <?php echo anchor('login/signup','Sign up','class="button1"');?> </li>
-=======
+
 			    <li> <?php echo anchor('login','Log in','class="button1"');?> </li>
 			    <li> <?php echo anchor('login/signup','Sign up','class="button1"');?> </li>
 			    <li> <?php echo anchor('site/contact','Learn More','class="button1"');?> </li>
->>>>>>> restyling
+
 			    </ul>
 			</nav>
-		    
-			
 		</header>
 	</section><!-- mainWrapper -->
-<<<<<<< HEAD
 	</div><!-- bgWrapper -->
 	
-	<!-- ************************ Hero Unit ************************** -->
-
-		<div class="bgWrapper" id="heroWrapper" >
-	        <section class="mainWrapper">
-	        	<article class="row">
-		            <h2>So what are you good at? </h2>
-		            
-		            <h3>Barterful is a network of online bartering communities. </h3>
-		            
-		            <a href="#">Learn More </a>
-	        	</article>
-	        </section>
-		</div>
+	
 
 <script>
 	$(document).ready(function(){
@@ -68,6 +47,3 @@
 	})
 
 </script>
-=======
-</div><!-- bgWrapper -->
->>>>>>> restyling

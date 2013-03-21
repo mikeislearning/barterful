@@ -53,9 +53,6 @@ font-weight:900;
 @mainBorder: 1px solid @darkGray;
 
 
-@bgImage:url(http://www.netmagazine.com/files/tutorials/demos/2012/04/build-a-responsive-website-in-a-week-responsive-typography-and-grids-part-2/demo/_css/_assets/bg-light.png);
-
-
 /***** base font size *******/
 
 
@@ -143,7 +140,7 @@ input[type="text"],input[type="password"],textarea{
 	&:focus{
 		outline:none;
 	}
-	}
+}
 	
 input[type="text"],input[type="password"]{
 	height:1.5em;
@@ -158,10 +155,7 @@ input[type="radio"] + label{
 }
 
 input[type="radio"]:checked + label {
-
 		color:@mainRed;
-	
-
 }
 
 //used for validation error messages
@@ -183,7 +177,7 @@ header{
 	font-family:@logoFont;
 	color:@mainRed;
 	font-size:2em;
-	text-shadow:1px 1px @mainRed;
+	text-shadow:0px -1px 1px black;
 	line-height:1em;
 	.scale(4);
 	&:hover{
@@ -249,16 +243,16 @@ header{
 
 
 
-/***************************** Main Content *****************************************/
+/***************************** Main Content ****************************************/
 
 #mainContent{
 	border-left:@mainBorder;
 	border-right:@mainBorder;
+
 }
 
 main{
 .column(12);
-
 
 	.profile{
 	.column(3);

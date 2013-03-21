@@ -52,6 +52,7 @@ class Site extends CI_Controller {
 	public function index()
 	{	
 		$this->data['main_content'] = 'mainpage';
+		//$data['header_content'] = 'includes/headerout';
 
 		//load the postings
 		$this->load->model('listings_model');

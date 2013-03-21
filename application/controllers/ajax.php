@@ -169,7 +169,6 @@ class ajax extends CI_Controller {
 		$this->data['skills'] = $this->listings_model->skillList();
 
 		$this->data['main_content'] = 'includes/message_view';
-		$this->data['aside_content'] = 'includes/aside';
 		$this->load->view('includes/template', $this->data);
 	     
 	   }
@@ -290,8 +289,6 @@ class ajax extends CI_Controller {
 
 	//send a list of skills for the dropdown function
 	$this->data['skills'] = $this->listings_model->skillList();
-
-	$this->data['aside_content'] = 'includes/aside';
 
 	$this->data['main_content'] = 'searchResults';
 

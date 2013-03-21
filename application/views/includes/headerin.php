@@ -4,7 +4,8 @@
 	<div class="bgWrapper">
 	<section class="mainWrapper">
 		<header class="row">
-		<fieldset>
+		    
+			<fieldset>
 		     		<?php echo form_open('') ?>
 		     		<input type="text" placeholder="Search" name="search" id="search" value="<?php echo set_value('search');?>">
 		     		
@@ -26,15 +27,3 @@
 	</section><!-- mainWrapper -->
 	</div><!-- bgWrapper -->
 	
-	<!-- ************************ Hero Unit ************************** 
-
-		<div class="bgWrapper" id="heroWrapper" >
-	        <section class="mainWrapper">
-	        	<article class="row">
-		            
-		            <h3>Barterful is a network of online bartering communities. <a href="#">Learn More </a> </h3>
-		            
-		            
-	        	</article>
-	        </section>
-		</div>-->
