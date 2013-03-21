@@ -41,7 +41,7 @@ font-weight:900;
 @logoFont: barterFont, Helvetica, Arial, Sans-serif;
 @mainRed:#D45354;
 @mainBlue:#2FCAD8;
-@mainGreen:#51a351;
+@mainGreen:#A9DC3A;
 @mainOrange:#FF6526;
 @secondGreen:#0CFB4A;
 @thirdGreen: #26FFDE;
@@ -63,29 +63,34 @@ font-family:@baseFont;
 font-weight:100;
 font-size-adjust:none;
 line-height:1.5;
+background:url("../_img/landscape3.jpg") center center;
 	
 }
 
 
 .bgWrapper{
+
+
 	&:first-of-type{
-		background:white;
 		border-bottom:@mainBorder;
 		}
 	&:nth-of-type(2){
-		background:@whiteSmoke;
+	background-color:rgba(255,255,255,0.6);
+
 	.box-shadow(0 3px 2px #999);
-	//.inner-shadow(0, 1px, 2px, 0.4);
 	}
 	&:nth-of-type(3){
+
 		.inner-shadow(0, 1px, 2px, 0.4);
+		//background:#B7EAF6;
+
 	}
 	&:nth-of-type(4){
 		.inner-shadow(0, 1px, 2px, 0.4);
 	}
 }
 
-.bgWrapper > .mainWrapper{
+.mainWrapper{
 padding-top:20px;
 padding-bottom:20px;
 width:80%;
@@ -102,27 +107,25 @@ button, input[type="submit"]{
 	padding:5px;
 	color:black;
 	text-transform: uppercase;
-	border:1px solid @mainGreen;
+	border:@mainBorder;
 	&:hover{
 		cursor:pointer;
-		color:@darkGray;
+		color:@mainGreen;;
 	}
 }
 
 .button1{
 text-transform: uppercase;
-color:@mainBlue;
-text-shadow:1px 1px @mainBlue;
+color:@whiteSmoke;
+text-shadow:0px -1px 1px black;
 	&:hover{
-	color:@mainRed;
-	text-shadow:1px 1px @mainRed;
+	color:@mainGreen;
+	opacity:0.8;
 	}
 }
 
 
-a{
-text-decoration:none;
-}
+a{text-decoration:none;}
 
 .left{float:left;}
 
@@ -150,13 +153,7 @@ input[type="text"],input[type="password"]{
 input[type="submit"]{
 	cursor:pointer;
 }
-input[type="radio"] + label{
-	color:@mainBlue;
-}
 
-input[type="radio"]:checked + label {
-		color:@mainRed;
-}
 
 //used for validation error messages
 .error{
@@ -172,15 +169,17 @@ input[type="radio"]:checked + label {
 
 header{
 
+
 	.logo
 	{
 	font-family:@logoFont;
-	color:@mainRed;
+	color:@whiteSmoke;
 	font-size:2em;
 	text-shadow:0px -1px 1px black;
 	line-height:1em;
 	.scale(4);
 	&:hover{
+	color:@mainGreen;
 		opacity:.8;
 	       }
 	}
@@ -206,6 +205,7 @@ header{
 	
 	nav{
 	.column(4);
+	
 
 	ul{
 	float:right;
@@ -225,19 +225,31 @@ header{
 /****************************drop down list*****************************************/
 
 #dropdown{
+
+
 	fieldset{
-		color:@mainRed;
+		color:@darkGray;
+		
 	}
-	form{.column(3);}
+	form{text-align: justify;
+	.column(3);}
 	
 	select{
 		background:@whiteSmoke;
 		color:black;
 		border:@mainBorder;	
-		option:hover{
-			background:@mainRed;
+		&:hover{
+			background:@mainGreen;
 		}
 	}
+	input[type="radio"] + label{
+	color:@darkGray;
+}
+
+input[type="radio"]:checked + label {
+		color:@mainRed;
+
+		}
 	
 }
 
@@ -246,26 +258,126 @@ header{
 /***************************** Main Content ****************************************/
 
 #mainContent{
-	border-left:@mainBorder;
-	border-right:@mainBorder;
+
+	background: url("../_img/bulletin7.jpg");
+	.inner-shadow(4px, 4px, 4px, 0.6);
+
 
 }
 
 main{
 .column(12);
 
+/*This bit is taken from www.2expertsdesign.com, with my own modifications*/
+#adContainer{
+padding:20px 0px 20px 0px;
+position: relative;
+left:3%;
+.column(4);
+
+
+}
+
+.paper{
+position:relative;
+	width:250px;
+	height: 170px;
+	background-color:#faf8e5;
+	border:1px solid #e3e3e3;
+	margin-right:2px;
+}
+
+.red-line{
+	height:100%;
+	width:1px;
+	background-color:@mainRed;
+	float:left;
+	margin-left:4px;
+}
+
+.first{margin-left:40px;}
+
+ul#lines{margin-top:20px;}
+
+ul#lines li{
+	color:@mainBlue;
+	width:245px;
+	border-top:1px solid #f2f0df;
+	margin:0 auto;
+	&:nth-of-type(1){padding-right:5px;}
+	&:nth-of-type(3){
+		font-family:@logoFont;
+		font-size:1em;
+		font-weight: 800;
+		color: @mainRed;
+	}
+	&:nth-of-type(4){font-style: italic;}
+}
+img{
+	padding:5px;
+}
+
+
+
+
+.tape{
+	position:absolute;
+	top:-15px;
+	right:55px;
+	width:130px;
+	height:35px;
+	background-color: yellow;
+	opacity:0.3;
+	border-left:1px dashed rgba(0,0,0,0.1);
+	border-right:1px dashed rgba(0,0,0,0.1);
+	.box-shadow(0px 0px 1px #cccccc);
+	-webkit-transform: rotate(-2deg) skew(0,0) translate(0%,-5px);
+    -moz-transform: rotate(-2deg) skew(0,0) translate(0%,-5px);
+    -o-transform: rotate(-2deg) skew(0,0) translate(0%,-5px);
+    transform: rotate(-2deg) skew(0,0) translate(0%,-5px);
+    &:nth-child(1){color:blue;}
+
+}
+
+.left-shadow{
+	width:140px;
+	height:140px;
+	bottom:-5px;
+	left:-12px;
+	position:absolute;
+	z-index:-6;
+	display:inline-block;
+	.box-shadow(-10px -10px 10px rgba(0,0,0,0.4));
+	-moz-transform: scale(1) rotate(274deg) translate(20px, 25px) skew(9deg, 0deg);
+    -webkit-transform: scale(1) rotate(274deg) translate(20px, 25px) skew(9deg, 0deg);
+    -o-transform: scale(1) rotate(274deg) translate(20px, 25px) skew(9deg, 0deg);
+    -ms-transform: scale(1) rotate(274deg) translate(20px, 25px) skew(9deg, 0deg);
+    transform: scale(1) rotate(274deg) translate(20px, 25px) skew(9deg, 0deg);
+}
+
+.right-shadow{
+	width:140px;
+	height:140px;
+	bottom:-13px;
+	right:-4px;
+	position:absolute;
+	z-index:-6;
+	display:inline-block;
+	.box-shadow(-10px -10px 10px rgba(0,0,0,0.4));
+	-moz-transform: scale(1) rotate(184deg) translate(20px, 25px) skew(9deg, 0deg);
+    -webkit-transform: scale(1) rotate(184deg) translate(20px, 25px) skew(9deg, 0deg);
+    -o-transform: scale(1) rotate(184deg) translate(20px, 25px) skew(9deg, 0deg);
+    -ms-transform: scale(1) rotate(184deg) translate(20px, 25px) skew(9deg, 0deg);
+    transform: scale(1) rotate(184deg) translate(20px, 25px) skew(9deg, 0deg);
+    }
+
 	.profile{
 	.column(3);
 	margin-bottom:20px;
-.box-shadow(4px 4px 4px #999);
+	.box-shadow(4px 4px 4px #999);
 	color:whitesmoke;
-	width:234px;
+	width:222px;
 	.rounded(2px);
-	
-	*{
-		margin-top:5px;
-		margin-left:5px;
-	}
 	
 		&:nth-child(3n+1){
 			background:@mainBlue;
@@ -276,21 +388,17 @@ main{
 		&:nth-child(4n-2){
 			background:@mainBlue;
 		}
-	
-	}
-	p{
-		&:nth-of-type(2){
-			font-style: italic;
-		}
-	}
-	
+	img{padding-right:1px;}
+	p{&:nth-of-type(2){font-style: italic;}}
+	}    
+
 }
 
 
-/***************************** Footer *****************************************/
+/***************************** Footer *********************************/
 
 #footerWrapper{
-background:@whiteSmoke;
+background-color:rgba(255,255,255,0.6);
 color:@darkGray;
 }
 
@@ -300,6 +408,7 @@ text-align:center;
 i{
 	color:@darkGray;
 	&:hover{
+	color:@mainRed;
 		opacity:.8;
 		cursor:pointer;
 	}
@@ -308,6 +417,7 @@ i{
 	li{
 	display:inline;
 		&:hover{
+		color:@mainRed;
 			opacity:.8;
 			cursor:pointer;
 		}
@@ -327,6 +437,9 @@ main{
 	.profile{
 		.column(12);
 		}
+		#adContainer{
+		.column(12);
+	}
 	}
 }
 
@@ -341,17 +454,16 @@ main{
 header{
 h1{
 	.column(12);
-	text-align:center;
+
 }
-	fieldset,nav,{
+	fieldset,nav{
 		.column(12);
 		text-align: center;
 		padding-bottom:20px;
 		
 	}
+	ul{margin:0 auto;}
 }
-
-
 
 #dropdown{
 	form{
@@ -365,8 +477,14 @@ main{
 	.profile{
 		.column(6);
 		width:200px;
-		margin-bottom:20px;
+		
 	}
+	#adContainer{
+		.column(8);
+		padding:20px;
+		margin:0 auto;
+	}
+	
 }
 }
 
@@ -376,6 +494,10 @@ main{
 	.profile{
 		.column(4);
 		width:200px;
+		margin-bottom:20px;
+	}
+	#adContainer{
+		.column(6);
 		margin-bottom:20px;
 	}
 }

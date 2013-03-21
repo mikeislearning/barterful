@@ -78,6 +78,7 @@ class Login extends CI_Controller {
 	function create_member()
 	{
 		$this->load->library('form_validation');
+		$this->load->helper('captcha');
 		//validation rules
 
 		$this->form_validation->set_rules('first_name', 'Name', 'trim|required');

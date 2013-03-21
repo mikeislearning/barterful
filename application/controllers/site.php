@@ -23,7 +23,6 @@ class Site extends CI_Controller {
 		 parent::__construct();
 		 $this->logged_in();
 		 
-		 
 	 }
 	 
 	 var $data;
@@ -40,8 +39,6 @@ class Site extends CI_Controller {
 			 $this->data['header_content'] = 'includes/headerin';
 		 }
 	 }
-	 
-	 
 	 
 	 
 	public function landing()
