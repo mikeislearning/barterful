@@ -1,21 +1,41 @@
 <div class="bgWrapper">
-        <section class="mainWrapper">
-         
-          <div class="row">
-            <main>                    
+    <section class="mainWrapper">
+     <a href="#" id="inbox">Inbox</a> --- <a href='#' id="sent">Sent</a>
+      	
+      <div class="row">
+      	
+        <main>                    
 
-            	<?php if($row) foreach ($row as $r):?>
-	            
-	            <article class="profile">
-                <section class="info">
-	            
-		            <p><?php echo $r->sender ?> offers <?php echo $r->s_from ?> (<?php echo $r->mes_from_unit ?>) for <?php echo $r->s_to ?> (<?php echo $r->mes_to_unit ?>)</p>
-		            <p><?php echo $r->mes_date ?></p>
-		            <p>"<?php echo $r->mes_message ?>"</p>
-	            </section>
-	        </article>
-	            <?php endforeach; ?>
+        	<!-- **********************************************************************************************
+           Why load another view? The AJAX function returns a view from the controller in HTML form (in this case
+            listInbox), which is then written to the <main> element with jQuery .done. If there is any 
+            formatting in the view returned to AJAX, the <main> tag ends up with duplicate wrappers/styling
+            *********************************************************************************************** -->
 
-				<?php if(!$row) echo "There are no messages in your inbox!"; ?>
-            
-            </main>  
+        	<?php $this->load->view('includes/listInbox.php'); ?>
+        
+        </main>  
+<script>
+	$(document).ready(function()
+		{
+			//check which view the user selected, then send it to the AJAX function
+			$('#inbox').click(function()
+			{
+				switchview('inbox');
+			});
+
+			$('#sent').click(function()
+			{
+				switchview('outbox');
+			});
+
+			function switchview(type){
+      			var send_url = '<?=base_url()?>' + 'index.php/ajax/inbox';
+
+				$.post(send_url, { view: type }).done(function(msg){
+		                    $('main').html(msg);
+		                }).fail(function(){$('main').html('Could not load!');});
+      		}
+		})
+	
+	</script>

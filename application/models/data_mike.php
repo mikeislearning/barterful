@@ -1,7 +1,7 @@
 <?php
 
 class Data_model extends CI_Model{
-	
+
 /* THIS IS THE MOST BASIC VERSION OF A SELECT ALL
 	function getAll(){
 		$query = $this->db->query("SELECT * FROM news");
@@ -10,7 +10,7 @@ class Data_model extends CI_Model{
 				$data[]=$row;
 			}
 			return $data;
-		}
+		}//meow meow meow
 		
 	}
 */

@@ -23,7 +23,6 @@ class Site extends CI_Controller {
 		 parent::__construct();
 		 $this->logged_in();
 		 
-		 
 	 }
 	 
 	 var $data;
@@ -42,8 +41,6 @@ class Site extends CI_Controller {
 	 }
 	 
 	 
-	 
-	 
 	public function landing()
 	{
 		$this->load->view('landingpage');//I AM TESTING ZIS THING
@@ -53,7 +50,6 @@ class Site extends CI_Controller {
 	{	
 		$this->data['main_content'] = 'mainpage';
 		//$data['header_content'] = 'includes/headerout';
-		$this->data['aside_content'] = 'includes/aside';
 
 		//load the postings
 		$this->load->model('listings_model');
@@ -65,16 +61,18 @@ class Site extends CI_Controller {
 
 	}
 
-	public function ajax()
+	public function sortListings()
 	{
 
 		//load the postings
 		$this->load->model('listings_model');
 
+		//set the default values to send through to the sort function
 		$type = "skills";
 		$sortset = "p_fname";
 		$category = "all";
-		//$type = $this->input->get('type');
+
+		//check if these values were sent through and assign them to the variables
 		if(isset($_POST['type']))
 		{
 			$type = $_POST['type'];
@@ -90,15 +88,15 @@ class Site extends CI_Controller {
 			$category = $_POST['category'];
 		}
 
+		//get the new listing from the listings_model
 		$this->data['row'] = $this->listings_model->listAll($type,$sortset,$category);
 
-		$this->load->view('includes/list',$this->data);
+		$this->load->view('includes/listPostings',$this->data);
 	}
 	
 	public function contact()
 	{
 		$this->data['main_content'] = 'contact';
-		$this->data['aside_content'] = 'includes/aside';
 		$this->load->view('includes/template', $this->data);
 	}
 	
