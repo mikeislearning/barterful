@@ -61,15 +61,66 @@ class Members extends CI_Controller {
 	   }
  }
  
- function profile()
+function profile()
 	 {
 		 if($this->session->userdata('logged_in'))
 		   {
-		 
+		   $newdata = $this->session->userdata('logged_in');
+		   $session_data['username'] = $newdata['username'];
+
+//this section loads the profile displayed based on the user's id in the session
+//get array of id's	
+$id = $this->session->userdata('userid');
+
+		//get the id value from the first pair in the array
+		$id = $id[0]->m_id;	 
+		$this->load->model('profile_model');
+		$this->data['main_content'] = 'profile_form';
+		$this->load->view('includes/template', $this->data);
+		
+		
 		 }
 	 }
+	 
+	
 
- function inbox()
+	function create_profile()
+	{
+		$this->load->library('form_validation');
+		$this->load->helper('captcha');
+		//validation rules
+
+//don't need first_name and last_Name to signup
+	$this->form_validation->set_rules('first_name', 'Name', 'trim|required');
+	$this->form_validation->set_rules('last_name', 'Last Name', 'trim|required');
+		//$this->form_validation->set_rules('email', 'Email Address', 'trim|required|valid_email|callback_check_if_email_exists');
+		//$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|callback_check_if_username_exists');
+		//$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[32]');
+		//$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'trim|required|matches[password]');
+
+		if($this->form_validation->run() == FALSE)//didn't validate
+			{
+			$this->profile();
+
+		}
+
+		else
+		{
+			$this->load->model('membership_model');
+			if($query = $this->membership_model->create_member())
+			{
+				//you make a data variable in this block
+				$this->data['account_created'] = 'Your account has been created. <br/><br/>You may now login';
+				$this->index();
+			}
+			else
+			{
+				$this->signup();
+			}
+		}
+	}
+	
+	 function inbox()
  {
 	 if($this->session->userdata('logged_in'))
 	   {
