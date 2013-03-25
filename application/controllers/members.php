@@ -68,15 +68,25 @@ function profile()
 		   $newdata = $this->session->userdata('logged_in');
 		   $session_data['username'] = $newdata['username'];
 
+
+$id = $this->session->userdata('userid');
+
+		//get the id value from the first pair in the array
+		$id = $id[0]->m_id;
+
 //this section loads the profile displayed based on the user's id in the session
 //get array of id's	
 $id = $this->session->userdata('userid');
 
 		//get the id value from the first pair in the array
 		$id = $id[0]->m_id;	 
-		$this->load->model('profile_model');
+		//$this->load->model('profile_model');
 		$this->data['main_content'] = 'profile_form';
 		$this->load->view('includes/template', $this->data);
+		$this->load->model('profile_model');
+		//$data['idu'] = "THIS IS AN ID";
+		$data['row'] = $this->profile_model->getProfile($id);
+		//$this->load->view('includes/template', $this->data);
 		
 		
 		 }
@@ -86,8 +96,10 @@ $id = $this->session->userdata('userid');
 
 	function create_profile()
 	{
+	
 		$this->load->library('form_validation');
 		$this->load->helper('captcha');
+		$this->load->helper('date');
 		
 			$id = $this->session->userdata('userid');
 
