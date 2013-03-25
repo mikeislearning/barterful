@@ -50,6 +50,7 @@ class Members extends CI_Controller {
 
 	    $this->data['main_content'] = 'members_area';
 		$this->load->view('includes/template', $this->data);
+		
 	     
 	   }
 	   else
@@ -89,7 +90,6 @@ class Members extends CI_Controller {
 		if($this->form_validation->run() == FALSE)//didn't validate
 			{
 			$this->profile();
-
 		}
 
 		else
@@ -106,8 +106,8 @@ class Members extends CI_Controller {
 				$this->profile();
 			}
 		}
-	}
 	
+	}
 	
 function profile()
 	 {
@@ -117,10 +117,14 @@ function profile()
 		   $session_data['username'] = $newdata['username'];
 
 
-$id = $this->session->userdata('userid');
+    $newdata = $this->session->userdata('logged_in');
+		$session_data['username'] = $newdata['username'];
+		
+		//---------------------------------------------------------------------------------//
+		//this section loads the listings displayed based on the user's id in the session
+		//---------------------------------------------------------------------------------//
+		//get the array of id's (there should just be one in the array)
 
-		//get the id value from the first pair in the array
-		$id = $id[0]->m_id;
 
 //this section loads the profile displayed based on the user's id in the session
 //get array of id's	
@@ -129,11 +133,16 @@ $id = $this->session->userdata('userid');
 		//get the id value from the first pair in the array
 		$id = $id[0]->m_id;	 
 		//$this->load->model('profile_model');
+		$this->load->model('profile_model');
+		
+$this->data['profile'] = $this->profile_model->getProfile($id);
 		$this->data['main_content'] = 'profile_form';
 		$this->load->view('includes/template', $this->data);
-		$this->load->model('profile_model');
+		
 		//$data['idu'] = "THIS IS AN ID";
 		$data['row'] = $this->profile_model->getProfile($id);
+		
+		//$this->load->view('includes/template', $this->data);
 		//$this->load->view('includes/template', $this->data);
 		
 		

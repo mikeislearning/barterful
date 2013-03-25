@@ -8,23 +8,32 @@ $id = $this->session->userdata('userid');
 		//get the id value from the first pair in the array
 		$id = $id[0]->m_id;
 
-				$query = $this->db->query("
+				$queryProfile = $this->db->query("
 				Select p.p_id, p_fname, p_lname, p_last_updated
 				FROM profiles p
 				JOIN members m on p.m_id = m.m_id
 				WHERE m.m_id =".$id);
 				
-				
+
+		
+		foreach($queryProfile->result() as $k=>$r)
+		{
+			$profile[]=$r;
+		}
+
+		return $profile;
+		
+	}	
 	
 
-foreach ($query->result() as $row)
+/*foreach ($query->result() as $row)
 {
    echo $row->p_id;
    echo $row->p_fname;
    echo $row->p_lname;
 }
 
-}
+}*/
 
 function create_profile() {
 	$this->load->helper('date');
