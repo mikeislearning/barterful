@@ -1,3 +1,5 @@
+<?php foreach ($member as $m):?>
+<?php foreach ($profile as $p):?>
 <div class="bgWrapper">
         <section class="mainWrapper">
         	<div class="row">
@@ -9,14 +11,19 @@
 
 <?php
 
-foreach ($profile as $p)
+echo "Username: " .$this->session->userdata('username') ."<br/>";
+echo "First Name: " .$p->p_fname ."<br/>";
+echo "Last Name: " .$p->p_lname ."<br/>";
+echo "Gender: " . $m->m_sex . "<br/>";
+
+/*foreach ($profile as $p)
 { 
 echo "Username: " .$this->session->userdata('username') ."<br/>";
-
 echo "First Name: ".$p->p_fname . "<br/>";
 echo "Last Name: ".$p->p_lname . "<br/>";
+}*/
 
-}
+
 /*foreach ($query->result() as $row)
 {
    echo $row->p_id;
@@ -39,4 +46,6 @@ echo form_close();
 
             
             </main>
- 
+ <?php endforeach; 
+	 endforeach; 
+ ?>

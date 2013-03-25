@@ -8,14 +8,14 @@ $id = $this->session->userdata('userid');
 		//get the id value from the first pair in the array
 		$id = $id[0]->m_id;
 
-				$queryProfile = $this->db->query("
+//get the profile info based on the member
+		$queryProfile = $this->db->query("
 				Select p.p_id, p_fname, p_lname, p_last_updated
 				FROM profiles p
 				JOIN members m on p.m_id = m.m_id
 				WHERE m.m_id =".$id);
 				
-
-		
+				
 		foreach($queryProfile->result() as $k=>$r)
 		{
 			$profile[]=$r;
@@ -23,8 +23,25 @@ $id = $this->session->userdata('userid');
 
 		return $profile;
 		
+		
 	}	
 	
+function getMemberInfo() {
+$id = $this->session->userdata('userid');
+
+		//get the id value from the first pair in the array
+		$id = $id[0]->m_id;
+		
+	$queryMember = $this->db->get_where('members', array('m_id'=>$id));
+		
+		foreach ($queryMember->result() as $k=>$r)
+		{
+			$member[]=$r;
+		}
+		
+		return $member;
+		
+}	
 
 /*foreach ($query->result() as $row)
 {

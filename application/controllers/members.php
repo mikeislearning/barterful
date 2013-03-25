@@ -136,11 +136,13 @@ $id = $this->session->userdata('userid');
 		$this->load->model('profile_model');
 		
 $this->data['profile'] = $this->profile_model->getProfile($id);
+$this->data['member'] = $this->profile_model->getMemberInfo($id);
+
 		$this->data['main_content'] = 'profile_form';
 		$this->load->view('includes/template', $this->data);
 		
 		//$data['idu'] = "THIS IS AN ID";
-		$data['row'] = $this->profile_model->getProfile($id);
+		//$data['row'] = $this->profile_model->getProfile($id);
 		
 		//$this->load->view('includes/template', $this->data);
 		//$this->load->view('includes/template', $this->data);
