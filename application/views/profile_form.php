@@ -4,6 +4,9 @@
             <main>
             
 <h1>Update Your Profile</h1>
+
+
+
 <?php
 echo form_open('members/create_profile');
 echo form_input('first_name', set_value('first_name', ''),'placeholder="First Name"');
