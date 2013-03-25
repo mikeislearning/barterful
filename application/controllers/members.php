@@ -88,8 +88,14 @@ $id = $this->session->userdata('userid');
 	{
 		$this->load->library('form_validation');
 		$this->load->helper('captcha');
-		//validation rules
+		
+			$id = $this->session->userdata('userid');
 
+		//get the id value from the first pair in the array
+		$id = $id[0]->m_id;
+		$this->load->model('profile_model');
+		
+		//validation rules
 //don't need first_name and last_Name to signup
 	$this->form_validation->set_rules('first_name', 'Name', 'trim|required');
 	$this->form_validation->set_rules('last_name', 'Last Name', 'trim|required');
@@ -106,16 +112,16 @@ $id = $this->session->userdata('userid');
 
 		else
 		{
-			$this->load->model('membership_model');
-			if($query = $this->membership_model->create_member())
+			$this->load->model('profile_model');
+			if($query = $this->profile_model->create_profile())
 			{
 				//you make a data variable in this block
-				$this->data['account_created'] = 'Your account has been created. <br/><br/>You may now login';
-				$this->index();
+				$this->data['profile_created'] = 'Your profile has been updated. <br/>';
+				$this->profile();
 			}
 			else
 			{
-				$this->signup();
+				$this->profile();
 			}
 		}
 	}
