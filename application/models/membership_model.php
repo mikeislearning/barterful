@@ -29,11 +29,11 @@ class Membership_model extends CI_Model {
 		$username = $this->input->post('username');
 		
 		$new_member_insert_data = array (
-		'first_name' => $this->input->post('first_name'),
-		'last_name' => $this->input->post('last_name'),
-		'm_email' => $this->input->post('email'),
+		//'first_name' => $this->input->post('first_name'),
+		//'last_name' => $this->input->post('last_name'),
 		'm_username' => $this->input->post('username'),
-		'm_sex' => $this->input->post('username'),
+		'm_email' => $this->input->post('email'),
+		'm_sex' => $this->input->post('sex'),
 		//we run the md5 function so we can store 32 bit hash in our database
 		'm_password' => md5($this->input->post('password'))
 		);
@@ -44,7 +44,7 @@ class Membership_model extends CI_Model {
 	}
 	
 	function check_if_username_exists($username) {
-	$this->db->where('username', $username);
+	$this->db->where('m_username', $username);
 	$result = $this->db->get('members');
 	
 	if($result->num_rows() > 0 ){
@@ -60,7 +60,7 @@ class Membership_model extends CI_Model {
 	}
 	
 	function check_if_email_exists($email) {
-		$this->db->where('email', $email);
+		$this->db->where('m_email', $email);
 		$result = $this->db->get('members');
 		
 		if($result->num_rows() > 0 ){
