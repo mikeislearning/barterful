@@ -8,6 +8,12 @@
             <main>     
             	<?php 
 					echo "Welcome to ".$this->session->userdata('username')."'s profile";
+					$id = $this->session->userdata('userid');
+
+		//get the id value from the first pair in the array
+		$id = $id[0]->m_id;
+		echo $id;
+		
 				?>
 
               <!-- **************************************************************************************************
