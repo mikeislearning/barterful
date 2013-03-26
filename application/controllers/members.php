@@ -65,7 +65,7 @@ class Members extends CI_Controller {
 
 	
 
-	function create_profile()
+	function updateProfile()
 	{
 	
 		$this->load->library('form_validation');
@@ -95,7 +95,7 @@ class Members extends CI_Controller {
 		else
 		{
 			$this->load->model('profile_model');
-			if($query = $this->profile_model->create_profile())
+			if($query = $this->profile_model->updateProfile())
 			{
 				//you make a data variable in this block
 				$this->data['profile_created'] = 'Your profile has been updated. <br/>';

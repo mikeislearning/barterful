@@ -15,6 +15,8 @@ class profile_model extends CI_Model {
     $this->thumbs_path = realpath(APPPATH.'../uploads/thumbs');
   }
   
+
+  
 function getProfile(){
 
 $id = $this->session->userdata('userid');
@@ -58,7 +60,7 @@ $id = $this->session->userdata('userid');
 }	
 
 
-function create_profile() {
+function updateProfile() {
 	$this->load->helper('date');
 	
 $id = $this->session->userdata('userid');
