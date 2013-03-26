@@ -1,5 +1,5 @@
-<?php foreach ($member as $m):?>
-<?php foreach ($profile as $p):?>
+<?php if($member) foreach ($member as $m):?>
+<?php if($profile) foreach ($profile as $p):?>
 <div class="bgWrapper">
         <section class="mainWrapper">
         	<div class="row">
@@ -9,8 +9,8 @@
 
 
 
-<?php
 
+<?php
 
 
 echo '<img src="../../uploads/' .$p->p_img .'"/>' . '<br/>';
@@ -25,10 +25,18 @@ Upload a new image:
 
 </form>
 <?php
+
 echo "Username: " .$this->session->userdata('username') ."<br/>";
-echo "First Name: " .$p->p_fname ."<br/>";
-echo "Last Name: " .$p->p_lname ."<br/>";
+if(!empty($p->p_fname)){
+	echo "First Name: " .$p->p_fname ."<br/>";
+};
+if(!empty($p->p_fname)){
+echo "Last: Name: " .$p->p_lname ."<br/>";
+};
+
+if(!empty($p->p_fname)){
 echo "Gender: " . $m->m_sex . "<br/>";
+};
 
 /*foreach ($profile as $p)
 { 
@@ -62,3 +70,17 @@ echo form_close();
             </main>
  <?php endforeach; 
 	 endforeach; ?>
+	 
+	 
+<?php if(!$member) echo "There is no one matching that description!"; ?>
+
+
+<!--HOW DO I MAKE IT DO WHAT IT DOES WHEN IT REFRESHES-->
+<?php if(!$profile)
+ if(!isset($profile))
+ {
+
+}
+
+	
+?>

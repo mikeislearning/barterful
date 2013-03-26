@@ -21,6 +21,7 @@ function getProfile(){
 
 $id = $this->session->userdata('userid');
 
+
 		//get the id value from the first pair in the array
 		$id = $id[0]->m_id;
 
@@ -30,17 +31,61 @@ $id = $this->session->userdata('userid');
 				FROM profiles p
 				JOIN members m on p.m_id = m.m_id
 				WHERE m.m_id =".$id);
-				
-				
+	
+	//if the user has already created a profile return their profile info
+	if($queryProfile->num_rows == 1) {
+			
+			
 		foreach($queryProfile->result() as $k=>$r)
 		{
 			$profile[]=$r;
 		}
+		
+		
+		
 
 		return $profile;
+		}
 		
+		//if they don't have a profile created yet
+		else
+		{ 
+		$this->createProfile();
+
+			
+		}
 		
 	}	
+//createProfile	
+function createProfile() {
+	$this->load->helper('date');
+	
+//gets user id fmor session array	
+$id = $this->session->userdata('userid');
+$id = $id[0]->m_id;
+
+//get the current time
+$time =  date('Y-m-d H:i:s');
+//getting the username from the post array storing it in username and getting the data ready to insert
+		$username = $this->input->post('username');
+		
+		$new_profile_insert_data = array (
+		'p_fname' => $this->input->post('first_name'),
+		'p_lname' => $this->input->post('last_name'),
+		'm_id' => 	$id,
+		'p_last_updated' => $time		
+				);
+		//doing our update
+		
+//gets the id and updates the profile according to the m_id foreign key
+$this->db->where('m_id', $id);
+$this->db->insert('profiles', $new_profile_insert_data); 
+
+$this->getProfile();
+
+	}
+	
+	
 	
 function getMemberInfo() {
 $id = $this->session->userdata('userid');
@@ -80,8 +125,8 @@ echo $time;
 		
 		//getting the username from the post array storing it in username and getting the data ready to insert
 		$username = $this->input->post('username');
-		
-		$new_profile_insert_data = array (
+	
+		$update_profile_insert_data = array (
 		'p_fname' => $this->input->post('first_name'),
 		'p_lname' => $this->input->post('last_name'),
 		'm_id' => 	$id,
@@ -91,7 +136,7 @@ echo $time;
 		
 //gets the id and updates the profile according to the m_id foreign key
 $this->db->where('m_id', $id);
-$this->db->update('profiles', $new_profile_insert_data); 
+$this->db->update('profiles', $update_profile_insert_data); 
 	}
 
 	

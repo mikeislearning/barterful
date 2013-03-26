@@ -63,6 +63,53 @@ class Members extends CI_Controller {
  }
  
 
+
+	function createProfile()
+	{
+	
+		$this->load->library('form_validation');
+		$this->load->helper('captcha');
+		$this->load->helper('date');
+		
+			$id = $this->session->userdata('userid');
+
+		//get the id value from the first pair in the array
+		$id = $id[0]->m_id;
+		$this->load->model('profile_model');
+		
+		//validation rules
+//don't need first_name and last_Name to signup
+	$this->form_validation->set_rules('first_name', 'Name', 'trim|required');
+	$this->form_validation->set_rules('last_name', 'Last Name', 'trim|required');
+		//$this->form_validation->set_rules('email', 'Email Address', 'trim|required|valid_email|callback_check_if_email_exists');
+		//$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|callback_check_if_username_exists');
+		//$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[32]');
+		//$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'trim|required|matches[password]');
+
+		if($this->form_validation->run() == FALSE)//didn't validate
+			{
+			$this->profile();
+		}
+
+		else
+		{
+			$this->load->model('profile_model');
+			if($query = $this->profile_model->createProfile())
+			{
+				//you make a data variable in this block
+				$this->data['profile_created'] = 'Your profile has been created. <br/>';
+				$this->profile();
+			}
+			else
+			{
+				$this->profile();
+			}
+		}
+	
+	}
+	
+
+
 	
 
 	function updateProfile()
