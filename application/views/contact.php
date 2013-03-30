@@ -35,12 +35,31 @@
             <?php echo form_input($email_data);?>
             <p><label for="message">Message:</label> </p>
             <?php echo form_textarea($message_data);?>
+
+            <?php
+              require_once('recaptchalib.php');
+              $publickey = "6LdvIN8SAAAAAAaYK6YYeBk7eIMmWJPLWDOFHxHO"; // You got this from the signup page.
+              echo recaptcha_get_html($publickey);
+
+                        ?>
             
 
             <p><?php echo form_submit('submit', 'Submit','id="submit"');//two parameters refer to name and value ?></p><?php echo form_close(); ?><?php echo validation_errors('<p class="error">'); ?><!-- Print out the validation errors -->
             
             </main>
             
+            <script type="text/javascript"
+       src="http://www.google.com/recaptcha/api/challenge?k=6LdvIN8SAAAAAAaYK6YYeBk7eIMmWJPLWDOFHxHO">
+    </script>
+    <noscript>
+       <iframe src="http://www.google.com/recaptcha/api/noscript?k=6LdvIN8SAAAAAAaYK6YYeBk7eIMmWJPLWDOFHxHO"
+           height="300" width="500" frameborder="0"></iframe><br>
+       <textarea name="recaptcha_challenge_field" rows="3" cols="40">
+       </textarea>
+       <input type="hidden" name="recaptcha_response_field"
+           value="manual_challenge">
+    </noscript>
+
             <script type="text/javascript">
             
             /*$('#submit').click(function(){

@@ -3,7 +3,6 @@
     <head>
            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0 "/>
-        <link rel="stylesheet" type="text/css" href="<?php echo base_url('refs/_styles/main.css');?>" media="all" />
 
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700|Open+Sans+Condensed:300,300italic,700' rel='stylesheet' type='text/css' />
         <style>
@@ -19,10 +18,15 @@
         .error{
 	        color:red;
         }
-        body{
+        body,h1,h3{
+            font-family:'Open Sans', Helvetica, Arial, serif;
+            font-weight: 100;
        background-color:#ECE6D6;
-       background-image:url(http://www.netmagazine.com/files/tutorials/demos/2012/04/build-a-responsive-website-in-a-week-responsive-typography-and-grids-part-2/demo/_css/_assets/bg-light.png);
-        }
+       }
+
+       input{
+        text-align: center;
+       }
         </style>
        
         

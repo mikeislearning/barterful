@@ -37,6 +37,7 @@ src: url("../_fonts/GiveYouGlory.ttf");
 font-weight:900;
 }
 
+//sets the default colors
 @baseFont: 'Open Sans', Helvetica, Arial, Sans-serif;
 @logoFont: barterFont, Helvetica, Arial, Sans-serif;
 @mainRed:#D45354;
@@ -56,18 +57,17 @@ font-weight:900;
 /***** base font size *******/
 
 
-
+//sets default body characteristics
 body{
 font-size:16px/1em;
 font-family:@baseFont;
 font-weight:100;
 font-size-adjust:none;
 line-height:1.5;
-background:url("../_img/landscape3.jpg") center center;
-	
+background:url("../_img/landscape2.jpg") center center;
 }
 
-
+//bgWrapper surrounds every section of the site
 .bgWrapper{
 
 
@@ -90,6 +90,7 @@ background:url("../_img/landscape3.jpg") center center;
 	}
 }
 
+//mainWrapper surrounds every content section, and is always within a bgWrapper
 .mainWrapper{
 padding-top:20px;
 padding-bottom:20px;
@@ -97,8 +98,10 @@ width:80%;
 margin:0 auto;
 }
 
+//row class is meant for content sections -> this works with grid.less
 .row{.row(12);}
 
+//default submit button styling
 button, input[type="submit"]{
 	.gradient(whitesmoke,@whiteSmoke,@lightGray);
 	text-shadow:1px 1px 1px @darkGray;
@@ -113,7 +116,7 @@ button, input[type="submit"]{
 		color:@mainGreen;;
 	}
 }
-
+//styling for other buttons
 .button1{
 text-transform: uppercase;
 color:@whiteSmoke;
@@ -132,6 +135,7 @@ a{text-decoration:none;}
 .right{	float:right;
 }
 
+//a bunch of input styling
 input[type="text"],input[type="password"],textarea{
 	font-size:1em;
 	.rounded(5px);
@@ -166,6 +170,8 @@ input[type="submit"]{
 
 /***************************** Header *****************************************/
 
+//this header contains search, the logo, and the main nav
+//it is yet to be determined the best way to sort these
 
 header{
 
@@ -223,7 +229,7 @@ header{
 
 
 /****************************drop down list*****************************************/
-
+//this styles the drop down list, but will eventually be totally redone
 #dropdown{
 
 
@@ -256,7 +262,7 @@ input[type="radio"]:checked + label {
 
 
 /***************************** Main Content ****************************************/
-
+//the mainContent area has the bulletin board, and will shortly be expanded on
 #mainContent{
 
 	background: url("../_img/bulletin7.jpg");
@@ -269,13 +275,12 @@ main{
 .column(12);
 
 /*This bit is taken from www.2expertsdesign.com, with my own modifications*/
+// it used to create a post it note sort of look
 #adContainer{
 padding:20px 0px 20px 0px;
 position: relative;
 left:3%;
 .column(4);
-
-
 }
 
 .paper{
@@ -316,9 +321,6 @@ ul#lines li{
 img{
 	padding:5px;
 }
-
-
-
 
 .tape{
 	position:absolute;
@@ -397,6 +399,7 @@ img{
 
 /***************************** Footer *********************************/
 
+//styles the footer, which I'm going to remove soon enough anyways, because it's useless
 #footerWrapper{
 background-color:rgba(255,255,255,0.6);
 color:@darkGray;

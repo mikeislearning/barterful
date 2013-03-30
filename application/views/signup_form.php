@@ -10,7 +10,6 @@ echo form_open('login/create_member');
 //echo form_input('last_name', set_value('last_name', ''),'placeholder="Last Name"');
 echo form_input('username', set_value('username', ''),'placeholder="Username"');
 echo form_input('email', set_value('email', ''),'placeholder="Email Address"');
-echo form_input('sex', set_value('sex', ''),'placeholder="Sex"');
 echo form_password('password', '', 'placeholder="Password" class="password"');
 echo form_password('password_confirm', '', 'placeholder="Confirm Password" class="password_confirm"');
 echo form_submit('submit', 'Create Account');
