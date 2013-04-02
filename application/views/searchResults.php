@@ -2,7 +2,6 @@
        
 <!-- ************************ Main Content ************************** -->    
         <div class="bgWrapper">
-        <section class="mainWrapper">
          
           <div class="row">
             <main>     
@@ -15,6 +14,9 @@
             	<?php $this->load->view('includes/listSearch.php'); ?>
             
             </main>   
+            </div><!-- end div with class row from mainpage -->
+
+        </div> <!-- end bgWrapper from mainpage -->
 <!-- ************************ Side Bar ************************** -->
 
 	        

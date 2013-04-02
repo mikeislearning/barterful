@@ -99,6 +99,19 @@ class Site extends CI_Controller {
 		$this->data['main_content'] = 'contact';
 		$this->load->view('includes/template', $this->data);
 	}
+
+	public function textSearch()
+	{
+		$this->load->model('listings_model');
+
+		
+		$term = $this->input->post('txt_search');
+
+		
+		$this->data['row'] = $this->listings_model->simpleSearch($term);
+		$this->data['main_content'] = 'mainpage';
+		$this->load->view('includes/template', $this->data);
+	}
 	
 	
 }

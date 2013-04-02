@@ -6,12 +6,10 @@
 		<header class="row">
 		    
 			<fieldset>
-		     		<?php echo form_open('') ?>
-		     		<input type="text" placeholder="Search" name="search" id="search" value="<?php echo set_value('search');?>">
-		     		
-		     		<button type="submit" id="search">
-		     		<i class="general foundicon-search"> </i> </button>
-		     				     	
+		     		<?php echo form_open('site/textSearch') ?>
+		     		<input type="text" required="required" placeholder="Search" name="txt_search" id="txt_search" />
+		     		<input type="submit" id="btn_search" name="btn_search" class="general foundicon-search" value="Search" />
+
 		     		<?php echo form_close(); ?>
 		    		</fieldset>
 		    <h1> <a href="<?php echo base_url()?>" class="logo">Barterful</a> </h1>

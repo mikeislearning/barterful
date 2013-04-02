@@ -1,7 +1,5 @@
 
-			</div><!-- end div with class row from mainpage -->
-        </section><!-- end mainWrapper from mainpage-->
-        </div> <!-- end bgWrapper from mainpage -->
+			
 
 <!-- ************************ Footer ************************** -->
    <div class="bgWrapper" id="footerWrapper">

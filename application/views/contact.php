@@ -47,7 +47,9 @@
             <p><?php echo form_submit('submit', 'Submit','id="submit"');//two parameters refer to name and value ?></p><?php echo form_close(); ?><?php echo validation_errors('<p class="error">'); ?><!-- Print out the validation errors -->
             
             </main>
-            
+            </div><!-- end div with class row from mainpage -->
+    </section><!-- end section thing -->
+        </div> <!-- end bgWrapper from mainpage -->
             <script type="text/javascript"
        src="http://www.google.com/recaptcha/api/challenge?k=6LdvIN8SAAAAAAaYK6YYeBk7eIMmWJPLWDOFHxHO">
     </script>

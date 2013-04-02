@@ -5,13 +5,10 @@
 	<section class="mainWrapper">
 		<header class="row">
 		<fieldset>
-		     		<?php echo form_open('') ?>
-		     		<input type="text" placeholder="Search" name="txt_search" id="txt_search" />
-		     		<button type="button" id="btn_search" name="btn_search">
-		     		<i class="general foundicon-search"> </i> </button>
+		     		<?php echo form_open('site/textSearch') ?>
+		     		<input type="text" required="required" placeholder="Search" name="txt_search" id="txt_search" />
+		     		<input type="submit" id="btn_search" name="btn_search" class="general foundicon-search" value="Search" />
 
-
-		     				     	
 		     		<?php echo form_close(); ?>
 		    </fieldset>
 		    
@@ -31,7 +28,7 @@
 	</div><!-- bgWrapper -->
 	
 	
-
+<!--
 <script>
 	$(document).ready(function(){
 		$('#btn_search').click(function(){
@@ -46,4 +43,4 @@
 
 	})
 
-</script>
+</script>-->

@@ -36,10 +36,13 @@
 		             </select>
 		       </fieldset>
 	    	</form>
-		    <form>
-			    <input id="viewtype1" name="viewtype" value="skills" type="radio" checked="checked"><label>Offering</label>
-			    <input id="viewtype2" name="viewtype" value="wants" type="radio"><label>Wanting</label>
-			    <input id="viewtype3" name="viewtype" value="projects" type="radio"><label>Projects</label>
+		    <form class="whichone">
+		    	<ul>
+			   <li class="offer"> <label></label><span></span><input id="viewtype1" name="viewtype" value="skills" type="radio" checked="checked"><span></span></li>
+
+			    <li class="want"><label></label><span></span><input id="viewtype2" name="viewtype" value="wants" type="radio"><span></span></li>
+			   <li class="project"> <label></label><span></span><input id="viewtype3" name="viewtype" value="projects" type="radio"><span></span></li>
+			</ul>
 		    </form>
    		</div><!-- dropdown -->
 	</section>  

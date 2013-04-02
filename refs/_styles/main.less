@@ -44,6 +44,7 @@ font-weight:900;
 @mainBlue:#2FCAD8;
 @mainGreen:#A9DC3A;
 @mainOrange:#FF6526;
+@secondBlue:#1E86B9;
 @secondGreen:#0CFB4A;
 @thirdGreen: #26FFDE;
 
@@ -65,6 +66,7 @@ font-weight:100;
 font-size-adjust:none;
 line-height:1.5;
 background:url("../_img/landscape2.jpg") center center;
+//background:@secondBlue;
 }
 
 //bgWrapper surrounds every section of the site
@@ -80,14 +82,18 @@ background:url("../_img/landscape2.jpg") center center;
 	.box-shadow(0 3px 2px #999);
 	}
 	&:nth-of-type(3){
-
+		
 		.inner-shadow(0, 1px, 2px, 0.4);
-		//background:#B7EAF6;
+		background:#B7EAF6;
 
 	}
 	&:nth-of-type(4){
 		.inner-shadow(0, 1px, 2px, 0.4);
 	}
+}
+
+#bulletinWrapper{
+	background: url("../_img/bulletin7.jpg");
 }
 
 //mainWrapper surrounds every content section, and is always within a bgWrapper
@@ -252,10 +258,92 @@ header{
 	color:@darkGray;
 }
 
-input[type="radio"]:checked + label {
-		color:@mainRed;
+/****************************this form totally restyles the radio buttons*****************************************/
+/********** assistance provided from http://www.andreapinchi.it/style-radio-buttons-css/index.html **************/
+form:nth-child(4){
+position:relative;
+left:117px;
+padding-bottom:20px;
 
-		}
+
+.offer{
+position:relative;
+span{
+	border:@mainBorder;
+	.border-radius(0px,0px,5px,5px)
+}
+span:after, input[type="radio"] + span:after{
+	content: "offering"; /*if CSS are disbled span elements are not displayed*/
+	.border-radius(0px,0px,5px,5px);
+}
+}
+
+.want{ 
+position:relative;
+left:67px;
+
+span{
+	border:@mainBorder;
+}
+span:after, input[type="radio"] + span:after{
+	content: "wanting"; /*if CSS are disbled span elements are not displayed*/
+}
+
+
+}
+
+.project{
+position:relative;
+left:134px;
+
+span{
+	border:@mainBorder;
+	.border-radius(5px,5px,0px,0px);
+}
+
+span:after,input[type="radio"] + span:after{
+	content: "projects"; /*if CSS are disbled span elements are not displayed*/
+	}
+}
+
+span{
+	position: absolute;
+	right:250px;
+	width: 60px;
+	height: 25px;
+	line-height: 25px;
+	padding: 3px;
+	text-align: center;
+	color:@secondBlue;
+	background:white;
+}
+
+input[type="radio"] {
+	position: absolute;
+	right: 250px;
+	margin: 0;
+	width: 60px;
+	height: 31px;
+	/*hide the radio button*/
+	filter:alpha(opacity=0);
+	-moz-opacity:0;
+	-khtml-opacity: 0;
+	opacity: 0;
+    cursor: pointer;
+}
+ 
+input[type="radio"] + span{ /*the span element that immediately follow the radio button */
+	visibility: hidden; /*temporarily hide the "YES" label*/
+	color: white;
+	background:@secondBlue;
+			}
+ 
+
+input[type="radio"]:checked + span{
+	visibility: visible; /*show the "YES" label only if the radio button is checked*/
+			}
+
+	}
 	
 }
 
@@ -263,27 +351,20 @@ input[type="radio"]:checked + label {
 
 /***************************** Main Content ****************************************/
 //the mainContent area has the bulletin board, and will shortly be expanded on
-#mainContent{
 
-	background: url("../_img/bulletin7.jpg");
-	.inner-shadow(4px, 4px, 4px, 0.6);
-
-
-}
 
 main{
 .column(12);
-
 /*This bit is taken from www.2expertsdesign.com, with my own modifications*/
 // it used to create a post it note sort of look
 #adContainer{
 padding:20px 0px 20px 0px;
-position: relative;
-left:3%;
-.column(4);
+position:relative;
+.column(3);
 }
 
 .paper{
+	margin-left:6%;
 position:relative;
 	width:250px;
 	height: 170px;

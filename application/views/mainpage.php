@@ -2,9 +2,9 @@
   <?php $this->load->view('includes/sortListings.php'); ?>
        
 <!-- ************************ Main Content ************************** -->    
-        <div class="bgWrapper">
-        <section class="mainWrapper" id="mainContent">
-         
+        <div class="bgWrapper" id="bulletinWrapper">
+
+  
           <div class="row">
             <main>     
 
@@ -16,6 +16,9 @@
             	<?php $this->load->view('includes/listSearch.php'); ?>
             
             </main>   
+            </div><!-- end div with class row from mainpage -->
+
+        </div> <!-- end bgWrapper from mainpage -->
 <!-- ************************ Side Bar ************************** -->
 
 	        
