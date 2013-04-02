@@ -1,7 +1,7 @@
 <?php 
 class profile_model extends CI_Model {
 	
-	  var $original_path;
+  var $original_path;
   var $resized_path;
   var $thumbs_path;
  
@@ -40,8 +40,6 @@ $id = $this->session->userdata('userid');
 		{
 			$profile[]=$r;
 		}
-		
-		
 		
 
 		return $profile;
@@ -98,8 +96,8 @@ $id = $this->session->userdata('userid');
 		foreach ($queryMember->result() as $k=>$r)
 		{
 			$member[]=$r;
-		}
 		
+		}
 		return $member;
 		
 }	

@@ -25,7 +25,8 @@ function do_upload_profile()
 
 		//get the id value from the first pair in the array
 		$id = $id[0]->m_id;
-			
+		
+			echo $id;
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['max_size']	= '100';
@@ -39,7 +40,9 @@ function do_upload_profile()
 		
 		
 		$this->load->model('profile_model');
-		$this->data['profile'] = $this->profile_model->getProfile($id);
+		$this->data['profile'] = $this->profile_model->getProfile();
+		
+		$this->data['member'] = $this->profile_model->getMemberInfo();
 		
 		
 		$this->load->library('upload', $config);

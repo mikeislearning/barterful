@@ -76,11 +76,7 @@ echo form_close();
 
 
 <!--HOW DO I MAKE IT DO WHAT IT DOES WHEN IT REFRESHES-->
-<?php if(!$profile)
- if(!isset($profile))
- {
-
-}
+<?php if(!$profile) echo "error error";
 
 	
 ?>
