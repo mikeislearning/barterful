@@ -37,12 +37,14 @@ src: url("../_fonts/GiveYouGlory.ttf");
 font-weight:900;
 }
 
+//sets the default colors
 @baseFont: 'Open Sans', Helvetica, Arial, Sans-serif;
 @logoFont: barterFont, Helvetica, Arial, Sans-serif;
 @mainRed:#D45354;
 @mainBlue:#2FCAD8;
 @mainGreen:#A9DC3A;
 @mainOrange:#FF6526;
+@secondBlue:#1E86B9;
 @secondGreen:#0CFB4A;
 @thirdGreen: #26FFDE;
 
@@ -56,18 +58,18 @@ font-weight:900;
 /***** base font size *******/
 
 
-
+//sets default body characteristics
 body{
 font-size:16px/1em;
 font-family:@baseFont;
 font-weight:100;
 font-size-adjust:none;
 line-height:1.5;
-background:url("../_img/landscape3.jpg") center center;
-	
+background:url("../_img/landscape2.jpg") center center;
+//background:@secondBlue;
 }
 
-
+//bgWrapper surrounds every section of the site
 .bgWrapper{
 
 
@@ -80,9 +82,9 @@ background:url("../_img/landscape3.jpg") center center;
 	.box-shadow(0 3px 2px #999);
 	}
 	&:nth-of-type(3){
-
+		
 		.inner-shadow(0, 1px, 2px, 0.4);
-		//background:#B7EAF6;
+		background:#B7EAF6;
 
 	}
 	&:nth-of-type(4){
@@ -90,6 +92,11 @@ background:url("../_img/landscape3.jpg") center center;
 	}
 }
 
+#bulletinWrapper{
+	background: url("../_img/bulletin7.jpg");
+}
+
+//mainWrapper surrounds every content section, and is always within a bgWrapper
 .mainWrapper{
 padding-top:20px;
 padding-bottom:20px;
@@ -97,8 +104,10 @@ width:80%;
 margin:0 auto;
 }
 
+//row class is meant for content sections -> this works with grid.less
 .row{.row(12);}
 
+//default submit button styling
 button, input[type="submit"]{
 	.gradient(whitesmoke,@whiteSmoke,@lightGray);
 	text-shadow:1px 1px 1px @darkGray;
@@ -113,7 +122,7 @@ button, input[type="submit"]{
 		color:@mainGreen;;
 	}
 }
-
+//styling for other buttons
 .button1{
 text-transform: uppercase;
 color:@whiteSmoke;
@@ -132,6 +141,7 @@ a{text-decoration:none;}
 .right{	float:right;
 }
 
+//a bunch of input styling
 input[type="text"],input[type="password"],textarea{
 	font-size:1em;
 	.rounded(5px);
@@ -166,6 +176,8 @@ input[type="submit"]{
 
 /***************************** Header *****************************************/
 
+//this header contains search, the logo, and the main nav
+//it is yet to be determined the best way to sort these
 
 header{
 
@@ -223,7 +235,7 @@ header{
 
 
 /****************************drop down list*****************************************/
-
+//this styles the drop down list, but will eventually be totally redone
 #dropdown{
 
 
@@ -246,39 +258,113 @@ header{
 	color:@darkGray;
 }
 
-input[type="radio"]:checked + label {
-		color:@mainRed;
+/****************************this form totally restyles the radio buttons*****************************************/
+/********** assistance provided from http://www.andreapinchi.it/style-radio-buttons-css/index.html **************/
+form:nth-child(4){
+position:relative;
+left:117px;
+padding-bottom:20px;
 
-		}
+
+.offer{
+position:relative;
+span{
+	border:@mainBorder;
+	.border-radius(0px,0px,5px,5px)
+}
+span:after, input[type="radio"] + span:after{
+	content: "offering"; /*if CSS are disbled span elements are not displayed*/
+	.border-radius(0px,0px,5px,5px);
+}
+}
+
+.want{ 
+position:relative;
+left:67px;
+
+span{
+	border:@mainBorder;
+}
+span:after, input[type="radio"] + span:after{
+	content: "wanting"; /*if CSS are disbled span elements are not displayed*/
+}
+
+
+}
+
+.project{
+position:relative;
+left:134px;
+
+span{
+	border:@mainBorder;
+	.border-radius(5px,5px,0px,0px);
+}
+
+span:after,input[type="radio"] + span:after{
+	content: "projects"; /*if CSS are disbled span elements are not displayed*/
+	}
+}
+
+span{
+	position: absolute;
+	right:250px;
+	width: 60px;
+	height: 25px;
+	line-height: 25px;
+	padding: 3px;
+	text-align: center;
+	color:@secondBlue;
+	background:white;
+}
+
+input[type="radio"] {
+	position: absolute;
+	right: 250px;
+	margin: 0;
+	width: 60px;
+	height: 31px;
+	/*hide the radio button*/
+	filter:alpha(opacity=0);
+	-moz-opacity:0;
+	-khtml-opacity: 0;
+	opacity: 0;
+    cursor: pointer;
+}
+ 
+input[type="radio"] + span{ /*the span element that immediately follow the radio button */
+	visibility: hidden; /*temporarily hide the "YES" label*/
+	color: white;
+	background:@secondBlue;
+			}
+ 
+
+input[type="radio"]:checked + span{
+	visibility: visible; /*show the "YES" label only if the radio button is checked*/
+			}
+
+	}
 	
 }
 
 
 
 /***************************** Main Content ****************************************/
+//the mainContent area has the bulletin board, and will shortly be expanded on
 
-#mainContent{
-
-	background: url("../_img/bulletin7.jpg");
-	.inner-shadow(4px, 4px, 4px, 0.6);
-
-
-}
 
 main{
 .column(12);
-
 /*This bit is taken from www.2expertsdesign.com, with my own modifications*/
+// it used to create a post it note sort of look
 #adContainer{
 padding:20px 0px 20px 0px;
-position: relative;
-left:3%;
-.column(4);
-
-
+position:relative;
+.column(3);
 }
 
 .paper{
+	margin-left:6%;
 position:relative;
 	width:250px;
 	height: 170px;
@@ -316,9 +402,6 @@ ul#lines li{
 img{
 	padding:5px;
 }
-
-
-
 
 .tape{
 	position:absolute;
@@ -397,6 +480,7 @@ img{
 
 /***************************** Footer *********************************/
 
+//styles the footer, which I'm going to remove soon enough anyways, because it's useless
 #footerWrapper{
 background-color:rgba(255,255,255,0.6);
 color:@darkGray;
@@ -432,16 +516,22 @@ i{
 
 /***************************** Media Queries *****************************************/
 
-@media screen and (max-width:30em){
+@media screen and (max-width:60em)
+{
 main{
 	.profile{
-		.column(12);
-		}
-		#adContainer{
-		.column(12);
+		.column(4);
+		width:200px;
+		margin-bottom:20px;
 	}
+	#adContainer{
+		.column(6);
+		margin-bottom:20px;
 	}
 }
+
+}
+
 
 @media screen and (max-width:48em){
 
@@ -488,21 +578,18 @@ main{
 }
 }
 
-@media screen and (max-width:60em)
-{
+@media screen and (max-width:30em){
 main{
 	.profile{
-		.column(4);
-		width:200px;
-		margin-bottom:20px;
+		.column(12);
+		}
+		#adContainer{
+		.column(12);
 	}
-	#adContainer{
-		.column(6);
-		margin-bottom:20px;
 	}
 }
 
-}
+
 
 
 

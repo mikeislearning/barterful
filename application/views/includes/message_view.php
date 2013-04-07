@@ -118,7 +118,9 @@
 </div><!-- listing -->
 
 </main>
-
+</div><!-- end div with class row from mainpage -->
+</section><!-- end section thing -->
+</div> <!-- end bgWrapper from mainpage -->
 
 <!-- ********************************************************** -->
 <!-- **************         JavaScript            *************** -->

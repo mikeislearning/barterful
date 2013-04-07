@@ -312,11 +312,12 @@ class listings_model extends CI_Model{
 		
 	}
 
+
 	function simpleSearch($term)
 	{
 		
 		$query = $this->db->query("
-		Select p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, s.s_id, sp_description, sp_keywords
+		SELECT p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, s.s_id, sp_details, sp_keywords
 		FROM skill_profiles sp
 		JOIN profiles p on sp.p_id = p.p_id
 		JOIN members m on p.m_id = m.m_id
@@ -324,7 +325,7 @@ class listings_model extends CI_Model{
 		WHERE m_active = TRUE AND 
 		(s_name like '%" . $term . "%' 
 			OR sp_heading like '%" . $term . "%' 
-			OR sp_description like '%" . $term . "%' 
+			OR sp_details like '%" . $term . "%' 
 			OR sp_keywords like '%" . $term . "%');
 		");
 		

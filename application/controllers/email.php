@@ -1,3 +1,4 @@
+
 <?php
 
 /* SEND EMAIL WITH GMAIL */
@@ -33,21 +34,52 @@ function __construct()
 	{
 		$this->load->view('landingpage');
 	}
+
+	//this function creates a rule for the captcha, so it can go with the other validation rules
+	function captcha_check()
+	{
+		 
+		 $privatekey = "6LdvIN8SAAAAAGcMHLQ0L_KlowuZTf6BeslFu6GR";
+		 $resp = recaptcha_check_answer ($privatekey,
+		                                 $_SERVER["REMOTE_ADDR"],
+		                                 $_POST["recaptcha_challenge_field"],
+		                                 $_POST["recaptcha_response_field"]);
+
+		 if($resp->is_valid){
+		 	return TRUE;
+		 }
+		 else
+		 {
+		 	return FALSE;
+		 	
+		 }
+
+
+	}
 	
 	function send()
 	{
 		//$echo 'hello from send'; die();
 		
 		$this->load->library('form_validation');
-		
+		$this->load->view('recaptchalib');
 		//can set 3 parameters: field name, error message, validation rules separated by |'s
 		$this->data['main_content'] = 'contact';
+
+		$this->form_validation->set_message('captcha_check', "The reCAPTCHA wasn't entered correctly. Captcha's suck. We know. Please try again.");
 		
 		$this->form_validation->set_rules('name','Name','required');
 		$this->form_validation->set_rules('email','Email','trim|required|valid_email');
 		$this->form_validation->set_rules('message','Message','required');
+		$this->form_validation->set_rules('recaptcha_challenge_field','reCAPTCHA','callback_captcha_check');
 		//id name, name it prints out, the rules
+
+		//ZIS is the recaptcha check! yayyyyy!!!!
 		
+		
+		
+
+
 		if($this->form_validation->run()==FALSE){
 		
 		$this->load->view('includes/template', $this->data);		

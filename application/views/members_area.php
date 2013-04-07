@@ -28,12 +28,18 @@
        
 <!-- ************************ Main Content ************************** -->    
         <div class="bgWrapper">
-        <section class="mainWrapper">
+
          
           <div class="row">
             <main>     
             	<?php 
 					echo "Welcome to ".$this->session->userdata('username')."'s profile";
+					$id = $this->session->userdata('userid');
+
+		//get the id value from the first pair in the array
+		$id = $id[0]->m_id;
+		echo $id;
+		
 				?>
 
               <!-- **************************************************************************************************
@@ -43,6 +49,14 @@
                 ************************************************************************************************** -->               
             	<?php $this->load->view('includes/listPostings.php'); ?>
             
+<<<<<<< HEAD
             </main>   
+<!-- ************************ Side Bar ************************** -->
+>>>>>>> master
+=======
+            </main>  
+            </div><!-- end div with class row from mainpage -->
+
+        </div> <!-- end bgWrapper from mainpage --> 
 <!-- ************************ Side Bar ************************** -->
 >>>>>>> master
