@@ -112,6 +112,10 @@ class Site extends CI_Controller {
 		$this->data['main_content'] = 'mainpage';
 		$this->load->view('includes/template', $this->data);
 	}
+	public function deadLink(){
+		$this->data['main_content']='nobodyhere';
+		$this->load->view('includes/template', $this->data);
+	}
 	
 	
 }

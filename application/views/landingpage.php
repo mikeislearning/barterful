@@ -27,6 +27,11 @@
        background-color:#ECE6D6;
        }
 
+       iframe{
+        width:80%;
+        
+       }
+
        input{
         text-align: center;
        }
@@ -48,34 +53,8 @@
        <h3> Any Questions? </h3>
        
        
-	<?php echo form_open('email/send'); //this creates the following <form method="post" action="http://codeigniter/index.php/email/send"/> ?>
-	 
-	 <?php
-	 $message_data=array(
-	 	'name'=> 'message',
-	 	'id'=>'message',
-	 	'value'=>set_value('message')
-	 );	 ?>
-	 <!-- this input uses an array to pass get its data -->
-   <p> <label for="email">Name:</label><input required="required" type="text" name="name" id="name" value="<?php echo set_value('name');?>"> </p>
-	 <p> <label for="email">Email:</label><input required="required" type="email" name="email" id="email" value="<?php echo set_value('email');?>"> </p>
-	 <p><label for="message">Message:</label> <textarea required="required" type="text" name="message" id="message"
-	 value="<?php echo set_value('message'); ?>" ></textarea>
-	 
-   <?php
-      require_once('recaptchalib.php');
-      $publickey = "6LdvIN8SAAAAAAaYK6YYeBk7eIMmWJPLWDOFHxHO"; // You got this from the signup page.
-      echo recaptcha_get_html($publickey);
-    ?>
-
-	 <p> <?php echo form_submit('submit', 'Submit');//two parameters refer to name and value ?></p>
 	
-	<?php echo form_close(); ?>
-	
-
-<?php echo validation_errors('<p class="error">'); ?><!-- Print out the validation errors -->
-	
-	
+	<h3> info at barterful dot com </h3>
        
        
           

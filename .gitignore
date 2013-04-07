@@ -32,3 +32,8 @@ application/config/user_agents.php
 application/config/email.php
 
 *.jpg
+
+drupal
+drush
+
+.gitignore

@@ -516,16 +516,22 @@ i{
 
 /***************************** Media Queries *****************************************/
 
-@media screen and (max-width:30em){
+@media screen and (max-width:60em)
+{
 main{
 	.profile{
-		.column(12);
-		}
-		#adContainer{
-		.column(12);
+		.column(4);
+		width:200px;
+		margin-bottom:20px;
 	}
+	#adContainer{
+		.column(6);
+		margin-bottom:20px;
 	}
 }
+
+}
+
 
 @media screen and (max-width:48em){
 
@@ -572,21 +578,18 @@ main{
 }
 }
 
-@media screen and (max-width:60em)
-{
+@media screen and (max-width:30em){
 main{
 	.profile{
-		.column(4);
-		width:200px;
-		margin-bottom:20px;
+		.column(12);
+		}
+		#adContainer{
+		.column(12);
 	}
-	#adContainer{
-		.column(6);
-		margin-bottom:20px;
 	}
 }
 
-}
+
 
 
 

@@ -12,12 +12,14 @@
             	$name_data=array('name'=>'name',
             	'id'=>'name',
             	'value'=>set_value('name'),
-            	'placeholder'=>'Name goes here'
+            	'placeholder'=>'Name goes here',
+              'required'=>'required',
             	);
             	$email_data=array('name'=>'email',
             	'id'=>'email',
             	'value'=>set_value('email'),
-            	'placeholder'=>'Email goes here'
+            	'placeholder'=>'Email goes here',
+              'required'=>'required',
             	);
             
                  $message_data=array(
@@ -26,6 +28,8 @@
                     'value'=>set_value('message'),
                     'cols'=>30,
                     'rows'=>10,
+                    'required'=>'required',
+                    'type'=>'text',
                     'placeholder'=>'Message goes here'
                  );  ?><!-- this input uses an array to pass get its data -->
 
@@ -45,6 +49,7 @@
             
 
             <p><?php echo form_submit('submit', 'Submit','id="submit"');//two parameters refer to name and value ?></p><?php echo form_close(); ?><?php echo validation_errors('<p class="error">'); ?><!-- Print out the validation errors -->
+
             
             </main>
             </div><!-- end div with class row from mainpage -->
