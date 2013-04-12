@@ -23,6 +23,8 @@ Upload a new image:
 
 <input type="submit" value="upload" />
 
+<?php echo anchor('members/changePassword','Change Password', 'class="button1"'); ?>
+
 </form>
 <?php
 

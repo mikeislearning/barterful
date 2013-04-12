@@ -7,7 +7,9 @@
             
             <h1> Contact Us</h1><br />
         
-            <?php echo form_open('email/send'); //this creates the following <form method="post" action="http://codeigniter/index.php/email/send"/> ?><?php
+            <?php
+             $form_attributes = array('id'=>'myForm');
+             echo form_open('email/send', $form_attributes); //this creates the following <form method="post" action="http://codeigniter/index.php/email/send"/> ?><?php
             //these arrays provide the inputs with data
             	$name_data=array('name'=>'name',
             	'id'=>'name',
@@ -69,25 +71,26 @@
 
             <script type="text/javascript">
             
-            /*$('#submit').click(function(){
-            	var form_data ={
-	            	name:$('#name').val(),
-	            	email:$('#email').val(),
-	            	message:$('#message').val(),
-	            	ajax:'1'
-	            	};
-	            	
+            $('#myForm').submit(function(event){
+            	//var form_data ={
+	            	var name = $('#name').val();
+                var email = $('#email').val();
+                var message = $('#message').val();
+	            	/*ajax:'1'
+	            	};*/
+
+                //somehow using serialize makes this all work right...or not
 	            $.ajax({
-		        	url:"<?php echo site_url('email/send');?>",
+		        	url:<?php echo site_url('email/send');?>,
 		        	type: 'POST',
-		        	data: form_data,
-		        	success: function(msg){
-		        		alert(msg);
+		        	data: name,
+		        	success: function(name){
+		        		$("main").html("Thanks for your message"+name);
 		        	} 
 	            });
 	            return false;
             });
-            */
+            
             
             
             </script>

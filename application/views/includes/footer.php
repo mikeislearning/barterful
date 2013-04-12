@@ -1,6 +1,3 @@
-
-			
-
 <!-- ************************ Footer ************************** -->
    <div class="bgWrapper" id="footerWrapper">
    <section class="mainWrapper" >
@@ -27,8 +24,5 @@
    </section>
    </div>
    
-        
-
-
 </body>
 </html>

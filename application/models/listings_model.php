@@ -315,20 +315,26 @@ class listings_model extends CI_Model{
 
 	function simpleSearch($term)
 	{
-		
+		/* 
+		* This search selects all the relevant data it needs to conduct a search, joining
+		* the skill_profiles, profiles, members, and skills table
+		* It searches based on IF the member account is active, where the skill name, skill details,
+		* profile heading, or profile keywords are similar to the search term
+		*/
 		$query = $this->db->query("
 		SELECT p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, s.s_id, sp_details, sp_keywords
 		FROM skill_profiles sp
 		JOIN profiles p on sp.p_id = p.p_id
 		JOIN members m on p.m_id = m.m_id
 		JOIN skills s on sp.s_id = s.s_id
-		WHERE m_active = TRUE AND 
+		WHERE m_active = TRUE AND
 		(s_name like '%" . $term . "%' 
 			OR sp_heading like '%" . $term . "%' 
 			OR sp_details like '%" . $term . "%' 
 			OR sp_keywords like '%" . $term . "%');
 		");
 		
+		//if there are any rows return, then...
 		if($query->num_rows > 0){
 			foreach($query->result() as $key => $row){
 				

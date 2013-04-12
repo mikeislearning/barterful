@@ -234,5 +234,38 @@ $this->data['member'] = $this->profile_model->getMemberInfo($id);
 	   }
  }
 
+ function changePassword(){
+ 	$this->data['main_content'] = 'change_password';
+ 	$this->load->view('includes/template', $this->data);
  }
-?>
+
+ function changePasswordProcess(){
+
+$this->load->library('form_validation');
+
+$this->form_validation->set_rules('old_password','Old Password','trim|required|min_length[4]|max_length[32]');
+$this->form_validation->set_rules('new_password','New Password','trim|required|min_length[4]|max_length[32]');
+$this->form_validation->set_rules('confirm_password','New Password Confirmation','trim|required|min_length[4]|max_length[32]|matches[new_password]');
+
+if ($this->form_validation->run() == FALSE)
+        {
+            $this->changePassword();
+
+        }
+        else {
+            $this->load->model('membership_model');
+            $query=$this->membership_model->change_password();
+
+            $this->data['main_content'] ='change_password';
+            $this->data['query']=$query;
+            
+            $this->load->view('includes/template',$this->data);
+        }
+
+
+
+ }
+
+
+
+ }

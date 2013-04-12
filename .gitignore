@@ -1,35 +1,5 @@
 
-application/config/config.php
-
-application/config/database.php
-
-application/config/hooks.php
-
-application/config/.DS_Store
-
-application/config/autoload.php
-
-application/config/constants.php
-
-application/config/doctypes.php
-
-application/config/foreign_chars.php
-
-application/config/index.html
-
-application/config/migration.php
-
-application/config/mimes.php
-
-application/config/profiler.php
-
-application/config/routes.php
-
-application/config/smileys.php
-
-application/config/user_agents.php
-
-application/config/email.php
+application/config
 
 *.jpg
 

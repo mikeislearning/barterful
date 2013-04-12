@@ -4,7 +4,7 @@
             <main>
 
 
-<img src="http://i.imgur.com/s85Xa.png" title="dead link. sorry"/>
+<img src="http://i.imgur.com/s85Xa.png" title="dead link. sorry"/ class="deadLink">
 
             	</main>
             </div><!-- end div with class row from mainpage -->

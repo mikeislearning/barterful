@@ -47,11 +47,11 @@ class Membership_model extends CI_Model {
 	
 	if($result->num_rows() > 0 ){
 		
-		return FALSE; //username tkane
+		return FALSE; //username taken
 		}
 		else
 		{
-		return TRUE; //username can be reg'd
+		return TRUE; //username can be registered
 		
 		}
 		
@@ -63,13 +63,68 @@ class Membership_model extends CI_Model {
 		
 		if($result->num_rows() > 0 ){
 		
-		return FALSE; //username tkane
+		return FALSE; //username taken
 		}
 		else
 		{
-		return TRUE; //username cna be reg'd
+		return TRUE; //username cna be registered
 		
 		}
 		
 	}
+
+	function change_password(){
+		//SELECT m_id FROM members WHERE m_username = session-username AND m_password=posted-old-password
+		$this->db->select('m_id');
+		$this->db->where('m_username',$this->session->userdata('username'));
+		$this->db->where('m_password',md5($this->input->post('old_password')));
+		$query=$this->db->get('members');
+
+		//if such a row exists
+		if ($query->num_rows() > 0)
+		{
+			//stores the found row in the variable $row
+			$row=$query->row();
+	
+			//if the id of the found row is equal to the session id
+			if($row->m_id === $this->session->userdata('userid')[0]->m_id)
+            {
+            		//stores the value of the new password in an array
+                    $data = array(
+                      'm_password' => md5($this->input->post('new_password'))
+                     );
+               //UPDATE members SET m_password to new_password WHERE the next two statements are true
+               $this->db->where('m_username',$this->session->userdata('username'));
+               $this->db->where('m_password',md5($this->input->post('old_password')));
+               if($this->db->update('members', $data)) 
+               {
+               echo "Password Changed Successfully";
+               }
+               else
+               {
+                echo "Something Went Wrong, Password Not Changed";
+               }
+            }
+            else
+            {
+            echo "Something Went Super Wrong, Password Not Changed";//unable to match up with session data
+            }
+
+
+        }
+        else{
+        echo "Wrong Old Password";//incorrect old password
+        }
+
+
+
+	}
+
+
+
+
+
+
+
+
 }

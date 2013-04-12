@@ -60,19 +60,21 @@ font-weight:900;
 
 //sets default body characteristics
 body{
+
 font-size:16px/1em;
 font-family:@baseFont;
 font-weight:100;
 font-size-adjust:none;
 line-height:1.5;
-background:url("../_img/landscape2.jpg") center center;
-//background:@secondBlue;
+//background:url("../_img/landscape2.jpg") center center;
+background:@secondBlue;
+
+
 }
 
 //bgWrapper surrounds every section of the site
-.bgWrapper{
-
-
+.bgWrapper{ 
+	overflow: hidden !important;//CRAZY IMPORTANT - otherwise page overflows a lot
 	&:first-of-type{
 		border-bottom:@mainBorder;
 		}
@@ -94,6 +96,7 @@ background:url("../_img/landscape2.jpg") center center;
 
 #bulletinWrapper{
 	background: url("../_img/bulletin7.jpg");
+
 }
 
 //mainWrapper surrounds every content section, and is always within a bgWrapper
@@ -102,6 +105,7 @@ padding-top:20px;
 padding-bottom:20px;
 width:80%;
 margin:0 auto;
+
 }
 
 //row class is meant for content sections -> this works with grid.less
@@ -169,6 +173,13 @@ input[type="submit"]{
 .error{
 	color:red;
 	font-size:15px;
+}
+//used for the dead link image
+.deadLink{
+	opacity:0.9;
+	text-align: center;
+	width:100%;
+	height:80%;
 }
 
 
@@ -243,7 +254,7 @@ header{
 		color:@darkGray;
 		
 	}
-	form{text-align: justify;
+	form{
 	.column(3);}
 	
 	select{
@@ -262,10 +273,10 @@ header{
 /********** assistance provided from http://www.andreapinchi.it/style-radio-buttons-css/index.html **************/
 form:nth-child(4){
 position:relative;
-left:117px;
+left:118px;
 padding-bottom:20px;
 
-
+//offer button
 .offer{
 position:relative;
 span{
@@ -277,7 +288,7 @@ span:after, input[type="radio"] + span:after{
 	.border-radius(0px,0px,5px,5px);
 }
 }
-
+//want button
 .want{ 
 position:relative;
 left:67px;
@@ -291,7 +302,7 @@ span:after, input[type="radio"] + span:after{
 
 
 }
-
+//project button
 .project{
 position:relative;
 left:134px;

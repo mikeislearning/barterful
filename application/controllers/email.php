@@ -1,5 +1,4 @@
-
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /* SEND EMAIL WITH GMAIL */
 
