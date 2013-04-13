@@ -160,21 +160,13 @@ function profile()
 	 {
 		 if($this->session->userdata('logged_in'))
 		   {
-		   $newdata = $this->session->userdata('logged_in');
-		   $session_data['username'] = $newdata['username'];
+		  
 
 
     $newdata = $this->session->userdata('logged_in');
 		$session_data['username'] = $newdata['username'];
 		
-		//---------------------------------------------------------------------------------//
-		//this section loads the listings displayed based on the user's id in the session
-		//---------------------------------------------------------------------------------//
-		//get the array of id's (there should just be one in the array)
-
-
-//this section loads the profile displayed based on the user's id in the session
-//get array of id's	
+//gets array of ids
 $id = $this->session->userdata('userid');
 
 		//get the id value from the first pair in the array
