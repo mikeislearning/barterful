@@ -15,7 +15,12 @@
 		            <li></li>
 		            <li><a href="#">User Rating: <?php echo $r->p_avg_rating*100 . "%" ?> </a></li>
 		            <li></li>
-		           <li> <button>Contact <?php echo $r->p_fname ?> </button></li>
+		           <li> 
+		           		<form id="btn_msg_user" name="btn_msg_user" method="POST" action='<?=base_url()?>index.php/ajax/sendnewmsg'>
+		           			<input type="hidden" id="skillprofile" name="skillprofile" value='<?=$r->sp_id ?>' />
+		           			<input type="submit" value="Contact <?=$r->p_fname ?>" />
+		           		</form>
+		           </li>
 		           <li></li>
 	</ul>
 	<span class="left-shadow"></span><span class="right-shadow"></span>

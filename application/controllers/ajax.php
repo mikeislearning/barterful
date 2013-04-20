@@ -295,6 +295,50 @@ class ajax extends CI_Controller {
 	$this->load->view('includes/template', $this->data);
 
  }
+
+ public function sendnewmsg()
+ {
+ 	if($this->session->userdata('logged_in'))
+	   {		
+		$this->load->model('inbox_model');
+
+		$skillprofile = "";
+
+		//check that each value has been provided and assign it to a variable
+		if(isset($_POST['skillprofile']))
+		{
+			$skillprofile = $_POST['skillprofile'];
+		}
+
+		//---------------------------------------------------------------------------------//
+		//this section loads the listings displayed based on the user's id in the session
+		//---------------------------------------------------------------------------------//
+
+		//get the array of id's (there should just be one in the array)
+		$id = $this->session->userdata('userid');
+
+		//get the id value from the first pair in the array
+		$id = $id[0]->m_id;
+
+		//send the id through to the query function
+		$this->data['row'] = $this->inbox_model->newMsg($skillprofile);
+
+		//send a list of skills for the dropdown function
+		$this->load->model('listings_model');
+		$this->data['skills'] = $this->listings_model->skillList();
+
+		$this->load->view('includes/listInbox', $this->data);
+	     
+	   }
+	   else
+	   {
+	       session_destroy();
+	     //If no session, redirect to login page
+	     redirect('login', 'refresh');
+	    
+	   }
+
+ }
 	
 	
 }
