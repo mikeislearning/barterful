@@ -41,8 +41,9 @@ class listings_model extends CI_Model{
 
 	
 	//Get all skill profiles posted for users not logged in
-	function listAll($type, $sortset, $category){
+	function listAll($type, $sortset, $category, $uid=0){
 
+		$user = "";
 		// if a custom filter variable was provided, apply it to the query
 		if($category == 'all')
 		{
@@ -53,39 +54,44 @@ class listings_model extends CI_Model{
 			$category = " AND s_name = '" . $category . "'";
 		}
 
+		if($uid != 0)
+		{
+			$user = " AND p.m_id = $uid";
+		}
+
 		//based on whether the user wants to see skills profiles or wants profiles
 		switch($type)
 		{
 			case "skills":
 				$query = $this->db->query("
-				Select p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, s.s_id
+				Select p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, s.s_id, sp_id, p.m_id as m_id
 				FROM skill_profiles sp
 				JOIN profiles p on sp.p_id = p.p_id
 				JOIN members m on p.m_id = m.m_id
 				JOIN skills s on sp.s_id = s.s_id
-				WHERE m_active = TRUE" . $category . " ORDER BY " . $sortset . " DESC;
+				WHERE m_active = TRUE" . $category . $user . " ORDER BY " . $sortset . " DESC;
 				");
 				break;
 			case "wants":
 				$query = $this->db->query("
-				Select p_fname, p_last_updated, p_avg_rating, s_name, wp_expiry, wp_description as sp_heading, s.s_id
+				Select p_fname, p_last_updated, p_avg_rating, s_name, wp_expiry, wp_description as sp_heading, s.s_id, wp_id as sp_id, p.m_id as m_id
 				FROM want_profiles wp
 				JOIN profiles p on wp.p_id = p.p_id
 				JOIN members m on p.m_id = m.m_id
 				JOIN skills s on wp.s_id = s.s_id
-				WHERE m_active = TRUE" . $category . " 
+				WHERE m_active = TRUE" . $category . $user . " 
 				AND (wp_expiry IS NULL OR wp_expiry > CURDATE()) 
 				ORDER BY " . $sortset . " DESC;
 				");
 				break;
 			case "projects":
 				$query = $this->db->query("
-				Select p_fname, p_last_updated, p_avg_rating, s_name, wp_expiry, wp_description as sp_heading, s.s_id
+				Select p_fname, p_last_updated, p_avg_rating, s_name, wp_expiry, wp_description as sp_heading, s.s_id, wp_id as sp_id, p.m_id as m_id
 				FROM want_profiles wp
 				JOIN profiles p on wp.p_id = p.p_id
 				JOIN members m on p.m_id = m.m_id
 				JOIN skills s on wp.s_id = s.s_id
-				WHERE m_active = TRUE" . $category . " 
+				WHERE m_active = TRUE" . $category . $user . " 
 				AND wp_expiry IS NOT NULL AND wp_expiry > CURDATE() 
 				ORDER BY " . $sortset . " DESC;
 				");
@@ -145,7 +151,7 @@ class listings_model extends CI_Model{
 		{
 			case "skills":
 				$query = $this->db->query("
-				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, sp_heading
+				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, sp_id, p.m_id as m_id
 				FROM profiles p
 				JOIN members m on p.m_id = m.m_id
 				JOIN skill_profiles sp on p.p_id = sp.p_id
@@ -155,7 +161,7 @@ class listings_model extends CI_Model{
 				break;
 			case "wants":
 				$query = $this->db->query("
-				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, wp_description as sp_heading
+				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, wp_description as sp_heading, s.s_id, wp_id as sp_id, p.m_id as m_id
 				FROM profiles p
 				JOIN members m on p.m_id = m.m_id
 				JOIN want_profiles wp on p.p_id = wp.p_id
@@ -167,7 +173,7 @@ class listings_model extends CI_Model{
 				break;
 			case "projects":
 				$query = $this->db->query("
-				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, wp_expiry, wp_description as sp_heading
+				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, wp_expiry, wp_description as sp_heading, s.s_id, wp_id as sp_id, p.m_id as m_id
 				FROM profiles p
 				JOIN members m on p.m_id = m.m_id
 				JOIN want_profiles wp on p.p_id = wp.p_id
@@ -322,7 +328,7 @@ class listings_model extends CI_Model{
 		* profile heading, or profile keywords are similar to the search term
 		*/
 		$query = $this->db->query("
-		SELECT p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, s.s_id, sp_details, sp_keywords
+		SELECT p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, s.s_id, sp_details, sp_keywords, , s.s_id, sp_id, p.m_id as m_id
 		FROM skill_profiles sp
 		JOIN profiles p on sp.p_id = p.p_id
 		JOIN members m on p.m_id = m.m_id

@@ -267,12 +267,12 @@ class ajax extends CI_Controller {
 
  public function searchPostings()
  {	
- 	if(!isset($logged_in)|| $logged_in != true)
+ 	if(!$this->session->userdata('logged_in'))
 		 {
 			 //echo 'You do not have permission to access this page.';
 			 $this->data['header_content'] = 'includes/headerout';
 		 }
-		 else{
+	 else{
 			 $this->data['header_content'] = 'includes/headerin';
 		 }
 
@@ -291,6 +291,51 @@ class ajax extends CI_Controller {
 	$this->data['skills'] = $this->listings_model->skillList();
 
 	$this->data['main_content'] = 'searchResults';
+
+	$this->load->view('includes/template', $this->data);
+
+ }
+
+ public function viewprofile()
+ {
+	$this->load->model('profile_model');
+
+	$id = "";
+	$myid = "";
+
+	//check that each value has been provided and assign it to a variable
+	if(isset($_POST['p_id']))
+	{
+		$id = $_POST['p_id'];
+	} 
+
+   if(!$this->session->userdata('logged_in'))
+	 {
+		 //echo 'You do not have permission to access this page.';
+		 $this->data['header_content'] = 'includes/headerout';
+	 }
+ 	else
+	 {
+		$this->data['header_content'] = 'includes/headerin';
+
+		//if the user clicked on their own profile, take them to their own profile view
+
+		//get their own id
+		$myid = $this->session->userdata('userid');
+		$myid = $myid[0]->m_id;
+
+		if($myid == $id)
+		{
+			$baseurl = base_url();
+			$url = $baseurl . "index.php/members/profile";
+			redirect($url, 'refresh');
+		}
+	 }	
+
+	//$this->data['row'] = $this->inbox_model->newMsg($p_id);
+	$this->data['row'] = $this->profile_model->getProfile($id);
+
+	$this->data['main_content'] = 'publicProfile';
 
 	$this->load->view('includes/template', $this->data);
 

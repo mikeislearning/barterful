@@ -4,15 +4,15 @@
             <main>
 
             	<h1>Change your password</h1><br />
-<?php echo form_open('members/changePasswordProcess');?>
+<?=form_open('members/changePasswordProcess');?>
 
 	<label for="old_password">Old Password </label>
-<? echo form_password('old_password', set_value('old_password', ''),'placeholder="Old Password" '); ?>
+<?=form_password('old_password', set_value('old_password', ''),'placeholder="Old Password" '); ?>
 	<label for="new_password">New Password </label>
-<? echo form_password('new_password', set_value('old_password', ''),'placeholder="New Password" '); ?>
+<?=form_password('new_password', set_value('old_password', ''),'placeholder="New Password" '); ?>
 
 	<label for="confirm_password">Confirm New Password </label>
-<? echo form_password('confirm_password', '', 'placeholder="Password" ');
+<?php echo form_password('confirm_password', '', 'placeholder="Password" ');
 
 echo form_submit('submit', 'Change Password');
 echo validation_errors('<p class="error">');

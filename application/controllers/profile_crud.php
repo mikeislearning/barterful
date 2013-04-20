@@ -1,22 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class profile_crud extends CI_Controller {
-
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
+class Profile_crud extends CI_Controller {
 	 
 	 function __construct()
 	 {
@@ -25,54 +9,59 @@ class profile_crud extends CI_Controller {
 		 
 	 }
 	 
-	 var $data;
+ var $data;
 	 
-	 public function logged_in(){
-		 $logged_in = $this->session->userdata('logged_in');
-		 
-		 if(!isset($logged_in)|| $logged_in != true)
-		 {
-			 //echo 'You do not have permission to access this page.';
-			 $this->data['header_content'] = 'includes/headerout';
-		 }
-		 else{
-			 $this->data['header_content'] = 'includes/headerin';
-		 }
-	 }
+public function logged_in(){
+ $logged_in = $this->session->userdata('logged_in');
+ 
+ if(!isset($logged_in)|| $logged_in != true)
+ {
+	 //echo 'You do not have permission to access this page.';
+	 $this->data['header_content'] = 'includes/headerout';
+ }
+ else{
+	 $this->data['header_content'] = 'includes/headerin';
+ }
+}
 	 
 	 
-	 	 function index()
-	 {
-	 
-	   if($this->session->userdata('logged_in'))
-	   {
-	    $newdata = $this->session->userdata('logged_in');
+function index(){
+   if($this->session->userdata('logged_in')){
+		$newdata = $this->session->userdata('logged_in');
 		$session_data['username'] = $newdata['username'];
-		
-		//---------------------------------------------------------------------------------//
-		//this section loads the listings displayed based on the user's id in the session
-		//---------------------------------------------------------------------------------//
-		//get the array of id's (there should just be one in the array)
 		$id = $this->session->userdata('userid');
-		//get the id value from the first pair in the array
 		$id = $id[0]->m_id;
 
 		$this->load->model('profile_model');
-		//send the id through to the query function
-		
-
-	    $this->data['main_content'] = 'profile_form';
+		$this->data['main_content'] = 'profile_form';
 		$this->load->view('includes/template', $this->data);
-	     
-	   }
-	   else
-	   {
-	       session_destroy();
-	     //If no session, redirect to login page
-	     redirect('login', 'refresh');
-	    
-	   }
- }
- 
+    }
+   else{
+       session_destroy();
+        //If no session, redirect to login page
+       redirect('login', 'refresh');
+   }
+}
 
-	
+	//loads the edit view from profile_form
+function edit()
+{
+   $this->load->helper('url');  
+   //is the post 
+   if($this->input->post('edit') === FALSE){
+   ////need this to get the profile info
+		$id = $this->session->userdata('userid');
+		$id = $id[0]->m_id;	
+		$this->load->model('profile_model');
+		$this->data['profile'] = $this->profile_model->getProfile($id);
+		//we will probably need to insert memebers here too
+		///end need this 
+		//load the edit view
+		$this->data['main_content'] = 'includes/update_profile';
+		$this->load->view('includes/template', $this->data);
+	}
+   
+}
+
+ 
+ }

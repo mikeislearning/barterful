@@ -1,5 +1,5 @@
 <?php 
-class profile_model extends CI_Model {
+class Profile_model extends CI_Model {
 	
   var $original_path;
   var $resized_path;
@@ -15,22 +15,33 @@ class profile_model extends CI_Model {
     $this->thumbs_path = realpath(APPPATH.'../uploads/thumbs');
   }
   
-
-  
-function getProfile(){
-
-$id = $this->session->userdata('userid');
-
-
-		//get the id value from the first pair in the array
-		$id = $id[0]->m_id;
+//this is from April 13th uploader test//
+/*function do_upload(){
+	$config = array(
+	'allowed_types'=> 'jpg|jpeg|gif|png', // this is required
+	'upload_path'=> $this->original_path //so is this
+	);
+	
+	$this->load->library('upload', $config);
+	//below is the upload function of the upload library
+	$this->upload->do_upload();	return TRUE;
+	
+}*/
+	
+  //end April 13th uploader test//  
+function getProfile($id){
 
 //get the profile info based on the member
-		$queryProfile = $this->db->query("
+$queryProfile = $this->db->query("
+				Select p.p_id, p_fname, p_lname, p_img, p_last_updated, m.m_sex as m_sex, m.m_email as m_email
+				FROM profiles p
+				JOIN members m ON p.m_id = m.m_id
+				WHERE m.m_id =".$id);
+		/*$queryProfile = $this->db->query("
 				Select p.p_id, p_fname, p_lname, p_img, p_last_updated
 				FROM profiles p
 				JOIN members m on p.m_id = m.m_id
-				WHERE m.m_id =".$id);
+				WHERE m.m_id =".$id);*/
 	
 	//if the user has already created a profile return their profile info
 	if($queryProfile->num_rows == 1) {
@@ -86,7 +97,8 @@ $this->getProfile();
 	
 	
 function getMemberInfo() {
-$id = $this->session->userdata('userid');
+//gets member info for the includes/profile view
+		$id = $this->session->userdata('userid');
 
 		//get the id value from the first pair in the array
 		$id = $id[0]->m_id;
@@ -98,14 +110,12 @@ $id = $this->session->userdata('userid');
 			$member[]=$r;
 		
 		}
-		return $member;
-		
+		return $member;	
 }	
 
 
 function updateProfile() {
-	$this->load->helper('date');
-	
+$this->load->helper('date');
 $id = $this->session->userdata('userid');
 $id = $id[0]->m_id;
 
@@ -113,13 +123,8 @@ $id = $id[0]->m_id;
 //$datestring = "%Y-%m-%d %h:%i:";
 //$time = time();
 
-
 $time =  date('Y-m-d H:i:s');
-
 echo $time;
-
-
-		//get the id value from the first pair in the array
 		
 		//getting the username from the post array storing it in username and getting the data ready to insert
 		$username = $this->input->post('username');
@@ -127,29 +132,89 @@ echo $time;
 		$update_profile_insert_data = array (
 		'p_fname' => $this->input->post('first_name'),
 		'p_lname' => $this->input->post('last_name'),
-		'm_id' => 	$id,
+		//'m_id' => 	$id,
 		'p_last_updated' => $time		
 				);
 		//doing our update
 		
 //gets the id and updates the profile according to the m_id foreign key
 $this->db->where('m_id', $id);
-$this->db->update('profiles', $update_profile_insert_data); 
-	}
+if($this->db->update('profiles', $update_profile_insert_data))
+{ return TRUE; 
+}
+}
 
-	
-	
+
 	/*upload profile image*/
-function do_upload_profile($data){
+function do_upload_profile(){
+//$this->data['profile'] = $this->profile_model->getProfile();
+//$this->data['member'] = $this->profile_model->getMemberInfo();
 
+	$id = $this->session->userdata('userid');
+	$id = $id[0]->m_id;
+	
+	//get the posted file name and change it before uploaded
+	$newFileName = $_FILES['userfile']['name'];
 
-$upload_data = $data['upload_data'];
-print_r($upload_data);
-			
-$filename = $upload_data['file_name'];
+	
+	$filename = 'p_'.$id.'_'.$newFileName;
+	
 
+	
+	$config = array(
+				'allowed_types' => 'jpg|jpeg|gif|png',
+				'upload_path' => $this->original_path,
+				'max_size' => 1000,
+				'max_width' => 1024,
+				'max_height' => 768,
+				'file_name' => $filename
+				);
+	//load the upload library with the config options 		
+	$this->load->library('upload', $config);
+	//do the upload and check if it successful
+if(!$this->upload->do_upload()){
+		return FALSE;
+	}
+else{
+	$image_data = $this->upload->data();
+	
+	$config = array(
+	'source_image'=> $image_data['full_path'],
+	'new_image' => $this->resized_path,
+	'maintain_ration' => true,
+	'width' => 150,
+	'height' => 100
+	);
+	$this->load->library('image_lib', $config);
+	$this->image_lib->resize();
+		
+	//$this->load->library('upload', $config);
+				
 
+	/*if (!$this->upload->do_upload()){
+		//$error = array('error' => $this->upload->display_errors());
+		$this->data['error'] = "usuccessful";
+		//$this->load->view('profile_form', $data);
+		$this->data['main_content']='profile_form';
+	 	$this->load->view('includes/template', $this->data);
+	 	return;
+	 	}
+	 	
+	else{ 
+		$this->load->library('image_lib');
+		
+		$data = array('upload_data' => $this->upload->data());			
+		//if($query = $this->profile_model->do_upload_profile($data)){
+		$this->data['profile_updated'] = "Your profile has been updated";
+		$this->data['main_content']='profile_form';
+	 	$this->load->view('includes/template', $this->data);
+		} */
+		//$this->load->view('upload_success');
+		//$this->load->view('profile_form', $data);
 
+///////////////////
+
+/*echo $filename;
 $id = $this->session->userdata('userid');
 $id = $id[0]->m_id;
 	 //echo $file_name;
@@ -159,20 +224,11 @@ $id = $id[0]->m_id;
     'allowed_types'     => 'jpg|jpeg|gif|png', //only accept these file types
     'max_size'          => 2048, //2MB max
     'upload_path'       => $this->original_path, //upload directory
-    'id' => $id
-    );
-    
-    
-    
-    //get the time for the current update
-    $time =  date('Y-m-d H:i:s');
-
-//echo $time;
-
-
-		//get the id value from the first pair in the array
-		
-		//getting the username from the post array storing it in username and getting the data ready to insert
+    ); 
+    */
+   	 //get the time for the current update
+   		 $time =  date('Y-m-d H:i:s');
+		//getting the username from the post array storing it in username ready to insert
 		$username = $this->input->post('username');
 		
 		
@@ -189,12 +245,13 @@ $id = $id[0]->m_id;
 		//doing our update
 		
 //gets the id and updates the profile according to the m_id foreign key
-$this->db->where('m_id', $id);
-$this->db->update('profiles', $update_profile_insert_data); 
+$update = $this->db->where('m_id', $id);
+$update = $this->db->update('profiles', $update_profile_insert_data); 
+//leave this so that controller knows if it was successful
+return TRUE;
 	}
-    
-    
- }
+    }
+    }
  /*not sure if this is necessary
     $config = array(
     'file_name' =>  $id.$img_data['file_name'],
