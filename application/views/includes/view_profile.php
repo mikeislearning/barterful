@@ -4,7 +4,8 @@ if(isset($profile)) foreach ($profile as $p):?>
 <h1>Your Profile</h1>
 <?php
 if(isset($error)){echo $error; } //checks if there is an error in an update.
-echo '<img src="../../uploads/original/' .$p->p_img .'"/>' . '<br/>';
+//you can change this to <img src="../../uploads/original/' .$p->p_img .'" to see the full size photo
+echo '<img src="../../uploads/resized/' .$p->p_img .'"/>' . '<br/>';
 
 echo "Username: " .$this->session->userdata('username') ."<br/>";
 
