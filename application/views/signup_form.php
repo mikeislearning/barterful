@@ -4,16 +4,15 @@
             <main>
             
 <h1>Create an Account!</h1>
-<?php
-echo form_open('login/create_member');?>
+<?php echo form_open('login/create_member');?>
 	<label for="username">Username </label>
-<? echo form_input('username', set_value('username', ''),'placeholder="Username"'); ?>
+<?=form_input('username', set_value('username', ''),'placeholder="Username"'); ?>
 	<label for="email">Email Address </label>
-<? echo form_input('email', set_value('email', ''),'placeholder="Email Address"'); ?>
+<?=form_input('email', set_value('email', ''),'placeholder="Email Address"'); ?>
 	<label for="password">Password </label>
-<? echo form_password('password', '', 'placeholder="Password" class="password"'); ?>
+<?=form_password('password', '', 'placeholder="Password" class="password"'); ?>
 	<label for="password_confirm">Confirm Password </label>
-<? echo form_password('password_confirm', '', 'placeholder="Confirm Password" class="password_confirm"');
+<?php echo form_password('password_confirm', '', 'placeholder="Confirm Password" class="password_confirm"');
 echo form_submit('submit', 'Create Account');
 echo validation_errors('<p class="error">');
 echo form_close();
