@@ -29,16 +29,14 @@ class Profile_model extends CI_Model {
 }*/
 	
   //end April 13th uploader test//  
-function getProfile(){
-$id = $this->session->userdata('userid');
-//get the id value from the first pair in the array
-$id = $id[0]->m_id;
+function getProfile($id){
 
 //get the profile info based on the member
 $queryProfile = $this->db->query("
-				Select p.p_id, p_fname, p_lname, p_img, p_last_updated
+				Select p.p_id, p_fname, p_lname, p_img, p_last_updated, m.m_sex as m_sex, m.m_email as m_email
 				FROM profiles p
-				WHERE m_id =".$id);
+				JOIN members m ON p.m_id = m.m_id
+				WHERE m.m_id =".$id);
 		/*$queryProfile = $this->db->query("
 				Select p.p_id, p_fname, p_lname, p_img, p_last_updated
 				FROM profiles p

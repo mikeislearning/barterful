@@ -267,12 +267,12 @@ class ajax extends CI_Controller {
 
  public function searchPostings()
  {	
- 	if(!$this->session->userdata('logged_in')){
+ 	if(!$this->session->userdata('logged_in'))
 		 {
 			 //echo 'You do not have permission to access this page.';
 			 $this->data['header_content'] = 'includes/headerout';
 		 }
-		 else{
+	 else{
 			 $this->data['header_content'] = 'includes/headerin';
 		 }
 
