@@ -36,8 +36,14 @@ function index(){
 //this section uploads the user's profile picture
 //---------------------------------------------------------------------------------//
 function do_upload_profile(){
-	
-$this->load->model('profile_model');
+
+	//get the array of id's (there should just be one in the array)
+	$id = $this->session->userdata('userid');
+
+	//get the id value from the first pair in the array
+	$id = $id[0]->m_id;
+		
+	$this->load->model('profile_model');
 	 if($this->input->post('upload')){//checks if the upload is coming from the upload form
 		if (!$this->profile_model->do_upload_profile()){ //if upload is unsuccessful
 			$this->data['error'] = "usuccessful";
@@ -50,7 +56,7 @@ $this->load->model('profile_model');
 	 	
 	 }
 	//if the file has been uploaded, load the profile form and success message	
-	$this->data['profile'] = $this->profile_model->getProfile();	
+	$this->data['profile'] = $this->profile_model->getProfile($id);	
 	$this->data['member'] = $this->profile_model->getMemberInfo();
 	$this->data['profile_updated'] = "Your profile has been updated";
 	$this->data['main_content']='profile_form';
