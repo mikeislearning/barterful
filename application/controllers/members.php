@@ -62,134 +62,103 @@ class Members extends CI_Controller {
 	   }
  }
  
-
-
-	function createProfile()
-	{
-	
-		$this->load->library('form_validation');
-		$this->load->helper('captcha');
-		$this->load->helper('date');
+function createProfile(){
+	$this->load->library('form_validation');
+	$this->load->helper('captcha');
+	$this->load->helper('date');
 		
-			$id = $this->session->userdata('userid');
-
-		//get the id value from the first pair in the array
-		$id = $id[0]->m_id;
-		$this->load->model('profile_model');
+	$id = $this->session->userdata('userid');
+	$id = $id[0]->m_id;
+	$this->load->model('profile_model');
 		
-		//validation rules
-//don't need first_name and last_Name to signup
+	//validation rules
+	//don't need first_name and last_Name to signup
 	$this->form_validation->set_rules('first_name', 'Name', 'trim|required');
 	$this->form_validation->set_rules('last_name', 'Last Name', 'trim|required');
 		//$this->form_validation->set_rules('email', 'Email Address', 'trim|required|valid_email|callback_check_if_email_exists');
 		//$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|callback_check_if_username_exists');
 		//$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[32]');
 		//$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'trim|required|matches[password]');
-
-		if($this->form_validation->run() == FALSE)//didn't validate
-			{
-			$this->profile();
-		}
-
-		else
-		{
-			$this->load->model('profile_model');
-			if($query = $this->profile_model->createProfile())
-			{
-				//you make a data variable in this block
-				$this->data['profile_created'] = 'Your profile has been created. <br/>';
-				$this->profile();
-			}
-			else
-			{
-				$this->profile();
-			}
-		}
-	
+		//didn't validate
+	if($this->form_validation->run() == FALSE){
+		$this->profile();
 	}
-	
-
-
-	
-
-	function updateProfile()
-	{
-	
-		$this->load->library('form_validation');
-		$this->load->helper('captcha');
-		$this->load->helper('date');
-		
-			$id = $this->session->userdata('userid');
-
-		//get the id value from the first pair in the array
-		$id = $id[0]->m_id;
+	else {
 		$this->load->model('profile_model');
 		
-		//validation rules
-//don't need first_name and last_Name to signup
-	$this->form_validation->set_rules('first_name', 'Name', 'trim|required');
-	$this->form_validation->set_rules('last_name', 'Last Name', 'trim|required');
-		//$this->form_validation->set_rules('email', 'Email Address', 'trim|required|valid_email|callback_check_if_email_exists');
-		//$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|callback_check_if_username_exists');
-		//$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[32]');
-		//$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'trim|required|matches[password]');
-
-		if($this->form_validation->run() == FALSE)//didn't validate
-			{
+		if($query = $this->profile_model->createProfile()){
+			//you make a data variable in this block
+			$this->data['profile_created'] = 'Your profile has been created. <br/>';
 			$this->profile();
 		}
+		else {
+			$this->profile();
+		}
+	}
+	
+}
+	
+//updates the profile information for a user
+function updateProfile(){
+	$this->load->library('form_validation');
+	$this->load->helper('captcha');
+	$this->load->helper('date');
+	
+	//get the id value from the first pair in the array	
+	$id = $this->session->userdata('userid');
+	$id = $id[0]->m_id;
+	$this->load->model('profile_model');
+	
+	//needed to view update profile correctly
+	$this->data['profile'] = $this->profile_model->getProfile($id);	
+	$this->data['member'] = $this->profile_model->getMemberInfo($id);
+	
+	//validation rules
+	$this->form_validation->set_rules('first_name', 'Name', 'trim|required');
+	$this->form_validation->set_rules('last_name', 'Last Name', 'trim|required');
 
-		else
-		{
-			$this->load->model('profile_model');
-			if($query = $this->profile_model->updateProfile())
-			{
+	if($this->form_validation->run() == FALSE){ //didn't validate
+		$this->data['main_content'] = 'includes/update_profile';
+		$this->load->view('includes/template', $this->data);
+		return;//keep this to exit function
+	}
+
+	else {
+	//checks if the page is postback or on submit click
+		if($this->input->post('submit', TRUE)){	
+			//if profile_model is updated
+			if($query = $this->profile_model->updateProfile()){
 				//you make a data variable in this block
-				$this->data['profile_created'] = 'Your profile has been updated. <br/>';
-				$this->profile();
-			}
-			else
-			{
+				$this->data['profile_updated'] = 'Your profile has been updated. <br/>';
 				$this->profile();
 			}
 		}
-	
+		else{
+		
+			$this->profile();
+		}
 	}
+
+}
 	
-function profile()
-	 {
-		 if($this->session->userdata('logged_in'))
-		   {
-		  
-
-
-    $newdata = $this->session->userdata('logged_in');
+//loads the profile from headerin
+function profile() {
+	 if($this->session->userdata('logged_in')){
+		$newdata = $this->session->userdata('logged_in');
 		$session_data['username'] = $newdata['username'];
 		
-//gets array of ids
-$id = $this->session->userdata('userid');
-
-		//get the id value from the first pair in the array
+		$id = $this->session->userdata('userid');
 		$id = $id[0]->m_id;	 
-		//$this->load->model('profile_model');
-		$this->load->model('profile_model');
 		
-$this->data['profile'] = $this->profile_model->getProfile($id);
-$this->data['member'] = $this->profile_model->getMemberInfo($id);
-
+		$this->load->model('profile_model');
+		$this->data['profile'] = $this->profile_model->getProfile($id);
+		$this->data['member'] = $this->profile_model->getMemberInfo($id);
+		
 		$this->data['main_content'] = 'profile_form';
 		$this->load->view('includes/template', $this->data);
-		
-		//$data['idu'] = "THIS IS AN ID";
-		//$data['row'] = $this->profile_model->getProfile($id);
-		
-		//$this->load->view('includes/template', $this->data);
-		//$this->load->view('includes/template', $this->data);
-		
-		
-		 }
-	 
+			
 	 }
+ }
 
 	
 	 function inbox()
