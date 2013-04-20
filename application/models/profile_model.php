@@ -254,33 +254,3 @@ return TRUE;
 	}
     }
     }
- /*not sure if this is necessary
-    $config = array(
-    'file_name' =>  $id.$img_data['file_name'],
-    'source_image'      => $image_data['full_path'], //path to the uploaded image
-    'new_image'         => $this->resized_path, //path to
-    'maintain_ratio'    => true,
-    'width'             => 128,
-    'height'            => 128
-    );
- */
-    //this is the magic line that enables you generate multiple thumbnails
-    //you have to call the initialize() function each time you call the resize()
-    //otherwise it will not work and only generate one thumbnail
-    /*$this->image_lib->initialize($config);
-    $this->image_lib->resize();
- 
-    $config = array(
-    'source_image'      => $image_data['full_path'],
-    'new_image'         => $this->thumbs_path,
-    'maintain_ratio'    => true,
-    'width'             => 36,
-    'height'            => 36
-    );*/
-    //here is the second thumbnail, notice the call for the initialize() function again
-   /* $this->image_lib->initialize($config);
-    $this->image_lib->resize();
-  }
-*/
-
-	 
