@@ -267,7 +267,7 @@ class ajax extends CI_Controller {
 
  public function searchPostings()
  {	
- 	if(!isset($logged_in)|| $logged_in != true)
+ 	if(!$this->session->userdata('logged_in')){
 		 {
 			 //echo 'You do not have permission to access this page.';
 			 $this->data['header_content'] = 'includes/headerout';
@@ -296,47 +296,48 @@ class ajax extends CI_Controller {
 
  }
 
- public function sendnewmsg()
+ public function viewprofile()
  {
- 	if($this->session->userdata('logged_in'))
-	   {		
-		$this->load->model('inbox_model');
+	$this->load->model('profile_model');
 
-		$skillprofile = "";
+	$id = "";
+	$myid = "";
 
-		//check that each value has been provided and assign it to a variable
-		if(isset($_POST['skillprofile']))
+	//check that each value has been provided and assign it to a variable
+	if(isset($_POST['p_id']))
+	{
+		$id = $_POST['p_id'];
+	} 
+
+   if(!$this->session->userdata('logged_in'))
+	 {
+		 //echo 'You do not have permission to access this page.';
+		 $this->data['header_content'] = 'includes/headerout';
+	 }
+ 	else
+	 {
+		$this->data['header_content'] = 'includes/headerin';
+
+		//if the user clicked on their own profile, take them to their own profile view
+
+		//get their own id
+		$myid = $this->session->userdata('userid');
+		$myid = $myid[0]->m_id;
+
+		if($myid == $id)
 		{
-			$skillprofile = $_POST['skillprofile'];
+			$baseurl = base_url();
+			$url = $baseurl . "index.php/members/profile";
+			redirect($url, 'refresh');
 		}
+	 }	
 
-		//---------------------------------------------------------------------------------//
-		//this section loads the listings displayed based on the user's id in the session
-		//---------------------------------------------------------------------------------//
+	//$this->data['row'] = $this->inbox_model->newMsg($p_id);
+	$this->data['row'] = $this->profile_model->getProfile($id);
 
-		//get the array of id's (there should just be one in the array)
-		$id = $this->session->userdata('userid');
+	$this->data['main_content'] = 'publicProfile';
 
-		//get the id value from the first pair in the array
-		$id = $id[0]->m_id;
-
-		//send the id through to the query function
-		$this->data['row'] = $this->inbox_model->newMsg($skillprofile);
-
-		//send a list of skills for the dropdown function
-		$this->load->model('listings_model');
-		$this->data['skills'] = $this->listings_model->skillList();
-
-		$this->load->view('includes/listInbox', $this->data);
-	     
-	   }
-	   else
-	   {
-	       session_destroy();
-	     //If no session, redirect to login page
-	     redirect('login', 'refresh');
-	    
-	   }
+	$this->load->view('includes/template', $this->data);
 
  }
 	

@@ -151,8 +151,11 @@ function profile() {
 		$id = $id[0]->m_id;	 
 		
 		$this->load->model('profile_model');
+		$this->load->model('listings_model');
 		$this->data['profile'] = $this->profile_model->getProfile($id);
-		$this->data['member'] = $this->profile_model->getMemberInfo($id);
+		$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$id);
+		$this->data['wants'] = $this->listings_model->listAll("wants","sp_id","all",$id);
+		$this->data['projects'] = $this->listings_model->listAll("projects","sp_id","all",$id);
 		
 		$this->data['main_content'] = 'profile_form';
 		$this->load->view('includes/template', $this->data);
