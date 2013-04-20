@@ -30,12 +30,9 @@ class Profile_model extends CI_Model {
 	
   //end April 13th uploader test//  
 function getProfile(){
-
 $id = $this->session->userdata('userid');
-
-
-		//get the id value from the first pair in the array
-		$id = $id[0]->m_id;
+//get the id value from the first pair in the array
+$id = $id[0]->m_id;
 
 //get the profile info based on the member
 $queryProfile = $this->db->query("
@@ -129,11 +126,10 @@ $id = $id[0]->m_id;
 //$time = time();
 
 $time =  date('Y-m-d H:i:s');
-
 echo $time;
 		
 		//getting the username from the post array storing it in username and getting the data ready to insert
-				$username = $this->input->post('username');
+		$username = $this->input->post('username');
 	
 		$update_profile_insert_data = array (
 		'p_fname' => $this->input->post('first_name'),
@@ -148,8 +144,7 @@ $this->db->where('m_id', $id);
 if($this->db->update('profiles', $update_profile_insert_data))
 { return TRUE; 
 }
-
-	}
+}
 
 
 	/*upload profile image*/
@@ -179,13 +174,22 @@ function do_upload_profile(){
 	//load the upload library with the config options 		
 	$this->load->library('upload', $config);
 	//do the upload and check if it successful
-	if(!$this->upload->do_upload())
-	{
+if(!$this->upload->do_upload()){
 		return FALSE;
 	}
-		else
-		{
-
+else{
+	$image_data = $this->upload->data();
+	
+	$config = array(
+	'source_image'=> $image_data['full_path'],
+	'new_image' => $this->resized_path,
+	'maintain_ration' => true,
+	'width' => 150,
+	'height' => 100
+	);
+	$this->load->library('image_lib', $config);
+	$this->image_lib->resize();
+		
 	//$this->load->library('upload', $config);
 				
 
