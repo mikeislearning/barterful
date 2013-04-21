@@ -124,7 +124,7 @@ $id = $id[0]->m_id;
 //$time = time();
 
 $time =  date('Y-m-d H:i:s');
-echo $time;
+
 		
 		//getting the username from the post array storing it in username and getting the data ready to insert
 		$username = $this->input->post('username');
