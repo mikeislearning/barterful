@@ -1,5 +1,5 @@
 <?php
-
+	//this populates the drop down lists later when adding or editing a posting
 	$select = "";
 	foreach($skill_list as $sl)
 	{
@@ -13,36 +13,57 @@
 </div>
 <div id="edit-box" style="width:50%;margin:0 auto;position:fixed;z-index:20;background-color:white;display:none;padding:20px;">
 </div>
-<?php
-	if(isset($profile)) foreach ($profile as $p):?>           
+
+<!--make sure the profiles array exists (there should only be one row since it matches the member id)-->
+<?php if(isset($profile)) foreach ($profile as $p):?>           
+
+<!-- display a page header -->  
 <h1 style="font-weight:bold;padding:5px;font-size:24pt;">Your Profile</h1>
+
 <?php
-$profileid = $p->p_id;
-if(isset($error)){echo $error; } //checks if there is an error in an update.
-echo '<img src="../../uploads/original/' .$p->p_img .'"/>' . '<br/>';
+	
+	//this is stored in case the posting is new, and the p_id needs to be inserted into a new skill or want posting
+	$profileid = $p->p_id;
 
-echo "Username: " .$this->session->userdata('username') ."<br/>";
+	//checks if there is an error in an update.
+	if(isset($error)){echo $error; } 
 
-if(!empty($p->p_fname)){
-	echo "First Name: " .$p->p_fname ."<br/>";
-};
-if(!empty($p->p_lname)){
-	echo "Last: Name: " .$p->p_lname ."<br/>";
-};
-if(!empty($p->m_email)){
-	echo "Email: " . $p->m_email . "<br/>";
-};
-if(!empty($p->m_sex)){
-	echo "Gender: " . $p->m_sex . "<br/>";
-};
+	//display the profile image
+	echo '<img src="../../uploads/original/' .$p->p_img .'"/>' . '<br/>';
 
-endforeach; 
+	//display the username and other profile data
+	echo "Username: " .$this->session->userdata('username') ."<br/>";
+
+	if(!empty($p->p_fname)){
+		echo "First Name: " .$p->p_fname ."<br/>";
+	};
+	if(!empty($p->p_lname)){
+		echo "Last: Name: " .$p->p_lname ."<br/>";
+	};
+	if(!empty($p->m_email)){
+		echo "Email: " . $p->m_email . "<br/>";
+	};
+	if(!empty($p->m_sex)){
+		echo "Gender: " . $p->m_sex . "<br/>";
+	};
+
+	endforeach; 
+
 	//this takes you to the edit function of the profile
-echo anchor('Profile_crud/edit', 'edit'); ?>	 
+	echo anchor('Profile_crud/edit', 'edit'); 
+
+?>	 
 <br />
 
 <h2 style="font-weight:bold;padding:5px;font-size:18pt;">Skills</h2>
+
+<!-- create a button that opens a modal box to add a new skill profile. The onClick function sends through a 
+special paramater instead of the sp_id... this paramater starts with "new", which indicates to the model that it should be 
+inserting a record rather than updating one. The paramater ends with the profile id of the user that it will add into the 
+new skill profile (on an update this would be left out since the posting already contains a profile id) -->
 <input type="button" id="btn_new_skill" name="btn_new_skill" value="Add New" onClick="showEdit('new<?=$profileid?>','','','','','','skills')" />
+
+<!-- if there are skills, display each one. The $params string is used to send parameters through the showEdit function on submit -->
 <?php if(isset($skills)) foreach($skills as $s): ?>
 	<?php
 		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_id\",\"$s->sp_keywords\",\"\",\"$s->sp_details\",\"skills\"";
@@ -56,10 +77,19 @@ echo anchor('Profile_crud/edit', 'edit'); ?>
 	</form>
 	
 <?php endforeach; 
+
+//if no skills exist, suggest that the user adds one
 else echo "You have no skills, add one now!";?>
 
 <h2 style="font-weight:bold;padding:5px;font-size:18pt;">Wants</h2>
+
+<!-- create a button that opens a modal box to add a new want profile. The onClick function sends through a 
+special paramater instead of the sp_id... this paramater starts with "new", which indicates to the model that it should be 
+inserting a record rather than updating one. The paramater ends with the profile id of the user that it will add into the 
+new want profile (on an update this would be left out since the posting already contains a profile id) -->
 <input type="button" id="btn_new_skill" name="btn_new_skill" value="Add New" onClick="showEdit('new<?=$profileid?>','','','','','','wants')" />
+
+<!-- if there are wants, display each one. The $params string is used to send parameters through the showEdit function on submit -->
 <?php if(isset($wants)) foreach($wants as $s): ?>
 	<?php
 		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_id\",\"$s->sp_keywords\",\"$s->wp_expiry\",\"$s->sp_details\",\"wants\"";
@@ -75,10 +105,18 @@ else echo "You have no skills, add one now!";?>
 	
 <?php endforeach; 
 
+//if no wants exist, suggest that the user adds one
 else echo "You have no wants, add one now!"; ?>
 
 <h2 style="font-weight:bold;padding:5px;font-size:18pt;">Projects</h2>
+
+<!-- create a button that opens a modal box to add a new want profile. The onClick function sends through a 
+special paramater instead of the sp_id... this paramater starts with "new", which indicates to the model that it should be 
+inserting a record rather than updating one. The paramater ends with the profile id of the user that it will add into the 
+new want profile (on an update this would be left out since the posting already contains a profile id) -->
 <input type="button" id="btn_new_skill" name="btn_new_skill" value="Add New" onClick="showEdit('new<?=$profileid?>','','','','','','wants')" />
+
+<!-- if there are projects, display each one. The $params string is used to send parameters through the showEdit function on submit -->
 <?php if(isset($projects)) foreach($projects as $s): ?>
 	<?php
 		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_id\",\"$s->sp_keywords\",\"$s->wp_expiry\",\"$s->sp_details\",\"wants\"";
@@ -92,6 +130,7 @@ else echo "You have no wants, add one now!"; ?>
 		<input id="editskill" name="editskill" type="button" onClick='showEdit(<?=$params?>)' value="Edit" />
 	</form>
 	
+<!--if no skills exist, suggest that the user adds one-->
 <?php endforeach; else echo "You have no projects, add one now!";?>
 	
 <!--if the profile doesn't exist redirect them to the profile form page--> 
@@ -119,28 +158,49 @@ else echo "You have no wants, add one now!"; ?>
 
 		function showEdit(id,heading,skill,keywords,expiry,details,type)
 		{
-
+			//show the modal box
 			showBox("show");
+
+			//create a form that allows the user to add or edit a posting
 			$('#edit-box').append("<form id='skilledit' name='skilledit'></form>");
+
+			//hide the id of the skill profile/profile id (based on if its a new posting) in the form, as well as whether this 
+			//is a skill or a want posting
 			$('#skilledit').append("<input type='hidden' id='sp_id' name='sp_id' value='" + id + "' />");
 			$('#skilledit').append("<input type='hidden' id='type' name='type' value='" + type + "' />");
+
+			//create and populate (if applicable) the input fields
 			$('#skilledit').append("Heading: <input type='text' id='sp_heading' name='sp_heading' value='" + heading + "' style='width:50%;' />");
 			$('#skilledit').append("Skill:<br /><select id='s_id' name='s_id'></select><br />");
+
+			//add options to the dropdown list using the list of options created in php at the top of the page
 			$('#s_id').append("<?=$select ?>");
+
+			//add more input fields
 			$('#skilledit').append("Keywords: <input type='text' id='sp_keywords' name='sp_keywords' value='" + keywords + "' />");
 			$('#skilledit').append("Details: <textarea id='sp_details' name='sp_details' style='width:75%;height:100px;'>" + details + "</textarea>");
+			
+			//allow the user to add or edit the date needed by if this is a want (or project) posting
 			if(type == "wants")
 			{
 				$('#skilledit').append("Required by: <input type='date' id='wp_expiry' name='wp_expiry' value='" + expiry + "' placeholder='yyyy/mm/dd' /><br />");
 			}
+
+			//add the butttons
 			$('#skilledit').append("<input type='button' id='btnsubmit' name='btnsubmit' value='Submit' />");
 			$('#skilledit').append("<input type='button' id='btncancel' name='btncancel' value='Cancel' />");
+
+			//"new" has been appended to the id variable if this is a new posting. If its not a new posting, display a delete option
 			if(id.substring(0,3) != "new")
 			{
 				$('#skilledit').append("<input type='button' id='btndelete' name='btndelete' value='Delete' style='float:right;position:relative;'/>");
 			}
 			$('#skilledit').append("</form>");
+
+			//set the skill selected in the dropdown list to the skill of the selected record (if this is an edit)
 			$("#s_id").val(skill);
+
+			//bind functions to the newly added buttons
 			bindButtons();
 		}
 
@@ -161,13 +221,19 @@ else echo "You have no wants, add one now!"; ?>
 				runAJAX(spid,heading,skill,keywords,details,expiry,type);
 			});
 
+			//this button clears and hides the modal box
 			$('#btncancel').bind('click', function() {
 				showBox("hide");
 				location.reload();
 			});
 
+			//bind the delete button to a function where on click the record is deleted (after confirmation)
 			$('#btndelete').bind('click', function() {
+
+				//confirm deletion from the user
 				if(!confirm("Are you sure you want to delete this posting?")) return;
+
+				//get the id of the posting and determine whether it is in the skill_profiles or want_profiles table
 				var spid = $('#sp_id').val();
 				var type = $('#type').val();
 
@@ -179,13 +245,9 @@ else echo "You have no wants, add one now!"; ?>
 
 				//send the variables through
 				$.post(send_url, { sp_id: spid, type: type }).done(function(msg){
-						$('#edit-box').html("Your posting has been successfully removed.");
-	                	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
-	                	bindButtons();
+						displayMsg("Your posting has been successfully removed.");
 	                }).fail(function(){
-	                	$('#edit-box').html('Oops! Our computers could not delete this posting. Please try again later.');
-	                	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
-						bindButtons();
+	                	displayMsg('Oops! Our computers could not delete this posting. Please try again later.');
 	                });
 			});
 		}
@@ -200,14 +262,18 @@ else echo "You have no wants, add one now!"; ?>
 
 			//send the variables through
 			$.post(send_url, { sp_id: spid, s_id: skill, sp_heading: heading, sp_keywords: keywords, sp_details: details, expiry: expiry, type: type }).done(function(msg){
-					$('#edit-box').html("Success!");
-                	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
-                	bindButtons();
+					displayMsg("Your changes have been saved.")
                 }).fail(function(){
-                	$('#edit-box').html('Could not load!');
-                	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
-					bindButtons();
+                	displayMsg("Oops! Your changes could not be saved. Please try again later.")
                 });
+		}
+
+		//show a result message in the modal box and add a close button
+		function displayMsg(msg)
+		{
+	    	$('#edit-box').html(msg).hide().fadeIn(1500);;
+	    	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
+			bindButtons();
 		}
 
 </script>
