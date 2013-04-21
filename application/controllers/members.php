@@ -149,6 +149,9 @@ function profile() {
 		
 		$id = $this->session->userdata('userid');
 		$id = $id[0]->m_id;	 
+
+		echo $id;
+		
 		
 		$this->load->model('listings_model');
 		$this->load->model('profile_model');

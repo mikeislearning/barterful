@@ -82,6 +82,7 @@ $time =  date('Y-m-d H:i:s');
 		'p_fname' => $this->input->post('first_name'),
 		'p_lname' => $this->input->post('last_name'),
 		'm_id' => 	$id,
+		'p_id' => $id,
 		'p_last_updated' => $time		
 				);
 		//doing our update
@@ -90,9 +91,8 @@ $time =  date('Y-m-d H:i:s');
 $this->db->where('m_id', $id);
 $this->db->insert('profiles', $new_profile_insert_data); 
 
-$this->getProfile();
-
-	}
+redirect('members/profile', 'refresh');
+}
 	
 	
 	

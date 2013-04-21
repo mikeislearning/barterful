@@ -1,4 +1,11 @@
 <?php
+	$logged_in = $this->session->userdata('logged_in');
+			 
+				 if(!isset($logged_in) || $logged_in != true)
+				 {
+					 $logged_in = false;
+				 }
+				 else $logged_in = true;
 
 	$select = "<option value=''></option>";
 	foreach($skill_list as $sl)
@@ -77,9 +84,20 @@
 
 		function sendOffer(toid,toskill,type)
 		{
-
 			$('#edit-background').css('display','block');
 			$('#edit-box').css('display','block');
+
+			var loggedin = '<?=$logged_in ?>';
+
+			if(loggedin != '1')
+			{
+                	$('#edit-box').html('Please log in or create an account to send a message.');
+                	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
+                	$('#edit-box').append(loggedin);
+					bindButtons();
+					return;
+			}
+
 			$('#edit-box').append("<form id='sendmsg' name='sendmsg'></form>");
 			$('#sendmsg').append("<input type='hidden' id='m_id' name='m_id' value='" + toid + "' />");
 			$('#sendmsg').append("I'd like <input type='text' id='to_unit' name='to_unit' />");
