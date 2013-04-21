@@ -31,6 +31,10 @@ class Profile_model extends CI_Model {
   //end April 13th uploader test//  
 function getProfile($id){
 
+	//get this own users id
+	$myid = $this->session->userdata('userid');
+	$myid = $myid[0]->m_id;
+
 //get the profile info based on the member
 $queryProfile = $this->db->query("
 				Select p.p_id, p_fname, p_lname, p_img, p_last_updated, m.m_sex as m_sex, m.m_email as m_email, m.m_username as m_username
@@ -54,17 +58,19 @@ $queryProfile = $this->db->query("
 		
 
 		return $profile;
-		}
+	}
 		
 		//if they don't have a profile created yet
-		else
-		{ 
-		$this->createProfile();
+	else if ($id == $myid)
+	$this->createProfile();
+	else 
+	{
+		return "";
+	}
 
 			
-		}
 		
-	}	
+}	
 //createProfile	
 function createProfile() {
 	$this->load->helper('date');
