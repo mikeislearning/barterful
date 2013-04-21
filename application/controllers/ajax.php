@@ -346,12 +346,17 @@ class ajax extends CI_Controller {
 
 	$this->load->model('profile_model');
 
-	$table = "skills";
- 	$spid="NOT EXISTANT";
+	$type = "";
+ 	$spid="";
  	$sid="";
  	$spheading="";
  	$spdetails="";
  	$spkeywords="";
+
+	if(isset($_POST['type']))
+	{
+		$type = $_POST['type'];
+	} 
 
  	if(isset($_POST['sp_id']))
 	{
@@ -388,7 +393,7 @@ class ajax extends CI_Controller {
 
 		$this->load->model('profile_model');
 		$this->load->model('listings_model');
-		$this->data['profile'] = $this->profile_model->updateSP($spid,$sid,$spheading,$spdetails,$spkeywords,$myid,$table);
+		$this->data['profile'] = $this->profile_model->updateSP($spid,$sid,$spheading,$spdetails,$spkeywords,$myid,$type);
 		$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$myid);
 		$this->data['wants'] = $this->listings_model->listAll("wants","sp_id","all",$myid);
 		$this->data['projects'] = $this->listings_model->listAll("projects","sp_id","all",$myid);

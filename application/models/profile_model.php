@@ -258,15 +258,42 @@ return TRUE;
 		date_default_timezone_set('America/New_York');
 		$date = date('Y-m-d H:i:s');
 
-		$data = array(
-           's_id' => $sid,
-           'sp_heading' => $spheading,
-           'sp_details' => $spdetails,
-           'sp_keywords' => $spkeywords
-        );
+		switch($table)
+		{
+			case "skills":
+				$table = 'skill_profiles';
+				$id = 'sp_id';
+				$data = array(
+		           's_id' => $sid,
+		           'sp_heading' => $spheading,
+		           'sp_details' => $spdetails,
+		           'sp_keywords' => $spkeywords
+		        );
+			break;
+			case "wants":
+				$table = 'want_profiles';
+				$id = 'wp_id';
+				$data = array(
+		           's_id' => $sid,
+		           'wp_heading' => $spheading,
+		           'wp_details' => $spdetails,
+		           'wp_keywords' => $spkeywords
+		        );
+			break;
+			case "wants":
+				$table = 'want_profiles';
+				$id = 'wp_id';
+				$data = array(
+		           's_id' => $sid,
+		           'wp_heading' => $spheading,
+		           'wp_details' => $spdetails,
+		           'wp_keywords' => $spkeywords
+		        );
+			break;
+		}
 
-		$this->db->where('sp_id', $spid);
-		$this->db->update('skill_profiles', $data);
+		$this->db->where($id, $spid);
+		$this->db->update($table, $data);
 
 		$pdata = array(
            'p_last_updated' => $date
