@@ -107,17 +107,21 @@ else echo "You have no wants, add one now!"; ?>
 			$('#edit-box').append("<form id='skilledit' name='skilledit'></form>");
 			$('#skilledit').append("<input type='hidden' id='sp_id' name='sp_id' value='" + id + "' />");
 			$('#skilledit').append("<input type='hidden' id='type' name='type' value='" + type + "' />");
-			$('#skilledit').append("Heading: <input type='text' id='sp_heading' name='sp_heading' value='" + heading + "' />");
+			$('#skilledit').append("Heading: <input type='text' id='sp_heading' name='sp_heading' value='" + heading + "' style='width:50%;' />");
 			$('#skilledit').append("Skill:<br /><select id='s_id' name='s_id'></select><br />");
 			$('#s_id').append("<?=$select ?>");
 			$('#skilledit').append("Keywords: <input type='text' id='sp_keywords' name='sp_keywords' value='" + keywords + "' />");
-			$('#skilledit').append("Details: <textarea id='sp_details' name='sp_details'>" + details + "</textarea>");
+			$('#skilledit').append("Details: <textarea id='sp_details' name='sp_details' style='width:75%;height:100px;'>" + details + "</textarea>");
 			if(type == "wants")
 			{
 				$('#skilledit').append("Required by: <input type='date' id='wp_expiry' name='wp_expiry' value='" + expiry + "' placeholder='yyyy/mm/dd' /><br />");
 			}
 			$('#skilledit').append("<input type='button' id='btnsubmit' name='btnsubmit' value='Submit' />");
 			$('#skilledit').append("<input type='button' id='btncancel' name='btncancel' value='Cancel' />");
+			if(id.substring(0,3) != "new")
+			{
+				$('#skilledit').append("<input type='button' id='btndelete' name='btndelete' value='Delete' style='float:right;position:relative;'/>");
+			}
 			$('#skilledit').append("</form>");
 			$("#s_id").val(skill);
 			bindButtons();
@@ -148,7 +152,7 @@ else echo "You have no wants, add one now!"; ?>
 			});
 
 			$('#btndelete').bind('click', function() {
-				return confirm("Are you sure you want to delete this posting?");
+				if(!confirm("Are you sure you want to delete this posting?")) return;
 				var spid = $('#sp_id').val();
 				var type = $('#type').val();
 

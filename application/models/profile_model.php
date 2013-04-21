@@ -252,9 +252,31 @@ return TRUE;
 	}
     }
 
-    public function deleteSP($spid,$type)
+    public function deleteSP($spid,$table)
     {
-    	
+		//set the timezone so that the time inputs correctly
+		date_default_timezone_set('America/New_York');
+		$date = date('Y-m-d H:i:s');
+
+		switch($table)
+		{
+			case "skills":
+				$table = 'skill_profiles';
+				$id = 'sp_id';
+			break;
+			case "wants":
+				$table = 'want_profiles';
+				$id = 'wp_id';
+			break;
+			case "projects":
+				$table = 'want_profiles';
+				$id = 'wp_id';
+			break;
+		}
+
+		$this->db->where($id, $spid);
+		$this->db->delete($table);
+
     }
 
 	public function updateSP($spid,$sid,$spheading,$spdetails,$expiry,$spkeywords,$myid,$table)
@@ -288,7 +310,7 @@ return TRUE;
 		           'wp_expiry' => $expiry
 		        );
 			break;
-			case "wants":
+			case "projects":
 				$table = 'want_profiles';
 				$id = 'wp_id';
 				$data = array(
