@@ -77,9 +77,25 @@
 
 		function sendOffer(toid,toskill,type)
 		{
+			<?php 
+				$logged_in = $this->session->userdata('logged_in');
+			 
+				 if(!isset($logged_in) || $logged_in != true)
+				 {
+					 $logged_in = false;
+				 }
+				 else $logged_in = true;
+			?>
 
 			$('#edit-background').css('display','block');
 			$('#edit-box').css('display','block');
+
+			if(!<?=$logged_in ?>)
+			{
+
+			}
+
+
 			$('#edit-box').append("<form id='sendmsg' name='sendmsg'></form>");
 			$('#sendmsg').append("<input type='hidden' id='m_id' name='m_id' value='" + toid + "' />");
 			$('#sendmsg').append("I'd like <input type='text' id='to_unit' name='to_unit' />");
