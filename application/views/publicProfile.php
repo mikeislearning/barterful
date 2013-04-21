@@ -201,6 +201,7 @@
             });
 	}
 
+	//show a result message in the modal box and add a close button
 	function displayMsg(msg)
 	{
     	$('#edit-box').html(msg).hide().fadeIn(1500);;
