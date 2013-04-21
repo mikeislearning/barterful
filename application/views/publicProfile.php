@@ -19,9 +19,9 @@
 	?>
 
 <!--This view is loaded from views/profile_form and is only included if profile information has already been set -->
-<div id="edit-background" style="width:100%;height:100%;background-color:grey;opacity:0.7;position:fixed;top:0;left:0;z-index:10;display:none;">
+<div id="edit-background" >
 </div>
-<div id="edit-box" style="width:50%;margin:0 auto;position:fixed;z-index:20;background-color:white;display:none;padding:20px;">
+<div id="edit-box">
 </div>
 
 <?php
@@ -49,7 +49,7 @@
 	<?php
 		$params = "\"$s->m_id\",\"$s->s_id\",\"skill\"";
 	?>
-	<form id="p_skills" name="p_skills" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
+	<form class="p_skills" name="p_skills">
 		<h3><?=$s->sp_heading ?></h3>
 		Skill: <?=$s->s_name ?><br />
 		Keywords: <?=$s->sp_keywords ?><br />
@@ -66,7 +66,7 @@
 	<?php
 		$params = "\"$s->m_id\",\"$s->s_id\",\"want\"";
 	?>
-	<form id="p_skills" name="p_skills" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
+	<form class="p_skills" name="p_skills" >
 		<h3><?=$s->sp_heading ?></h3>
 		Skill: <?=$s->s_name ?><br />
 		Keywords: <?=$s->sp_keywords ?><br />
@@ -84,7 +84,7 @@
 	<?php
 		$params = "\"$s->m_id\",\"$s->s_id\",\"project\"";
 	?>
-	<form id="p_skills" name="p_skills" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
+	<form class="p_skills" name="p_skills" >
 		<h3><?=$s->sp_heading ?></h3>
 		Skill: <?=$s->s_name ?><br />
 		Keywords: <?=$s->sp_keywords ?><br />
