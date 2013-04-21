@@ -33,6 +33,13 @@ class ajax extends CI_Controller {
 		 }
 		 else{
 			 $this->data['header_content'] = 'includes/headerin';
+			 $this->load->model('inbox_model');
+		   	//get the array of id's (there should just be one in the array)
+			$id = $this->session->userdata('userid');
+			//get the id value from the first pair in the array
+			$id = $id[0]->m_id;
+
+		   	$this->data['count_inbox'] = $this->inbox_model->countUnread($id);
 		 }
 	 }
 
@@ -274,6 +281,17 @@ class ajax extends CI_Controller {
 		 }
 	 else{
 			 $this->data['header_content'] = 'includes/headerin';
+
+			//---------------------------------------------------------------------------------//
+			//this section loads the listings displayed based on the user's id in the session
+			//---------------------------------------------------------------------------------//
+		   	$this->load->model('inbox_model');
+		   	//get the array of id's (there should just be one in the array)
+			$id = $this->session->userdata('userid');
+			//get the id value from the first pair in the array
+			$id = $id[0]->m_id;
+
+		   	$this->data['count_inbox'] = $this->inbox_model->countUnread($id);
 		 }
 
 	$this->load->model('listings_model');
@@ -317,11 +335,18 @@ class ajax extends CI_Controller {
 	 {
 		$this->data['header_content'] = 'includes/headerin';
 
-		//if the user clicked on their own profile, take them to their own profile view
-
-		//get their own id
+		//---------------------------------------------------------------------------------//
+		//this section loads the listings displayed based on the user's id in the session
+		//---------------------------------------------------------------------------------//
+	   	$this->load->model('inbox_model');
+	   	//get the array of id's (there should just be one in the array)
 		$myid = $this->session->userdata('userid');
+		//get the id value from the first pair in the array
 		$myid = $myid[0]->m_id;
+
+	   	$this->data['count_inbox'] = $this->inbox_model->countUnread($myid);
+
+		//if the user clicked on their own profile, take them to their own profile view
 
 		if($myid == $id)
 		{
