@@ -16,7 +16,7 @@
 		            <li><a href="#">User Rating: <?php echo $r->p_avg_rating*100 . "%" ?> </a></li>
 		            <li></li>
 		           <li> 
-		           		<form id="btn_msg_user" name="btn_msg_user" method="POST" action='<?=base_url()?>index.php/ajax/viewprofile'>
+		           		<form id="btn_msg_user" name="btn_msg_user" method="POST" action='<?=base_url()?>index.php/profiles/viewprofile'>
 		           			<input type="hidden" id="p_id" name="p_id" value='<?=$r->m_id ?>' />
 		           			<input type="submit" value="More about <?=$r->p_fname ?>" />
 		           		</form>

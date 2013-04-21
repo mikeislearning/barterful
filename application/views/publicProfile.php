@@ -213,7 +213,7 @@
 
 		//when the cancel button is clicked, hide the modal box
 		$('#btncancel').bind('click', function() {
-			showBox("hide");
+			location.reload();
 		});
 	}
 
@@ -221,7 +221,7 @@
 	function runAJAX(toid, toskill, tounit, fromskill, fromunit, message)
 	{
 		//determine which call to used based on whether user is logged in or not
-		ext_url = 'index.php/ajax/sendmessage';
+		ext_url = 'index.php/mail/sendmessage';
 
 		//base_url us a php function to get to the root of the site, then add the extended url
 		var send_url = '<?=base_url()?>' + ext_url;

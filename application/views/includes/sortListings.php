@@ -66,7 +66,7 @@
 		{		
 			//determine which call to used based on whether user is logged in or not
 			var logstatus = '<?=$this->session->userdata('logged_in')?>';  
-			if(logstatus == 1) {ext_url = 'index.php/ajax/re_sort';}
+			if(logstatus == 1) {ext_url = 'index.php/search/re_sort';}
 			else{ext_url = 'index.php/site/sortListings';}
 
 			//base_url us a php function to get to the root of the site, then add the extended url

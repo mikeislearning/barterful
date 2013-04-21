@@ -223,7 +223,6 @@ new want profile (on an update this would be left out since the posting already 
 
 			//this button clears and hides the modal box
 			$('#btncancel').bind('click', function() {
-				showBox("hide");
 				location.reload();
 			});
 
@@ -238,7 +237,7 @@ new want profile (on an update this would be left out since the posting already 
 				var type = $('#type').val();
 
 				//determine which call to used based on whether user is logged in or not
-				ext_url = 'index.php/ajax/deleteSkill';
+				ext_url = 'index.php/profiles/deleteSkill';
 
 				//base_url us a php function to get to the root of the site, then add the extended url
 				var send_url = '<?=base_url()?>' + ext_url;
@@ -255,7 +254,7 @@ new want profile (on an update this would be left out since the posting already 
 		function runAJAX(spid,heading,skill,keywords,details,expiry,type)
 		{		
 			//determine which call to used based on whether user is logged in or not
-			ext_url = 'index.php/ajax/editSkill';
+			ext_url = 'index.php/profiles/editSkill';
 
 			//base_url us a php function to get to the root of the site, then add the extended url
 			var send_url = '<?=base_url()?>' + ext_url;
