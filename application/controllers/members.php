@@ -189,6 +189,9 @@ function profile() {
 		//send the id through to the query function
 		$this->data['row'] = $this->inbox_model->listAll($id,'inbox','');
 
+		//set all messages in the inbox to read
+		$this->inbox_model->readMessages($id);
+
 	    $this->data['main_content'] = 'inbox';
 		$this->load->view('includes/template', $this->data);
 	     
