@@ -340,6 +340,61 @@ class ajax extends CI_Controller {
 	$this->load->view('includes/template', $this->data);
 
  }
+
+ public function editSkill()
+ {
+
+	$this->load->model('profile_model');
+
+ 	$spid="";
+ 	$sid="";
+ 	$spheading="";
+ 	$spdetails="";
+ 	$spkeywords="";
+
+ 	if(isset($_POST['sp_id']))
+	{
+		$spid = $_POST['sp_id'];
+	} 
+
+	if(isset($_POST['s_id']))
+	{
+		$sid = $_POST['s_id'];
+	} 
+
+	if(isset($_POST['sp_heading']))
+	{
+		$spheading = $_POST['sp_heading'];
+	} 
+
+	if(isset($_POST['sp_details']))
+	{
+		$spdetails = $_POST['sp_details'];
+	} 
+
+	if(isset($_POST['sp_keywords']))
+	{
+		$spkeywords = $_POST['sp_keywords'];
+	} 
+
+	if($this->session->userdata('logged_in'))
+	 {
+		//get their own id
+		$myid = $this->session->userdata('userid');
+		$myid = $myid[0]->m_id;
+
+		$this->load->model('profile_model');
+		$this->load->model('listings_model');
+		$this->data['profile'] = $this->profile_model->updateSP($spid,$sid,$spheading,$spdetails,$spkeywords,$myid,"skill");
+		$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$myid);
+		$this->data['wants'] = $this->listings_model->listAll("wants","sp_id","all",$myid);
+		$this->data['projects'] = $this->listings_model->listAll("projects","sp_id","all",$myid);
+		$this->data['skill_list'] = $this->listings_model->skillList();
+		
+		$this->data['main_content'] = 'profile_form';
+		$this->load->view('includes/template', $this->data);
+	 }	
+ }
 	
 	
 }

@@ -1,7 +1,17 @@
+<?php
+
+	$select = "";
+	foreach($skill_list as $sl)
+	{
+		$select .= "<option value='" . $sl->s_id . "'>$sl->s_name</option>";
+	}
+
+	?>
+
 <!--This view is loaded from views/profile_form and is only included if profile information has already been set -->
 <div id="edit-background" style="width:100%;height:100%;background-color:grey;opacity:0.7;position:fixed;top:0;left:0;z-index:10;display:none;">
 </div>
-<div id="edit-box" style="width:50%;margin:0 auto;position:fixed;z-index:20;background-color:white;display:none;">
+<div id="edit-box" style="width:50%;margin:0 auto;position:fixed;z-index:20;background-color:white;display:none;padding:20px;">
 </div>
 <?php
 	if(isset($profile)) foreach ($profile as $p):?>           
@@ -33,7 +43,7 @@ echo anchor('Profile_crud/edit', 'edit');?>
 <h2 style="font-weight:bold;padding:5px;font-size:18pt;">Skills</h2>
 <?php if(isset($skills)) foreach($skills as $s): ?>
 	<?php
-		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_name\",\"$s->sp_keywords\",\"$s->sp_details\"";
+		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_id\",\"$s->sp_keywords\",\"$s->sp_details\"";
 	?>
 	<form id="p_skills" name="p_skills" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
 		<h3><?=$s->sp_heading ?></h3>
@@ -79,12 +89,28 @@ echo anchor('Profile_crud/edit', 'edit');?>
 	$(document).ready(function(){
 	})
 
-	function showEdit(id,heading,name,keywords,details)
+	function showEdit(id,heading,skill,keywords,details)
 	{
+
 		$('#edit-background').css('display','block');
 		$('#edit-box').css('display','block');
 		$('#edit-box').append("<form id='skilledit' name='skilledit' action='<?=base_url()?>index.php/ajax/editSkill' type='post'></form>");
-		$('#skilledit').append("<input type='hidden' id='sp_id' value='" + id + "' />");
-		$('#skilledit').append("Skill: <input type='text' id='s_name' value='" + name + "' />");
+		$('#skilledit').append("<input type='hidden' id='sp_id' name='sp_id' value='" + id + "' />");
+		$('#skilledit').append("Heading: <input type='text' id='sp_heading' name='sp_heading' value='" + heading + "' />");
+		$('#skilledit').append("Skill:<br /><select id='s_id' name='s_id'></select><br />");
+		$('#s_id').append("<?=$select ?>");
+		$('#skilledit').append("Keywords: <input type='text' id='sp_keywords' name='sp_keywords' value='" + keywords + "' />");
+		$('#skilledit').append("Details: <textarea id='sp_details' name='sp_details'>" + details + "</textarea>");
+		$('#skilledit').append("<input type='submit' id='submit' name='submit' value='Submit' />");
+		$('#skilledit').append("<input type='button' id='cancel' name='cancel' value='Cancel' onClick='subCancel()' />");
+		$('#skilledit').append("</form>");
+	}
+
+	function subCancel()
+	{
+		$('#edit-box').html("");
+		$('#edit-background').css('display','none');
+		$('#edit-box').css('display','none');
+
 	}
 </script>
