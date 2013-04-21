@@ -258,8 +258,6 @@ return TRUE;
 		date_default_timezone_set('America/New_York');
 		$date = date('Y-m-d H:i:s');
 
-		$
-
 		$data = array(
            's_id' => $sid,
            'sp_heading' => $spheading,
@@ -267,15 +265,9 @@ return TRUE;
            'sp_keywords' => $spkeywords
         );
 
-        echo $spid;
-
 		$this->db->where('sp_id', $spid);
-		$result = $this->db->update('skill_profiles', $data); 
+		$this->db->update('skill_profiles', $data);
 
-		if(!$result)
-			{echo "ERROR";}
-		else{echo "cow";}
-		
 		$pdata = array(
            'p_last_updated' => $date
         );

@@ -208,7 +208,7 @@ class ajax extends CI_Controller {
 
 		if(isset($_POST['to_skill']))
 		{
-			$to_skill = $_POST['to'];
+			$to_skill = $_POST['to_skill'];
 		}
 
 		if(isset($_POST['to_unit']))
@@ -346,7 +346,8 @@ class ajax extends CI_Controller {
 
 	$this->load->model('profile_model');
 
- 	$spid="";
+	$table = "skills";
+ 	$spid="NOT EXISTANT";
  	$sid="";
  	$spheading="";
  	$spdetails="";
@@ -377,6 +378,8 @@ class ajax extends CI_Controller {
 		$spkeywords = $_POST['sp_keywords'];
 	} 
 
+	echo $spid;
+
 	if($this->session->userdata('logged_in'))
 	 {
 		//get their own id
@@ -385,7 +388,7 @@ class ajax extends CI_Controller {
 
 		$this->load->model('profile_model');
 		$this->load->model('listings_model');
-		$this->data['profile'] = $this->profile_model->updateSP($spid,$sid,$spheading,$spdetails,$spkeywords,$myid,"skill");
+		$this->data['profile'] = $this->profile_model->updateSP($spid,$sid,$spheading,$spdetails,$spkeywords,$myid,$table);
 		$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$myid);
 		$this->data['wants'] = $this->listings_model->listAll("wants","sp_id","all",$myid);
 		$this->data['projects'] = $this->listings_model->listAll("projects","sp_id","all",$myid);

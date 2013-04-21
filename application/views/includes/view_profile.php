@@ -47,7 +47,6 @@ echo anchor('Profile_crud/edit', 'edit');?>
 	?>
 	<form id="p_skills" name="p_skills" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
 		<h3><?=$s->sp_heading ?></h3>
-		<input type="hidden" value="<?=$s->sp_id ?>" />
 		Skill: <?=$s->s_name ?><br />
 		Keywords: <?=$s->sp_keywords ?><br />
 		Details: <?=$s->sp_details ?><br />
@@ -86,31 +85,60 @@ echo anchor('Profile_crud/edit', 'edit');?>
 <?php if(!$profile) redirect($this->load->view('profile_form')); ?>
 
 <script>
-	$(document).ready(function(){
-	})
 
-	function showEdit(id,heading,skill,keywords,details)
-	{
+	
 
-		$('#edit-background').css('display','block');
-		$('#edit-box').css('display','block');
-		$('#edit-box').append("<form id='skilledit' name='skilledit' action='<?=base_url()?>index.php/ajax/editSkill' type='post'></form>");
-		$('#skilledit').append("<input type='hidden' id='sp_id' name='sp_id' value='" + id + "' />");
-		$('#skilledit').append("Heading: <input type='text' id='sp_heading' name='sp_heading' value='" + heading + "' />");
-		$('#skilledit').append("Skill:<br /><select id='s_id' name='s_id'></select><br />");
-		$('#s_id').append("<?=$select ?>");
-		$('#skilledit').append("Keywords: <input type='text' id='sp_keywords' name='sp_keywords' value='" + keywords + "' />");
-		$('#skilledit').append("Details: <textarea id='sp_details' name='sp_details'>" + details + "</textarea>");
-		$('#skilledit').append("<input type='submit' id='submit' name='submit' value='Submit' />");
-		$('#skilledit').append("<input type='button' id='cancel' name='cancel' value='Cancel' onClick='subCancel()' />");
-		$('#skilledit').append("</form>");
-	}
+		function showEdit(id,heading,skill,keywords,details)
+		{
 
-	function subCancel()
-	{
-		$('#edit-box').html("");
-		$('#edit-background').css('display','none');
-		$('#edit-box').css('display','none');
+			$('#edit-background').css('display','block');
+			$('#edit-box').css('display','block');
+			$('#edit-box').append("<form id='skilledit' name='skilledit'></form>");
+			$('#skilledit').append("<input type='hidden' id='sp_id' name='sp_id' value='" + id + "' />");
+			$('#skilledit').append("Heading: <input type='text' id='sp_heading' name='sp_heading' value='" + heading + "' />");
+			$('#skilledit').append("Skill:<br /><select id='s_id' name='s_id'></select><br />");
+			$('#s_id').append("<?=$select ?>");
+			$('#skilledit').append("Keywords: <input type='text' id='sp_keywords' name='sp_keywords' value='" + keywords + "' />");
+			$('#skilledit').append("Details: <textarea id='sp_details' name='sp_details'>" + details + "</textarea>");
+			$('#skilledit').append("<input type='button' id='btnsubmit' name='btnsubmit' value='Submit' />");
+			$('#skilledit').append("<input type='button' id='btncancel' name='btncancel' value='Cancel' />");
+			$('#skilledit').append("</form>");
+			bindButtons();
+		}
 
-	}
+		function bindButtons(){
+
+			$('#btnsubmit').bind('click', function() {
+				var spid = $('#sp_id').val();
+				var heading = $('#sp_heading').val();
+				var skill = $('#s_id').val();
+				var keywords = $('#sp_keywords').val();
+				var details = $('#sp_details').val();
+
+				runAJAX(spid,heading,skill,keywords,details);
+			});
+
+			$('#btncancel').bind('click', function() {
+				$('#edit-box').html("");
+				$('#edit-background').css('display','none');
+				$('#edit-box').css('display','none');
+			});
+		}
+
+		function runAJAX(spid,heading,skill,keywords,details)
+		{		
+			//determine which call to used based on whether user is logged in or not
+			ext_url = 'index.php/ajax/editSkill';
+
+			//base_url us a php function to get to the root of the site, then add the extended url
+			var send_url = '<?=base_url()?>' + ext_url;
+
+			//send the variables through
+			$.post(send_url, { sp_id: spid, s_id: skill, sp_heading: heading, sp_keywords: keywords, sp_details: details }).done(function(msg){
+					$('#edit-box').html("");
+					$('#edit-background').css('display','none');
+					$('#edit-box').css('display','none');
+					location.reload();
+                }).fail(function(){$('#edit-box').html('Could not load!');});
+		}
 </script>
