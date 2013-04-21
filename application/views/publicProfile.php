@@ -130,6 +130,7 @@
 			$.post(send_url, { to: toid, to_skill: toskill, to_unit: tounit, from_skill: fromskill, from_unit: fromunit, message: message, response: 'offer' }).done(function(msg){
 					$('#edit-box').html('Your message has been sent.');
                 	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
+					bindButtons();
 					
                 }).fail(function(){
                 	$('#edit-box').html('Could not send!');
