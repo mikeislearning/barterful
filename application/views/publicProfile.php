@@ -1,4 +1,6 @@
 <?php
+	
+	//check if the user is logged in - this determines if the user can send a message later
 	$logged_in = $this->session->userdata('logged_in');
 			 
 				 if(!isset($logged_in) || $logged_in != true)
@@ -7,6 +9,7 @@
 				 }
 				 else $logged_in = true;
 
+	//this populates the drop down lists later when sending an offer
 	$select = "<option value=''></option>";
 	foreach($skill_list as $sl)
 	{
@@ -20,13 +23,26 @@
 </div>
 <div id="edit-box" style="width:50%;margin:0 auto;position:fixed;z-index:20;background-color:white;display:none;padding:20px;">
 </div>
+
 <?php
-	if(isset($profile)) foreach ($profile as $p):?>           
+//make sure the profiles array exists (there should only be one row since it matches the member id)
+	if(isset($profile)) foreach ($profile as $p):?>         
+
+<!-- display the username as a page header -->  
 <h1 style="padding:30px;font-weight:bold;font-size:24pt;"><?=$p->m_username?>'s Profile</h1>
+
+<!--user's profile image -->
 <?php echo '<img src="../../uploads/original/' .$p->p_img .'"/>' . '<br/>'; ?>
 
 <?php endforeach; ?>
 
+
+
+<!-- each of the following sections displays a list of the user's skill, want, and project postings. Each also has a button
+	allowing the user to send an offer in relation to that posting. The sendOffer function (triggered by the send offer button)
+	sends paramaters (the $params string) relating to that posting that help populate the message form -->
+
+<!-- check that the user has posted skills and display those, otherwise suggest that they add one -->
 <?php if(isset($skills)): ?>
 <h2 style="font-weight:bold;padding:5px;font-size:18pt;">Skills</h2>
 <?php foreach($skills as $s): ?>
@@ -43,6 +59,7 @@
 	
 <?php endforeach; endif; ?>
 
+<!-- check that the user has posted wants and display those, otherwise suggest that they add one -->
 <?php if(isset($wants)): ?>
 <h2 style="font-weight:bold;padding:5px;font-size:18pt;">Wants</h2>
 <?php foreach($wants as $s): ?>
@@ -60,6 +77,7 @@
 	
 <?php endforeach; endif; ?>
 
+<!-- check that the user has posted projects and display those, otherwise suggest that they add one -->
 <?php if(isset($projects)): ?>
 <h2 style="font-weight:bold;padding:5px;font-size:18pt;">Projects</h2>
 <?php foreach($projects as $s): ?>
