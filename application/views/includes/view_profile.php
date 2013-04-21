@@ -99,11 +99,28 @@ else echo "You have no wants, add one now!"; ?>
 
 <script>
 
+	//this function shows the modal display for sending messages
+	function showBox(choice)
+	{
+		switch(choice)
+		{
+			case "show":
+			$('#edit-background').show("fast");
+			$('#edit-box').show("fast");
+			break;
+
+			case "hide":
+			$('#edit-box').html("");
+			$('#edit-background').hide("fast");
+			$('#edit-box').hide("fast");
+			break;
+		}
+	}
+
 		function showEdit(id,heading,skill,keywords,expiry,details,type)
 		{
 
-			$('#edit-background').css('display','block');
-			$('#edit-box').css('display','block');
+			showBox("show");
 			$('#edit-box').append("<form id='skilledit' name='skilledit'></form>");
 			$('#skilledit').append("<input type='hidden' id='sp_id' name='sp_id' value='" + id + "' />");
 			$('#skilledit').append("<input type='hidden' id='type' name='type' value='" + type + "' />");
@@ -145,9 +162,7 @@ else echo "You have no wants, add one now!"; ?>
 			});
 
 			$('#btncancel').bind('click', function() {
-				$('#edit-box').html("");
-				$('#edit-background').css('display','none');
-				$('#edit-box').css('display','none');
+				showBox("hide");
 				location.reload();
 			});
 

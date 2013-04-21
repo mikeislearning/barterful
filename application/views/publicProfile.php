@@ -100,79 +100,115 @@
 
 <script>	
 
-		function sendOffer(toid,toskill,type)
+	//this function shows the modal display for sending messages
+	function showBox(choice)
+	{
+		switch(choice)
 		{
-			$('#edit-background').css('display','block');
-			$('#edit-box').css('display','block');
+			case "show":
+			$('#edit-background').show("fast");
+			$('#edit-box').show("fast");
+			break;
 
-			var loggedin = '<?=$logged_in ?>';
-
-			if(loggedin != '1')
-			{
-                	$('#edit-box').html('Please log in or create an account to send a message.');
-                	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
-                	$('#edit-box').append(loggedin);
-					bindButtons();
-					return;
-			}
-
-			$('#edit-box').append("<form id='sendmsg' name='sendmsg'></form>");
-			$('#sendmsg').append("<input type='hidden' id='m_id' name='m_id' value='" + toid + "' />");
-			$('#sendmsg').append("I'd like <input type='text' id='to_unit' name='to_unit' />");
-			$('#sendmsg').append("of <select id='to_s_id' name='to_s_id'></select><br />");
-			$('#to_s_id').append("<?=$select ?>");
-			$('#sendmsg').append("and I'm offering <input type='text' id='from_unit' name='from_unit' />");
-			$('#sendmsg').append("of <select id='from_s_id' name='from_s_id'></select><br />");
-			$('#from_s_id').append("<?=$select ?>");
-			$('#sendmsg').append("Message: <textarea id='message' name='message'></textarea>");
-			$('#sendmsg').append("<input type='button' id='btnsubmit' name='btnsubmit' value='Send Offer' />");
-			$('#sendmsg').append("<input type='button' id='btncancel' name='btncancel' value='Cancel' />");
-			$('#sendmsg').append("</form>");
-			if(type=="skill") $("#to_s_id").val(toskill);
-			else $("#from_s_id").val(toskill);
-			bindButtons();
+			case "hide":
+			$('#edit-box').html("");
+			$('#edit-background').hide("fast");
+			$('#edit-box').hide("fast");
+			break;
 		}
+	}
 
-		//NOTICE! Since these buttons and inputs did not exist when the page loaded, the bind has to occur AFTER 
-		//the elements were created!!
-		function bindButtons(){
-			$('#btnsubmit').bind('click', function() {
-				var toid = $('#m_id').val();
-				var toskill = $('#to_s_id').val();
-				var tounit = $('#to_unit').val();
-				var fromskill = $('#from_s_id').val();
-				var fromunit = $('#from_unit').val();
-				var message = $('#message').val();
+	//when the user presses "send offer" and parameters are sent to this function
+	function sendOffer(toid,toskill,type)
+	{
+		//show the modal box
+		showBox("show");
 
-				runAJAX(toid, toskill, tounit, fromskill, fromunit, message);
-			});
+		//determine whether the user is logged in
+		var loggedin = '<?=$logged_in ?>';
 
-			$('#btncancel').bind('click', function() {
-				$('#edit-box').html("");
-				$('#edit-background').css('display','none');
-				$('#edit-box').css('display','none');
-			});
-		}
-
-		function runAJAX(toid, toskill, tounit, fromskill, fromunit, message)
+		//if the user is not logged in, they cannot send a message and so they are presented 
+		//with instructions to create an account or log in
+		if(loggedin != '1')
 		{
-			//determine which call to used based on whether user is logged in or not
-			ext_url = 'index.php/ajax/sendmessage';
-
-			//base_url us a php function to get to the root of the site, then add the extended url
-			var send_url = '<?=base_url()?>' + ext_url;
-
-			//send the variables through
-			$.post(send_url, { to: toid, to_skill: toskill, to_unit: tounit, from_skill: fromskill, from_unit: fromunit, message: message, response: 'offer' }).done(function(msg){
-					$('#edit-box').html('Your message has been sent.');
-                	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
-					bindButtons();
-					
-                }).fail(function(){
-                	$('#edit-box').html('Could not send!');
-                	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
-					bindButtons();
-                });
+            	$('#edit-box').html('Please log in or create an account to send a message.');
+            	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
+            	$('#edit-box').append(loggedin);
+				bindButtons();
+				return;
 		}
+
+		//here we dynamically create a form that lets the user create a message. This form also stores the id of
+		//the user receiving the message
+		$('#edit-box').append("<form id='sendmsg' name='sendmsg'></form>");
+		$('#sendmsg').append("<input type='hidden' id='m_id' name='m_id' value='" + toid + "' />");
+		$('#sendmsg').append("I'd like <input type='text' id='to_unit' name='to_unit' />");
+		$('#sendmsg').append("of <select id='to_s_id' name='to_s_id'></select><br />");
+		$('#to_s_id').append("<?=$select ?>");
+		$('#sendmsg').append("and I'm offering <input type='text' id='from_unit' name='from_unit' />");
+		$('#sendmsg').append("of <select id='from_s_id' name='from_s_id'></select><br />");
+
+		//this populates the dropdown list using the variable created in php at the top of the page
+		$('#from_s_id').append("<?=$select ?>");
+
+		$('#sendmsg').append("Message: <textarea id='message' name='message'></textarea>");
+		$('#sendmsg').append("<input type='button' id='btnsubmit' name='btnsubmit' value='Send Offer' />");
+		$('#sendmsg').append("<input type='button' id='btncancel' name='btncancel' value='Cancel' />");
+		$('#sendmsg').append("</form>");
+
+		//set the selected skill in the dropdown list to the one chosen on the users profile
+		if(type=="skill") $("#to_s_id").val(toskill);
+		else $("#from_s_id").val(toskill);
+
+		//now that the button elements have been created, bind them to their respective functions
+		bindButtons();
+	}
+
+	//NOTICE! Since these buttons and inputs did not exist when the page loaded, the bind has to occur AFTER 
+	//the elements were created!!
+	function bindButtons(){
+
+		//when the submit button is clicked, submit the form values using AJAX
+		$('#btnsubmit').bind('click', function() {
+			var toid = $('#m_id').val();
+			var toskill = $('#to_s_id').val();
+			var tounit = $('#to_unit').val();
+			var fromskill = $('#from_s_id').val();
+			var fromunit = $('#from_unit').val();
+			var message = $('#message').val();
+
+			runAJAX(toid, toskill, tounit, fromskill, fromunit, message);
+		});
+
+		//when the cancel button is clicked, hide the modal box
+		$('#btncancel').bind('click', function() {
+			showBox("hide");
+		});
+	}
+
+	//this function sends the message to the controller and then into the database
+	function runAJAX(toid, toskill, tounit, fromskill, fromunit, message)
+	{
+		//determine which call to used based on whether user is logged in or not
+		ext_url = 'index.php/ajax/sendmessage';
+
+		//base_url us a php function to get to the root of the site, then add the extended url
+		var send_url = '<?=base_url()?>' + ext_url;
+
+		//send the variables through, and display appropriate success or error messages
+		$.post(send_url, { to: toid, to_skill: toskill, to_unit: tounit, from_skill: fromskill, from_unit: fromunit, message: message, response: 'offer' }).done(function(msg){
+				displayMsg('Your message has been sent!');
+				
+            }).fail(function(){
+            	displayMsg('Oops! Your message could not be sent. Please try again later.');
+            });
+	}
+
+	function displayMsg(msg)
+	{
+    	$('#edit-box').html(msg).hide().fadeIn(1500);;
+    	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
+		bindButtons();
+	}
 
 </script>
