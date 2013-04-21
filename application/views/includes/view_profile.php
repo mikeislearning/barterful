@@ -106,6 +106,7 @@ echo anchor('Profile_crud/edit', 'edit');?>
 			$('#skilledit').append("<input type='button' id='btnsubmit' name='btnsubmit' value='Submit' />");
 			$('#skilledit').append("<input type='button' id='btncancel' name='btncancel' value='Cancel' />");
 			$('#skilledit').append("</form>");
+			$("#s_id").val(skill);
 			bindButtons();
 		}
 
