@@ -45,15 +45,27 @@ class profiles extends CI_Controller {
 	 
  public function viewprofile()
  {
+ 	//get current users id
 
-	$id = "";
-	$myid = "";
+   	//get the array of id's (there should just be one in the array)
+	$myid = $this->session->userdata('userid');
+	//get the id value from the first pair in the array
+	$myid = $myid[0]->m_id;
 
-	//check that each value has been provided and assign it to a variable
-	if(isset($_POST['p_id']))
+
+ 	$id = "";
+
+ 	//get the user's id out of the url
+	if ($this->uri->segment(3) === FALSE)
 	{
-		$id = $_POST['p_id'];
-	} 
+	    $id = $myid;
+	}
+	else
+	{
+	    $id = $this->uri->segment(3);
+	}
+
+	$myid = "";
 
    if(!$this->session->userdata('logged_in'))
 	 {
@@ -68,10 +80,6 @@ class profiles extends CI_Controller {
 		//this section loads the listings displayed based on the user's id in the session
 		//---------------------------------------------------------------------------------//
 	   	$this->load->model('inbox_model');
-	   	//get the array of id's (there should just be one in the array)
-		$myid = $this->session->userdata('userid');
-		//get the id value from the first pair in the array
-		$myid = $myid[0]->m_id;
 
 	   	$this->data['count_inbox'] = $this->inbox_model->countUnread($myid);
 
@@ -96,6 +104,16 @@ class profiles extends CI_Controller {
 	$this->data['main_content'] = 'publicProfile';
 	$this->load->view('includes/template', $this->data);
 
+ }
+
+ public function redir()
+ {
+ 	if(isset($_POST['p_id']))
+	{
+		$id = $_POST['p_id'];
+	} 
+
+ 	redirect("profiles/viewprofile/{$id}");
  }
 
  public function deleteSkill()
