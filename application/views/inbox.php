@@ -33,7 +33,7 @@
 			});
 
 			function switchview(type){
-      			var send_url = '<?=base_url()?>' + 'ajax/inbox';
+      			var send_url = '<?=base_url()?>' + 'mail/inbox';
 
 				$.post(send_url, { view: type }).done(function(msg){
 		                    $('main').html(msg);

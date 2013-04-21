@@ -154,7 +154,7 @@
 
 	function switchview(type){
 	//AJAX function sends a request for the data to fill the new view
-		var send_url = '<?=base_url()?>' + 'index.php/ajax/inbox';
+		var send_url = '<?=base_url()?>' + 'index.php/mail/inbox';
 
 		$.post(send_url, { view: type }).done(function(msg){
                 $('main').html(msg);
@@ -206,7 +206,7 @@
 	//AJAX function to send data
 	function sendMessage(to,to_skill,to_unit,from_skill,from_unit,message,response)
 	{	
-		url = '<?=base_url()?>index.php/ajax/sendmessage';
+		url = '<?=base_url()?>index.php/mail/sendmessage';
 		$.post(url, { 	to:to,
 						to_skill:to_skill,
 						to_unit:to_unit, 

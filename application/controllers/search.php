@@ -11,7 +11,7 @@
 *	- reply to a message
 */
 
-class ajax extends CI_Controller {
+class search extends CI_Controller {
 	 
 	 function __construct()
 	 {

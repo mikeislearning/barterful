@@ -3,7 +3,7 @@
 class inbox_model extends CI_Model
 {
 
-function listAll($id, $view = 'inbox', $to = "")
+	function listAll($id, $view = 'inbox', $to = "")
 	{
 		/*
 		this entire function is used to display all the messages in conversation view as well as in the inbox and sent messages.
@@ -86,8 +86,6 @@ function listAll($id, $view = 'inbox', $to = "")
 		}
 	}
 
-
-
 	function sendMessage($id,$to,$to_skill,$to_unit,$from_skill,$from_unit,$message,$response)
 	{		
 		//set the timezone so that the time inputs correctly
@@ -118,14 +116,10 @@ function listAll($id, $view = 'inbox', $to = "")
 
 	function countUnread($userid)
 	{
-		$query = $this->db->query("
-			SELECT count(mes_id)
-				FROM messages mes
-				where mes_new = true;
-			");
-		$count = $query->fetch();
-
-		return $count;
+		$this->db->where('mes_to', $userid);
+		$this->db->where('mes_new', true);
+		$this->db->from('messages');
+		return $this->db->count_all_results();
 	}
 
 }
