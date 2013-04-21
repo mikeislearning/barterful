@@ -43,7 +43,7 @@ echo anchor('Profile_crud/edit', 'edit');?>
 <h2 style="font-weight:bold;padding:5px;font-size:18pt;">Skills</h2>
 <?php if(isset($skills)) foreach($skills as $s): ?>
 	<?php
-		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_id\",\"$s->sp_keywords\",\"$s->sp_details\"";
+		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_id\",\"$s->sp_keywords\",\"$s->sp_details\",\"skills\"";
 	?>
 	<form id="p_skills" name="p_skills" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
 		<h3><?=$s->sp_heading ?></h3>
@@ -57,26 +57,30 @@ echo anchor('Profile_crud/edit', 'edit');?>
 
 <h2 style="font-weight:bold;padding:5px;font-size:18pt;">Wants</h2>
 <?php if(isset($wants)) foreach($wants as $s): ?>
-	<form id="p_wants" name="p_wants" action="showEdit()" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
+	<?php
+		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_id\",\"$s->sp_keywords\",\"$s->sp_details\",\"wants\"";
+	?>
+	<form id="p_skills" name="p_skills" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
 		<h3><?=$s->sp_heading ?></h3>
-		<input type="hidden" value="<?=$s->sp_id ?>" />
 		Skill: <?=$s->s_name ?><br />
 		Keywords: <?=$s->sp_keywords ?><br />
 		Details: <?=$s->sp_details ?><br />
-		<input id="editwant" name="editwant" type="submit" value="Edit" />
+		<input id="editskill" name="editskill" type="button" onClick='showEdit(<?=$params?>)' value="Edit" />
 	</form>
 	
 <?php endforeach; ?>
 
 <h2 style="font-weight:bold;padding:5px;font-size:18pt;">Projects</h2>
-<?php if(isset($projects)) foreach($projects as $s): ?>
-	<form id="p_projects" name="p_projects" action="showEdit()" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
+<?php if(isset($wants)) foreach($wants as $s): ?>
+	<?php
+		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_id\",\"$s->sp_keywords\",\"$s->sp_details\",\"wants\"";
+	?>
+	<form id="p_skills" name="p_skills" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
 		<h3><?=$s->sp_heading ?></h3>
-		<input type="hidden" value="<?=$s->sp_id ?>" />
 		Skill: <?=$s->s_name ?><br />
 		Keywords: <?=$s->sp_keywords ?><br />
 		Details: <?=$s->sp_details ?><br />
-		<input id="editwant" name="editwant" type="submit" value="Edit" />
+		<input id="editskill" name="editskill" type="button" onClick='showEdit(<?=$params?>)' value="Edit" />
 	</form>
 	
 <?php endforeach; ?>
@@ -84,17 +88,16 @@ echo anchor('Profile_crud/edit', 'edit');?>
 <!--if the profile doesn't exist redirect them to the profile form page--> 
 <?php if(!$profile) redirect($this->load->view('profile_form')); ?>
 
-<script>
+<script>	
 
-	
-
-		function showEdit(id,heading,skill,keywords,details)
+		function showEdit(id,heading,skill,keywords,details,type)
 		{
 
 			$('#edit-background').css('display','block');
 			$('#edit-box').css('display','block');
 			$('#edit-box').append("<form id='skilledit' name='skilledit'></form>");
 			$('#skilledit').append("<input type='hidden' id='sp_id' name='sp_id' value='" + id + "' />");
+			$('#skilledit').append("<input type='hidden' id='type' name='type' value='" + type + "' />");
 			$('#skilledit').append("Heading: <input type='text' id='sp_heading' name='sp_heading' value='" + heading + "' />");
 			$('#skilledit').append("Skill:<br /><select id='s_id' name='s_id'></select><br />");
 			$('#s_id').append("<?=$select ?>");
@@ -106,16 +109,18 @@ echo anchor('Profile_crud/edit', 'edit');?>
 			bindButtons();
 		}
 
+		//NOTICE! Since these buttons and inputs did not exist when the page loaded, the bind has to occur AFTER 
+		//the elements were created!!
 		function bindButtons(){
-
 			$('#btnsubmit').bind('click', function() {
 				var spid = $('#sp_id').val();
 				var heading = $('#sp_heading').val();
 				var skill = $('#s_id').val();
 				var keywords = $('#sp_keywords').val();
 				var details = $('#sp_details').val();
+				var type = $('#type').val();
 
-				runAJAX(spid,heading,skill,keywords,details);
+				runAJAX(spid,heading,skill,keywords,details,type);
 			});
 
 			$('#btncancel').bind('click', function() {
@@ -125,7 +130,7 @@ echo anchor('Profile_crud/edit', 'edit');?>
 			});
 		}
 
-		function runAJAX(spid,heading,skill,keywords,details)
+		function runAJAX(spid,heading,skill,keywords,details,type)
 		{		
 			//determine which call to used based on whether user is logged in or not
 			ext_url = 'index.php/ajax/editSkill';
@@ -134,11 +139,16 @@ echo anchor('Profile_crud/edit', 'edit');?>
 			var send_url = '<?=base_url()?>' + ext_url;
 
 			//send the variables through
-			$.post(send_url, { sp_id: spid, s_id: skill, sp_heading: heading, sp_keywords: keywords, sp_details: details }).done(function(msg){
+			$.post(send_url, { sp_id: spid, s_id: skill, sp_heading: heading, sp_keywords: keywords, sp_details: details, type: type }).done(function(msg){
 					$('#edit-box').html("");
 					$('#edit-background').css('display','none');
 					$('#edit-box').css('display','none');
 					location.reload();
-                }).fail(function(){$('#edit-box').html('Could not load!');});
+                }).fail(function(){
+                	$('#edit-box').html('Could not load!');
+                	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
+					bindButtons();
+                });
 		}
+
 </script>
