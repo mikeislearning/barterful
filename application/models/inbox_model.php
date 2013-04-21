@@ -103,9 +103,29 @@ function listAll($id, $view = 'inbox', $to = "")
 		$this->db->set('mes_to_unit', $to_unit);
 		$this->db->set('mes_message', $message);
 		$this->db->set('mes_status', $response);
+		$this->db->set('mes_new', true);
 		$this->db->insert('messages'); 
 		
 		return $this->listAll($id,'inbox','');
+	}
+
+	function readMessages($userid)
+	{
+		$this->db->set('mes_new', false);
+		$this->db->where('mes_to', $userid);
+		$this->db->update('messages');
+	}
+
+	function countUnread($userid)
+	{
+		$query = $this->db->query("
+			SELECT count(mes_id)
+				FROM messages mes
+				where mes_new = true;
+			");
+		$count = $query->fetch();
+
+		return $count;
 	}
 
 }
