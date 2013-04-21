@@ -298,7 +298,6 @@ class ajax extends CI_Controller {
 
  public function viewprofile()
  {
-	$this->load->model('profile_model');
 
 	$id = "";
 	$myid = "";
@@ -332,11 +331,15 @@ class ajax extends CI_Controller {
 		}
 	 }	
 
-	//$this->data['row'] = $this->inbox_model->newMsg($p_id);
-	$this->data['row'] = $this->profile_model->getProfile($id);
+	$this->load->model('listings_model');
+	$this->load->model('profile_model');
+	$this->data['profile'] = $this->profile_model->getProfile($id);
+	$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$id);
+	$this->data['wants'] = $this->listings_model->listAll("wants","sp_id","all",$id);
+	$this->data['projects'] = $this->listings_model->listAll("projects","sp_id","all",$id);
+	$this->data['skill_list'] = $this->listings_model->skillList();
 
 	$this->data['main_content'] = 'publicProfile';
-
 	$this->load->view('includes/template', $this->data);
 
  }

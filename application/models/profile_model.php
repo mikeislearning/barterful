@@ -33,7 +33,7 @@ function getProfile($id){
 
 //get the profile info based on the member
 $queryProfile = $this->db->query("
-				Select p.p_id, p_fname, p_lname, p_img, p_last_updated, m.m_sex as m_sex, m.m_email as m_email
+				Select p.p_id, p_fname, p_lname, p_img, p_last_updated, m.m_sex as m_sex, m.m_email as m_email, m.m_username as m_username
 				FROM profiles p
 				JOIN members m ON p.m_id = m.m_id
 				WHERE m.m_id =".$id);

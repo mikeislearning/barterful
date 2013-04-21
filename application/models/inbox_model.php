@@ -108,11 +108,6 @@ function listAll($id, $view = 'inbox', $to = "")
 		return $this->listAll($id,'inbox','');
 	}
 
-	function newMsg($sp)
-	{
-		
-	}
-
 }
 
 ?>
