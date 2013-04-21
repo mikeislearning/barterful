@@ -508,18 +508,12 @@ img{
 	margin-bottom:20px;
 	.box-shadow(4px 4px 4px #999);
 	color:whitesmoke;
-
+	p{
+		padding:0px 0px 0px 10px;
+	}
 	.rounded(2px);
-	
-		&:nth-child(3n+1){
-			background:@secondBlue;
-		}
-		&:nth-child(2n+1){
-			background:@mainGreen;
-		}
-		&:nth-child(4n-2){
-			background:@secondBlue;
-		}
+	background:@secondBlue;
+		
 	img{padding-right:1px;}
 	p{&:nth-of-type(2){font-style: italic;}}
 	}    
@@ -534,15 +528,29 @@ img{
 #user_info{
 	float:left;
 
+
 }
+
 
 #tabs{
 	margin-left:30%;
 	ul{
+		padding-bottom:20px;
 
 		li{
+			border:@mainBorder;
 			display:inline;
-			margin-right:10px;
+				margin-right:-4px;
+				padding:5px;
+		background:white;
+		&:first-of-type{
+			.border-radius(0px,0px,5px,5px);}
+		&:nth-of-type(3){
+			.border-radius(5px,5px,0px,0px);}
+		a{
+			color:@secondBlue;
+			text-transform: lowercase;
+		}
 		}
 
 	}

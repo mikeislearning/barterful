@@ -9,16 +9,16 @@
 	?>
 
 <!--This view is loaded from views/profile_form and is only included if profile information has already been set -->
-<div id="edit-background" style="width:100%;height:100%;background-color:grey;opacity:0.7;position:fixed;top:0;left:0;z-index:10;display:none;">
+<div id="edit-background">
 </div>
-<div id="edit-box" style="width:50%;margin:0 auto;position:fixed;z-index:20;background-color:white;display:none;padding:20px;">
+<div id="edit-box">
 </div>
 
 <!--make sure the profiles array exists (there should only be one row since it matches the member id)-->
 <?php if(isset($profile)) foreach ($profile as $p):?>           
-
+<div id="user_info">
 <!-- display a page header -->  
-<h1 style="font-weight:bold;padding:5px;font-size:24pt;">Your Profile</h1>
+<h2>Your Profile</h2>
 
 <?php
 	
@@ -54,8 +54,19 @@
 
 ?>	 
 <br />
+</div> <!-- /end #user_info-->
 
-<h2 style="font-weight:bold;padding:5px;font-size:18pt;">Skills</h2>
+
+<div id="tabs">
+
+    <ul>
+      <li><a href="#tab-1">Offering</a></li>
+      <li><a href="#tab-2">Wanting</a></li>
+      <li><a href="#tab-3">Projects</a></li>
+    </ul>
+
+
+<div id="tab-1">
 
 <!-- create a button that opens a modal box to add a new skill profile. The onClick function sends through a 
 special paramater instead of the sp_id... this paramater starts with "new", which indicates to the model that it should be 
@@ -68,7 +79,7 @@ new skill profile (on an update this would be left out since the posting already
 	<?php
 		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_id\",\"$s->sp_keywords\",\"\",\"$s->sp_details\",\"skills\"";
 	?>
-	<form id="p_skills" name="p_skills" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
+	<form class="p_skills" name="p_skills">
 		<h3><?=$s->sp_heading ?></h3>
 		Skill: <?=$s->s_name ?><br />
 		Keywords: <?=$s->sp_keywords ?><br />
@@ -79,9 +90,11 @@ new skill profile (on an update this would be left out since the posting already
 <?php endforeach; 
 
 //if no skills exist, suggest that the user adds one
-else echo "You have no skills, add one now!";?>
+else echo "You have no offers, add one now!";?>
 
-<h2 style="font-weight:bold;padding:5px;font-size:18pt;">Wants</h2>
+</div><!-- end #tab-1 -->
+
+<div id="tab-2">
 
 <!-- create a button that opens a modal box to add a new want profile. The onClick function sends through a 
 special paramater instead of the sp_id... this paramater starts with "new", which indicates to the model that it should be 
@@ -94,7 +107,7 @@ new want profile (on an update this would be left out since the posting already 
 	<?php
 		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_id\",\"$s->sp_keywords\",\"$s->wp_expiry\",\"$s->sp_details\",\"wants\"";
 	?>
-	<form id="p_skills" name="p_skills" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
+	<form class="p_skills" name="p_skills" >
 		<h3><?=$s->sp_heading ?></h3>
 		Skill: <?=$s->s_name ?><br />
 		Keywords: <?=$s->sp_keywords ?><br />
@@ -108,7 +121,9 @@ new want profile (on an update this would be left out since the posting already 
 //if no wants exist, suggest that the user adds one
 else echo "You have no wants, add one now!"; ?>
 
-<h2 style="font-weight:bold;padding:5px;font-size:18pt;">Projects</h2>
+</div> <!-- end wanting -->
+
+<div id="tab-3">
 
 <!-- create a button that opens a modal box to add a new want profile. The onClick function sends through a 
 special paramater instead of the sp_id... this paramater starts with "new", which indicates to the model that it should be 
@@ -121,7 +136,7 @@ new want profile (on an update this would be left out since the posting already 
 	<?php
 		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_id\",\"$s->sp_keywords\",\"$s->wp_expiry\",\"$s->sp_details\",\"wants\"";
 	?>
-	<form id="p_skills" name="p_skills" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
+	<form class="p_skills" name="p_skills">
 		<h3><?=$s->sp_heading ?></h3>
 		Skill: <?=$s->s_name ?><br />
 		Keywords: <?=$s->sp_keywords ?><br />
@@ -132,7 +147,9 @@ new want profile (on an update this would be left out since the posting already 
 	
 <!--if no skills exist, suggest that the user adds one-->
 <?php endforeach; else echo "You have no projects, add one now!";?>
-	
+</div><!-- end #tab3 -->
+</div><!-- end #tabs -->
+
 <!--if the profile doesn't exist redirect them to the profile form page--> 
 <?php if(!$profile) redirect($this->load->view('profile_form')); ?>
 

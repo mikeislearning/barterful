@@ -24,7 +24,7 @@
             <main>
 <!--This view is loaded from views/profile_form and is only included if profile information has already been set -->
 
-<div id ="tab_listings">
+
 
 <div id="edit-background" >
 </div>
@@ -56,15 +56,14 @@
 <div id="tabs">
 
     <ul>
-      <li><a href="#tab-1">Skills</a></li>
-      <li><a href="#tab-2">Wants</a></li>
+      <li><a href="#tab-1">Offering</a></li>
+      <li><a href="#tab-2">Wanting</a></li>
       <li><a href="#tab-3">Projects</a></li>
     </ul>
 
 
 <div id="tab-1">
 <?php if(isset($skills)): ?>
-<h3>Skills</h3>
 <?php foreach($skills as $s): ?>
 	<?php
 		$params = "\"$s->m_id\",\"$s->s_id\",\"skill\"";
@@ -82,7 +81,6 @@
 <!-- check that the user has posted wants and display those, otherwise suggest that they add one -->
 <div id="tab-2">
 <?php if(isset($wants)): ?>
-<h3>Wants</h3>
 <?php foreach($wants as $s): ?>
 	<?php
 		$params = "\"$s->m_id\",\"$s->s_id\",\"want\"";
@@ -101,7 +99,6 @@
 <!-- check that the user has posted projects and display those, otherwise suggest that they add one -->
 <div id="tab-3">
 <?php if(isset($projects)): ?>
-<h3>Projects</h3>
 <?php foreach($projects as $s): ?>
 	<?php
 		$params = "\"$s->m_id\",\"$s->s_id\",\"project\"";
@@ -122,7 +119,7 @@
 
 </div> <!-- end #tabs -->
 
-</div> <!-- end	#tabListing -->
+
 
 <!--if the profile doesn't exist redirect them to the profile form page--> 
 <?php if(!$profile) redirect($this->load->view('profile_form')); ?>
