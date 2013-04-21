@@ -81,6 +81,10 @@ class Login extends CI_Controller {
 		$this->load->helper('captcha');
 		//validation rules
 
+		$this->form_validation->set_message('check_if_username_exists', "This Username is sadly already taken. Nice try though!.");
+
+		$this->form_validation->set_message('check_if_email_exists', "Someone has already signed up with this email address. Our sincerest apologies!.");
+
 //don't need first_name and last_Name to signup
 	//	$this->form_validation->set_rules('first_name', 'Name', 'trim|required');
 	//	$this->form_validation->set_rules('last_name', 'Last Name', 'trim|required');

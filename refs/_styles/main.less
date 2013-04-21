@@ -42,7 +42,7 @@ font-weight:900;
 @logoFont: barterFont, Helvetica, Arial, Sans-serif;
 @mainRed:#D45354;
 @mainBlue:#2FCAD8;
-@mainGreen:#A9DC3A;
+@mainGreen:pink;
 @mainOrange:#FF6526;
 @secondBlue:#1E86B9;
 @secondGreen:#0CFB4A;
@@ -123,7 +123,7 @@ button, input[type="submit"]{
 	border:@mainBorder;
 	&:hover{
 		cursor:pointer;
-		color:@mainGreen;;
+		color:@mainGreen;
 	}
 }
 //styling for other buttons
@@ -465,22 +465,23 @@ img{
     transform: scale(1) rotate(184deg) translate(20px, 25px) skew(9deg, 0deg);
     }
 
+/* this affects all the messages - will return to this later */
 	.profile{
-	.column(3);
+	.column(12);
 	margin-bottom:20px;
 	.box-shadow(4px 4px 4px #999);
 	color:whitesmoke;
-	width:222px;
+
 	.rounded(2px);
 	
 		&:nth-child(3n+1){
-			background:@mainBlue;
+			background:@secondBlue;
 		}
 		&:nth-child(2n+1){
-			background:@mainRed;
+			background:@mainGreen;
 		}
 		&:nth-child(4n-2){
-			background:@mainBlue;
+			background:@secondBlue;
 		}
 	img{padding-right:1px;}
 	p{&:nth-of-type(2){font-style: italic;}}
