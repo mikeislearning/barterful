@@ -31,6 +31,7 @@
 <div id="edit-box">
 </div>
 
+<div id="user_info">
 <?php
 //make sure the profiles array exists (there should only be one row since it matches the member id)
 	if(isset($profile)) foreach ($profile as $p):?>         
@@ -43,7 +44,7 @@
 
 <?php endforeach; ?>
 
-
+</div>
 
 <!-- each of the following sections displays a list of the user's skill, want, and project postings. Each also has a button
 	allowing the user to send an offer in relation to that posting. The sendOffer function (triggered by the send offer button)
