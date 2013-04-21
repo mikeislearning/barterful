@@ -15,8 +15,9 @@
 </div>
 <?php
 	if(isset($profile)) foreach ($profile as $p):?>           
-<h1>Your Profile</h1>
+<h1 style="font-weight:bold;padding:5px;font-size:24pt;">Your Profile</h1>
 <?php
+$profileid = $p->p_id;
 if(isset($error)){echo $error; } //checks if there is an error in an update.
 echo '<img src="../../uploads/original/' .$p->p_img .'"/>' . '<br/>';
 
@@ -37,13 +38,14 @@ if(!empty($p->m_sex)){
 
 endforeach; 
 	//this takes you to the edit function of the profile
-echo anchor('Profile_crud/edit', 'edit');?>	 
+echo anchor('Profile_crud/edit', 'edit'); ?>	 
 <br />
 
 <h2 style="font-weight:bold;padding:5px;font-size:18pt;">Skills</h2>
+<input type="button" id="btn_new_skill" name="btn_new_skill" value="Add New" onClick="showEdit('new<?=$profileid?>','','','','','','skills')" />
 <?php if(isset($skills)) foreach($skills as $s): ?>
 	<?php
-		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_id\",\"$s->sp_keywords\",\"$s->sp_details\",\"skills\"";
+		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_id\",\"$s->sp_keywords\",\"\",\"$s->sp_details\",\"skills\"";
 	?>
 	<form id="p_skills" name="p_skills" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
 		<h3><?=$s->sp_heading ?></h3>
@@ -53,44 +55,51 @@ echo anchor('Profile_crud/edit', 'edit');?>
 		<input id="editskill" name="editskill" type="button" onClick='showEdit(<?=$params?>)' value="Edit" />
 	</form>
 	
-<?php endforeach; ?>
+<?php endforeach; 
+else echo "You have no skills, add one now!";?>
 
 <h2 style="font-weight:bold;padding:5px;font-size:18pt;">Wants</h2>
+<input type="button" id="btn_new_skill" name="btn_new_skill" value="Add New" onClick="showEdit('new<?=$profileid?>','','','','','','wants')" />
 <?php if(isset($wants)) foreach($wants as $s): ?>
 	<?php
-		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_id\",\"$s->sp_keywords\",\"$s->sp_details\",\"wants\"";
+		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_id\",\"$s->sp_keywords\",\"$s->wp_expiry\",\"$s->sp_details\",\"wants\"";
 	?>
 	<form id="p_skills" name="p_skills" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
 		<h3><?=$s->sp_heading ?></h3>
 		Skill: <?=$s->s_name ?><br />
 		Keywords: <?=$s->sp_keywords ?><br />
 		Details: <?=$s->sp_details ?><br />
+		<?php if($s->wp_expiry) echo "Required by: " . $s->wp_expiry . "<br />"; ?>
 		<input id="editskill" name="editskill" type="button" onClick='showEdit(<?=$params?>)' value="Edit" />
 	</form>
 	
-<?php endforeach; ?>
+<?php endforeach; 
+
+else echo "You have no wants, add one now!"; ?>
 
 <h2 style="font-weight:bold;padding:5px;font-size:18pt;">Projects</h2>
-<?php if(isset($wants)) foreach($wants as $s): ?>
+<input type="button" id="btn_new_skill" name="btn_new_skill" value="Add New" onClick="showEdit('new<?=$profileid?>','','','','','','wants')" />
+<?php if(isset($projects)) foreach($projects as $s): ?>
 	<?php
-		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_id\",\"$s->sp_keywords\",\"$s->sp_details\",\"wants\"";
+		$params = "\"$s->sp_id\",\"$s->sp_heading\",\"$s->s_id\",\"$s->sp_keywords\",\"$s->wp_expiry\",\"$s->sp_details\",\"wants\"";
 	?>
 	<form id="p_skills" name="p_skills" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
 		<h3><?=$s->sp_heading ?></h3>
 		Skill: <?=$s->s_name ?><br />
 		Keywords: <?=$s->sp_keywords ?><br />
 		Details: <?=$s->sp_details ?><br />
+		Required by: <?=$s->wp_expiry ?><br />
 		<input id="editskill" name="editskill" type="button" onClick='showEdit(<?=$params?>)' value="Edit" />
 	</form>
 	
-<?php endforeach; ?>
+<?php endforeach; else echo "You have no projects, add one now!";?>
 	
 <!--if the profile doesn't exist redirect them to the profile form page--> 
 <?php if(!$profile) redirect($this->load->view('profile_form')); ?>
 
-<script>	
+<script>
 
-		function showEdit(id,heading,skill,keywords,details,type)
+		function showEdit(id,heading,skill,keywords,expiry,details,type)
 		{
 
 			$('#edit-background').css('display','block');
@@ -103,6 +112,10 @@ echo anchor('Profile_crud/edit', 'edit');?>
 			$('#s_id').append("<?=$select ?>");
 			$('#skilledit').append("Keywords: <input type='text' id='sp_keywords' name='sp_keywords' value='" + keywords + "' />");
 			$('#skilledit').append("Details: <textarea id='sp_details' name='sp_details'>" + details + "</textarea>");
+			if(type == "wants")
+			{
+				$('#skilledit').append("Required by: <input type='date' id='wp_expiry' name='wp_expiry' value='" + expiry + "' placeholder='yyyy/mm/dd' /><br />");
+			}
 			$('#skilledit').append("<input type='button' id='btnsubmit' name='btnsubmit' value='Submit' />");
 			$('#skilledit').append("<input type='button' id='btncancel' name='btncancel' value='Cancel' />");
 			$('#skilledit').append("</form>");
@@ -114,24 +127,51 @@ echo anchor('Profile_crud/edit', 'edit');?>
 		//the elements were created!!
 		function bindButtons(){
 			$('#btnsubmit').bind('click', function() {
+				var expiry = "";
 				var spid = $('#sp_id').val();
 				var heading = $('#sp_heading').val();
 				var skill = $('#s_id').val();
 				var keywords = $('#sp_keywords').val();
 				var details = $('#sp_details').val();
 				var type = $('#type').val();
+				if(type == "wants")
+					expiry = $('#wp_expiry').val();
 
-				runAJAX(spid,heading,skill,keywords,details,type);
+				runAJAX(spid,heading,skill,keywords,details,expiry,type);
 			});
 
 			$('#btncancel').bind('click', function() {
 				$('#edit-box').html("");
 				$('#edit-background').css('display','none');
 				$('#edit-box').css('display','none');
+				location.reload();
+			});
+
+			$('#btndelete').bind('click', function() {
+				return confirm("Are you sure you want to delete this posting?");
+				var spid = $('#sp_id').val();
+				var type = $('#type').val();
+
+				//determine which call to used based on whether user is logged in or not
+				ext_url = 'index.php/ajax/deleteSkill';
+
+				//base_url us a php function to get to the root of the site, then add the extended url
+				var send_url = '<?=base_url()?>' + ext_url;
+
+				//send the variables through
+				$.post(send_url, { sp_id: spid, type: type }).done(function(msg){
+						$('#edit-box').html("Your posting has been successfully removed.");
+	                	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
+	                	bindButtons();
+	                }).fail(function(){
+	                	$('#edit-box').html('Oops! Our computers could not delete this posting. Please try again later.');
+	                	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
+						bindButtons();
+	                });
 			});
 		}
 
-		function runAJAX(spid,heading,skill,keywords,details,type)
+		function runAJAX(spid,heading,skill,keywords,details,expiry,type)
 		{		
 			//determine which call to used based on whether user is logged in or not
 			ext_url = 'index.php/ajax/editSkill';
@@ -140,11 +180,10 @@ echo anchor('Profile_crud/edit', 'edit');?>
 			var send_url = '<?=base_url()?>' + ext_url;
 
 			//send the variables through
-			$.post(send_url, { sp_id: spid, s_id: skill, sp_heading: heading, sp_keywords: keywords, sp_details: details, type: type }).done(function(msg){
-					$('#edit-box').html("");
-					$('#edit-background').css('display','none');
-					$('#edit-box').css('display','none');
-					location.reload();
+			$.post(send_url, { sp_id: spid, s_id: skill, sp_heading: heading, sp_keywords: keywords, sp_details: details, expiry: expiry, type: type }).done(function(msg){
+					$('#edit-box').html("Success!");
+                	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
+                	bindButtons();
                 }).fail(function(){
                 	$('#edit-box').html('Could not load!');
                 	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");

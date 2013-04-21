@@ -20,10 +20,11 @@
 
 <?php endforeach; ?>
 
+<?php if(isset($skills)): ?>
 <h2 style="font-weight:bold;padding:5px;font-size:18pt;">Skills</h2>
-<?php if(isset($skills)) foreach($skills as $s): ?>
+<?php foreach($skills as $s): ?>
 	<?php
-		$params = "\"$s->m_id\",\"$s->s_id\"";
+		$params = "\"$s->m_id\",\"$s->s_id\",\"skill\"";
 	?>
 	<form id="p_skills" name="p_skills" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
 		<h3><?=$s->sp_heading ?></h3>
@@ -33,44 +34,48 @@
 		<input id="editskill" name="editskill" type="button" onClick='sendOffer(<?=$params?>)' value="Send Offer" />
 	</form>
 	
-<?php endforeach; ?>
+<?php endforeach; endif; ?>
 
+<?php if(isset($wants)): ?>
 <h2 style="font-weight:bold;padding:5px;font-size:18pt;">Wants</h2>
-<?php if(isset($wants)) foreach($wants as $s): ?>
+<?php foreach($wants as $s): ?>
 	<?php
-		$params = "\"$s->m_id\",\"$s->s_id\"";
+		$params = "\"$s->m_id\",\"$s->s_id\",\"want\"";
 	?>
 	<form id="p_skills" name="p_skills" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
 		<h3><?=$s->sp_heading ?></h3>
 		Skill: <?=$s->s_name ?><br />
 		Keywords: <?=$s->sp_keywords ?><br />
 		Details: <?=$s->sp_details ?><br />
+		<?php if($s->wp_expiry) echo "Required by: " . $s->wp_expiry . "<br />"; ?>
 		<input id="editskill" name="editskill" type="button" onClick='sendOffer(<?=$params?>)' value="Send Offer" />
 	</form>
 	
-<?php endforeach; ?>
+<?php endforeach; endif; ?>
 
+<?php if(isset($projects)): ?>
 <h2 style="font-weight:bold;padding:5px;font-size:18pt;">Projects</h2>
-<?php if(isset($wants)) foreach($wants as $s): ?>
+<?php foreach($projects as $s): ?>
 	<?php
-		$params = "\"$s->m_id\",\"$s->s_id\"";
+		$params = "\"$s->m_id\",\"$s->s_id\",\"project\"";
 	?>
 	<form id="p_skills" name="p_skills" style="border:2px solid black;padding:10px;margin:5px;background-color:gray;">
 		<h3><?=$s->sp_heading ?></h3>
 		Skill: <?=$s->s_name ?><br />
 		Keywords: <?=$s->sp_keywords ?><br />
 		Details: <?=$s->sp_details ?><br />
+		Required by: <?=$s->wp_expiry ?><br />
 		<input id="editskill" name="editskill" type="button" onClick='sendOffer(<?=$params?>)' value="Send Offer" />
 	</form>
 	
-<?php endforeach; ?>
+<?php endforeach; endif; ?>
 	
 <!--if the profile doesn't exist redirect them to the profile form page--> 
 <?php if(!$profile) redirect($this->load->view('profile_form')); ?>
 
 <script>	
 
-		function sendOffer(toid,toskill)
+		function sendOffer(toid,toskill,type)
 		{
 
 			$('#edit-background').css('display','block');
@@ -80,14 +85,15 @@
 			$('#sendmsg').append("I'd like <input type='text' id='to_unit' name='to_unit' />");
 			$('#sendmsg').append("of <select id='to_s_id' name='to_s_id'></select><br />");
 			$('#to_s_id').append("<?=$select ?>");
-			$('#sendmsg').append("for <input type='text' id='from_unit' name='from_unit' />");
+			$('#sendmsg').append("and I'm offering <input type='text' id='from_unit' name='from_unit' />");
 			$('#sendmsg').append("of <select id='from_s_id' name='from_s_id'></select><br />");
 			$('#from_s_id').append("<?=$select ?>");
 			$('#sendmsg').append("Message: <textarea id='message' name='message'></textarea>");
 			$('#sendmsg').append("<input type='button' id='btnsubmit' name='btnsubmit' value='Send Offer' />");
 			$('#sendmsg').append("<input type='button' id='btncancel' name='btncancel' value='Cancel' />");
 			$('#sendmsg').append("</form>");
-			$("#to_s_id").val(toskill);
+			if(type=="skill") $("#to_s_id").val(toskill);
+			else $("#from_s_id").val(toskill);
 			bindButtons();
 		}
 
@@ -122,10 +128,9 @@
 
 			//send the variables through
 			$.post(send_url, { to: toid, to_skill: toskill, to_unit: tounit, from_skill: fromskill, from_unit: fromunit, message: message, response: 'offer' }).done(function(msg){
-					$('#edit-box').html("");
-					$('#edit-background').css('display','none');
-					$('#edit-box').css('display','none');
-					location.reload();
+					$('#edit-box').html('Your message has been sent.');
+                	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
+					
                 }).fail(function(){
                 	$('#edit-box').html('Could not send!');
                 	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");

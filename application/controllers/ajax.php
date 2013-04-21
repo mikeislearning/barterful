@@ -344,6 +344,44 @@ class ajax extends CI_Controller {
 
  }
 
+ public function deleteSkill()
+ {
+
+	$this->load->model('profile_model');
+
+	$type = "";
+ 	$spid="";
+
+	if(isset($_POST['type']))
+	{
+		$type = $_POST['type'];
+	} 
+
+ 	if(isset($_POST['sp_id']))
+	{
+		$spid = $_POST['sp_id'];
+	} 
+
+	if($this->session->userdata('logged_in'))
+	 {
+		//get their own id
+		$myid = $this->session->userdata('userid');
+		$myid = $myid[0]->m_id;
+
+		$this->load->model('profile_model');
+		$this->load->model('listings_model');
+		$this->data['profile'] = $this->profile_model->deleteSP($spid,$type);
+		$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$myid);
+		$this->data['wants'] = $this->listings_model->listAll("wants","sp_id","all",$myid);
+		$this->data['projects'] = $this->listings_model->listAll("projects","sp_id","all",$myid);
+		$this->data['skill_list'] = $this->listings_model->skillList();
+		
+		$this->data['main_content'] = 'profile_form';
+		$this->load->view('includes/template', $this->data);
+	 }	
+
+ }
+
  public function editSkill()
  {
 
@@ -355,6 +393,7 @@ class ajax extends CI_Controller {
  	$spheading="";
  	$spdetails="";
  	$spkeywords="";
+ 	$expiry = "";
 
 	if(isset($_POST['type']))
 	{
@@ -381,12 +420,15 @@ class ajax extends CI_Controller {
 		$spdetails = $_POST['sp_details'];
 	} 
 
+	if(isset($_POST['expiry']))
+	{
+		$expiry = $_POST['expiry'];
+	} 
+
 	if(isset($_POST['sp_keywords']))
 	{
 		$spkeywords = $_POST['sp_keywords'];
 	} 
-
-	echo $spid;
 
 	if($this->session->userdata('logged_in'))
 	 {
@@ -396,7 +438,7 @@ class ajax extends CI_Controller {
 
 		$this->load->model('profile_model');
 		$this->load->model('listings_model');
-		$this->data['profile'] = $this->profile_model->updateSP($spid,$sid,$spheading,$spdetails,$spkeywords,$myid,$type);
+		$this->data['profile'] = $this->profile_model->updateSP($spid,$sid,$spheading,$spdetails,$expiry,$spkeywords,$myid,$type);
 		$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$myid);
 		$this->data['wants'] = $this->listings_model->listAll("wants","sp_id","all",$myid);
 		$this->data['projects'] = $this->listings_model->listAll("projects","sp_id","all",$myid);

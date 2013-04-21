@@ -252,11 +252,18 @@ return TRUE;
 	}
     }
 
-	public function updateSP($spid,$sid,$spheading,$spdetails,$spkeywords,$myid,$table)
+    public function deleteSP($spid,$type)
+    {
+    	
+    }
+
+	public function updateSP($spid,$sid,$spheading,$spdetails,$expiry,$spkeywords,$myid,$table)
 	{
 		//set the timezone so that the time inputs correctly
 		date_default_timezone_set('America/New_York');
 		$date = date('Y-m-d H:i:s');
+
+		$expiry = date('Y-m-d H:i:s', strtotime($expiry));
 
 		switch($table)
 		{
@@ -277,7 +284,8 @@ return TRUE;
 		           's_id' => $sid,
 		           'wp_heading' => $spheading,
 		           'wp_details' => $spdetails,
-		           'wp_keywords' => $spkeywords
+		           'wp_keywords' => $spkeywords,
+		           'wp_expiry' => $expiry
 		        );
 			break;
 			case "wants":
@@ -287,13 +295,22 @@ return TRUE;
 		           's_id' => $sid,
 		           'wp_heading' => $spheading,
 		           'wp_details' => $spdetails,
-		           'wp_keywords' => $spkeywords
+		           'wp_keywords' => $spkeywords,
+		           'wp_expiry' => $expiry
 		        );
 			break;
 		}
 
-		$this->db->where($id, $spid);
-		$this->db->update($table, $data);
+		if(substr($spid, 0, 3) != "new")
+		{
+			$this->db->where($id, $spid);
+			$this->db->update($table, $data);
+		}
+		else
+		{
+			$this->db->set('p_id', substr($spid,3));
+			$this->db->insert($table, $data);
+		}
 
 		$pdata = array(
            'p_last_updated' => $date
