@@ -10,8 +10,8 @@
    <!--   CSS FILE ISFOR THE SERVER 
    <link rel="stylesheet" type="text/css" href="<?php echo base_url('refs/_styles/main.css');?>"/>-->
 <link rel="stylesheet/less" type="text/css" href="<?php echo base_url('refs/_styles/main.less');?>" media="all" />
-          <script src="<?php echo base_url('refs/_js/less.js');?>"></script>
-    
+          <script type="text/javascript" src="<?php echo base_url('refs/_js/less.js');?>"></script>
+     
        <!-- Foundicons http://www.zurb.com/playground/foundation-icons -->
        <link rel="stylesheet" type="text/css" href="<?php echo base_url('refs/_styles/general_foundicons_ie7.css');?>" />
        <link rel="stylesheet" type="text/css" href="<?php echo base_url('refs/_styles/general_foundicons.css');?>"/>

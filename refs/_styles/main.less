@@ -111,6 +111,10 @@ margin:0 auto;
 //row class is meant for content sections -> this works with grid.less
 .row{.row(12);}
 
+h1{ font-size: 2em; margin: .67em 0 }
+h2{ font-size: 1.5em; margin: .75em 0 }
+h3{ font-size: 1.17em; margin: .83em 0 }
+
 //default submit button styling
 button, input[type="submit"]{
 	.gradient(whitesmoke,@whiteSmoke,@lightGray);
@@ -269,7 +273,7 @@ header{
 	color:@darkGray;
 }
 
-/****************************this form totally restyles the radio buttons*****************************************/
+/****  this form totally restyles the radio buttons  ***************/
 /********** assistance provided from http://www.andreapinchi.it/style-radio-buttons-css/index.html **************/
 form:nth-child(4){
 position:relative;
@@ -495,10 +499,11 @@ img{
 	padding:20px;
 }
 
-/* this affects all the messages - will return to this later */
-
-
-	.profile{
+/* this affects THE INBOX - will return to this later 
+/* looks ugly right now
+/* will work to add more stuff
+/*
+*/	.profile{
 	.column(12);
 	margin-bottom:20px;
 	.box-shadow(4px 4px 4px #999);
@@ -520,6 +525,13 @@ img{
 	}    
 
 }
+
+/* This is for the PROFILE PAGE
+/* as well as all the postings
+/* 
+/*
+*/
+
 
 
 /***************************** Footer *********************************/
@@ -556,6 +568,8 @@ i{
 			}	
 		}
 }
+
+
 
 
 /***************************** Media Queries *****************************************/

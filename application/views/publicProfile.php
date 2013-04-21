@@ -18,7 +18,14 @@
 
 	?>
 
+<div class="bgWrapper">
+        <section class="mainWrapper">
+        	<div class="row">
+            <main>
 <!--This view is loaded from views/profile_form and is only included if profile information has already been set -->
+
+<div id ="tab_listings">
+
 <div id="edit-background" >
 </div>
 <div id="edit-box">
@@ -29,7 +36,7 @@
 	if(isset($profile)) foreach ($profile as $p):?>         
 
 <!-- display the username as a page header -->  
-<h1 style="padding:30px;font-weight:bold;font-size:24pt;"><?=$p->m_username?>'s Profile</h1>
+<h2><?=$p->m_username?>'s Profile</h1>
 
 <!--user's profile image -->
 <?php echo '<img src="../../uploads/original/' .$p->p_img .'"/>' . '<br/>'; ?>
@@ -43,8 +50,20 @@
 	sends paramaters (the $params string) relating to that posting that help populate the message form -->
 
 <!-- check that the user has posted skills and display those, otherwise suggest that they add one -->
+
+
+<div id="tabs">
+
+    <ul>
+      <li><a href="#tab-1">Skills</a></li>
+      <li><a href="#tab-2">Wants</a></li>
+      <li><a href="#tab-3">Projects</a></li>
+    </ul>
+
+
+<div id="tab-1">
 <?php if(isset($skills)): ?>
-<h2 style="font-weight:bold;padding:5px;font-size:18pt;">Skills</h2>
+<h3>Skills</h3>
 <?php foreach($skills as $s): ?>
 	<?php
 		$params = "\"$s->m_id\",\"$s->s_id\",\"skill\"";
@@ -58,10 +77,11 @@
 	</form>
 	
 <?php endforeach; endif; ?>
-
+</div>
 <!-- check that the user has posted wants and display those, otherwise suggest that they add one -->
+<div id="tab-2">
 <?php if(isset($wants)): ?>
-<h2 style="font-weight:bold;padding:5px;font-size:18pt;">Wants</h2>
+<h3>Wants</h3>
 <?php foreach($wants as $s): ?>
 	<?php
 		$params = "\"$s->m_id\",\"$s->s_id\",\"want\"";
@@ -76,10 +96,11 @@
 	</form>
 	
 <?php endforeach; endif; ?>
-
+</div>
 <!-- check that the user has posted projects and display those, otherwise suggest that they add one -->
+<div id="tab-3">
 <?php if(isset($projects)): ?>
-<h2 style="font-weight:bold;padding:5px;font-size:18pt;">Projects</h2>
+<h3>Projects</h3>
 <?php foreach($projects as $s): ?>
 	<?php
 		$params = "\"$s->m_id\",\"$s->s_id\",\"project\"";
@@ -94,10 +115,23 @@
 	</form>
 	
 <?php endforeach; endif; ?>
-	
+</div>
+
+
+
+</div> <!-- end #tabs -->
+
+</div> <!-- end	#tabListing -->
+
 <!--if the profile doesn't exist redirect them to the profile form page--> 
 <?php if(!$profile) redirect($this->load->view('profile_form')); ?>
 
+
+            </main>
+            </div><!-- end div with class row from mainpage -->
+		</section><!-- end section thing -->
+        </div> <!-- end bgWrapper from mainpage -->
+        
 <script>	
 
 	//this function shows the modal display for sending messages
@@ -209,4 +243,6 @@
 		bindButtons();
 	}
 
+
+	
 </script>
