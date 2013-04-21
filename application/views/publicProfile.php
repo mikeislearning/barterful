@@ -131,10 +131,7 @@
 		//with instructions to create an account or log in
 		if(loggedin != '1')
 		{
-            	$('#edit-box').html('Please log in or create an account to send a message.');
-            	$('#edit-box').append("<br /><input type='button' id='btncancel' name='btncancel' value='Close' />");
-            	$('#edit-box').append(loggedin);
-				bindButtons();
+            	displayMsg("Please log in or create an account to send a message.");
 				return;
 		}
 
