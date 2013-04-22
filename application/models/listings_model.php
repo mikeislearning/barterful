@@ -322,6 +322,7 @@ class listings_model extends CI_Model{
 	{
 		$terms = explode(' ',$terms);
 
+
 		$query = $this->db->query("
 				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, sp_details, sp_keywords, sp_id, p.m_id as m_id
 				FROM profiles p
@@ -337,6 +338,12 @@ class listings_model extends CI_Model{
 			$row->sort = 0;
 				foreach($terms as $t)
 				{
+					$exists = strpos($row->s_name, $t);
+					if($exists !== false)
+					{
+						$row->sort .= 1;
+					}
+
 					$exists = strpos($row->sp_heading, $t);
 					if($exists !== false)
 					{
