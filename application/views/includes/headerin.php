@@ -22,7 +22,7 @@
 			<nav>
 			    <ul>
 			    	<li><?php echo anchor('members/inbox', $count_inbox . "Inbox", 'class="button1"');?> </li>
-			       <li><?php echo anchor('members/profile','Profile','class="button1"');?> </li>
+			       <li><?php echo anchor('members/profile',$this->session->userdata('username'),'class="button1"');?> </li>
 			       <li> <?php echo anchor('login/logout','Logout','class="button1"');?></li>
 			    </ul>
 			</nav>

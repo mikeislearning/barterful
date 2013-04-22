@@ -29,7 +29,7 @@
 	if(isset($error)){echo $error; } 
 
 	//display the profile image
-	echo '<img src="../../uploads/original/' .$p->p_img .'"/>' . '<br/>';
+	echo "<img src='../../uploads/original/" . $p->p_img . "' /><br />";
 
 	//display the username and other profile data
 	echo "Username: " .$this->session->userdata('username') ."<br/>";
