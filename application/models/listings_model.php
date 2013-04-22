@@ -318,20 +318,58 @@ class listings_model extends CI_Model{
 		
 	}
 
-	public function complexSearch($terms)
+	public function complexSearch($terms, $type = 'skills', $sortset = 'sp_id', $category='all')
 	{
 		$terms = explode(' ',$terms);
 
+		// if a custom filter variable was provided, apply it to the query
+		if($category == 'all')
+		{
+			$category = "";
+		}
+		else
+		{
+			$category = " AND s_name = '" . $category . "'";
+		}
 
-		$query = $this->db->query("
-				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, sp_details, sp_keywords, sp_id, p.m_id as m_id
-				FROM profiles p
+		switch($type)
+		{
+			case "skills":
+				$query = $this->db->query("
+				Select p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, sp_keywords, sp_details, s.s_id, sp_id, p.m_id as m_id
+				FROM skill_profiles sp
+				JOIN profiles p on sp.p_id = p.p_id
 				JOIN members m on p.m_id = m.m_id
-				JOIN skill_profiles sp on p.p_id = sp.p_id
 				JOIN skills s on sp.s_id = s.s_id
-				WHERE m_active = TRUE
-				ORDER BY sp_id DESC;
+				WHERE m_active = TRUE" . $category . " ORDER BY " . $sortset . " DESC;
 				");
+				break;
+			case "wants":
+				$query = $this->db->query("
+				Select p_fname, p_last_updated, p_avg_rating, s_name, wp_expiry, wp_keywords as sp_keywords, wp_heading as sp_heading, wp_details as sp_details, s.s_id, wp_id as sp_id, p.m_id as m_id
+				FROM want_profiles wp
+				JOIN profiles p on wp.p_id = p.p_id
+				JOIN members m on p.m_id = m.m_id
+				JOIN skills s on wp.s_id = s.s_id
+				WHERE m_active = TRUE" . $category . " 
+				AND (wp_expiry IS NULL OR wp_expiry > CURDATE()) 
+				ORDER BY " . $sortset . " DESC;
+				");
+				break;
+			case "projects":
+				$query = $this->db->query("
+				Select p_fname, p_last_updated, p_avg_rating, s_name, wp_expiry, wp_keywords as sp_keywords, wp_heading as sp_heading, wp_details as sp_details, s.s_id, wp_id as sp_id, p.m_id as m_id
+				FROM want_profiles wp
+				JOIN profiles p on wp.p_id = p.p_id
+				JOIN members m on p.m_id = m.m_id
+				JOIN skills s on wp.s_id = s.s_id
+				WHERE m_active = TRUE" . $category . " 
+				AND wp_expiry IS NOT NULL AND wp_expiry > CURDATE() 
+				ORDER BY " . $sortset . " DESC;
+				");
+				break;
+
+		}
 
 		if($query->num_rows > 0){
 			foreach($query->result() as $key => $row){
@@ -375,7 +413,7 @@ class listings_model extends CI_Model{
 			}
 
 			//send the array to this AMAZING sort function, sending with it the column to sort by
-			$listing = $this->sortDataset($listing, 'sort', 'DESC');
+			$listing = $this->sortDataset($listing, $sortset, 'DESC');
 			return $listing;
 		}
 	}

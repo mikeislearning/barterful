@@ -5,11 +5,12 @@
 	<section class="mainWrapper">
 		<header class="row">
 		<fieldset>
-		     		<?php echo form_open('search/searchII') ?>
+		     		<?php echo form_open('search/redir') ?>
 		     		<input type="text" required="required" placeholder="Search" name="txt_search" id="txt_search" />
 		     		<input type="submit" id="btn_search" name="btn_search" class="general foundicon-search" value="Search" />
-
+		     		<span id="btn_clear"></span>
 		     		<?php echo form_close(); ?>
+		     		
 		    </fieldset>
 		    
 		    <h1> <a href="<?php echo base_url()?>" class="logo">Barterful</a> </h1>
@@ -26,21 +27,3 @@
 		</header>
 	</section><!-- mainWrapper -->
 	</div><!-- bgWrapper -->
-	
-	
-<!--
-<script>
-	$(document).ready(function(){
-		$('#btn_search').click(function(){
-			var term = $('#txt_search').val();
-			var send_url = '<?=base_url()?>' + 'index.php/ajax/searchPostings';
-
-			//send the variables through
-			$.post(send_url, { term:term }).done(function(msg){
-                    document.write(msg);
-                }).fail(function(){$('main').html('Could not load!');});
-		});
-
-	})
-
-</script>-->

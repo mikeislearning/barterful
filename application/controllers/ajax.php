@@ -1,5 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+//I DONT THINK THIS IS IN USE
+
+
 /**
 * This controller was created because AJAX calls can only be made to public functions.
 *	The members controller is currently not public
