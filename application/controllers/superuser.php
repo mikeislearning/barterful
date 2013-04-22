@@ -1,5 +1,5 @@
 <?php
-class Login extends CI_Controller {
+class superuser extends CI_Controller {
 
 	function __construct()
 	{
@@ -12,29 +12,42 @@ class Login extends CI_Controller {
 	var $data;//this variable is declared so all functions can make use of it
 
 	public function logged_in(){
+
 		$logged_in = $this->session->userdata('logged_in');
 
-		if(!isset($logged_in)|| $logged_in != true)
+		$type = $this->session->userdata('usertype');
+		//get the id value from the first pair in the array
+		$type = $type[0]->m_type;
+
+		if(isset($type) && $type == 'superuser')
 		{
-			//echo 'You do not have permission to access this page.';
-			$this->data['header_content'] = 'includes/headerout';
+			$this->data['header_content'] = 'includes/headeradmin';
 		}
-		else{
-			$this->data['header_content'] = 'includes/headerin';
-		}
+		 
+		 else
+		 {
+			 //echo 'You do not have permission to access this page.';
+			 redirect('site');
+		 }
 	}
 
 	function index()
 	{
-		$logged_in = $this->session->userdata('logged_in');
-		if(!isset($logged_in)|| $logged_in != true){
-			$this->data['main_content'] = 'login_form';
-		}
-		else{
-			redirect('site');
-		}
+		if($this->session->userdata('logged_in'))
+	   {
+	    $newdata = $this->session->userdata('logged_in');
+		$session_data['username'] = $newdata['username'];
 
+	    $this->data['main_content'] = 'adminHome';
 		$this->load->view('includes/template', $this->data);
+	   }
+	   else
+	   {
+	       session_destroy();
+	     //If no session, redirect to login page
+	     redirect('login', 'refresh');
+	    
+	   }
 	}
 
 	function validate_credentials() {
@@ -43,15 +56,14 @@ class Login extends CI_Controller {
 
 		if($query)//if the user's credentials validated..
 			{
-
 			$newdata = array(
 				'username'=> $this->input->post('username'),
 				'userid'=> $this->membership_model->getID(),
-				'usertype' => $this->membership_model->getType(),
 				'logged_in' => true
 			);
 			/*leave this!*/
 			$this->session->set_userdata($newdata);
+
 			redirect('members');
 
 		}

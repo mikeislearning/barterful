@@ -25,15 +25,29 @@ class Membership_model extends CI_Model {
 			return $user;
 		}
 	}
+
+	//uses the username to get the user id
+	function getType(){
+		$query = $this->db->query('SELECT m_type from members where m_username ="' . $this->input->post('username') . '"');
+		if($query->num_rows == 1){
+			foreach($query->result() as $key => $row){
+				$user[]=$row;
+			}
+			return $user;
+		}
+	}
 	
 	function create_member() {
+		date_default_timezone_set('America/New_York');
+		$date = date('Y-m-d H:i:s');
 		//getting the username from the post array storing it in username and getting the data ready to insert
 		$username = $this->input->post('username');
 		$new_member_insert_data = array (
 		'm_username' => $this->input->post('username'),
 		'm_email' => $this->input->post('email'),
 		//we run the md5 function so we can store 32 bit hash in our database
-		'm_password' => md5($this->input->post('password'))
+		'm_password' => md5($this->input->post('password')),
+		'm_join_date' => $this->input->post($date)
 		);
 		//doing our insert into the members table in the database
 		$insert = $this->db->insert('members', $new_member_insert_data);

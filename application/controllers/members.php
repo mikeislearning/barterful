@@ -14,8 +14,17 @@ class Members extends CI_Controller {
 	 
 	 public function logged_in(){
 		 $logged_in = $this->session->userdata('logged_in');
+
+		$type = $this->session->userdata('usertype');
+		//get the id value from the first pair in the array
+		$type = $type[0]->m_type;
+
+		if(isset($type) && $type == 'superuser')
+		{
+			$this->data['header_content'] = 'includes/headeradmin';
+		}
 		 
-		 if(!isset($logged_in)|| $logged_in != true)
+		 else if(!isset($logged_in)|| $logged_in != true)
 		 {
 			 //echo 'You do not have permission to access this page.';
 			 $this->data['header_content'] = 'includes/headerout';

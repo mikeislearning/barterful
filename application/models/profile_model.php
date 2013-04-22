@@ -80,6 +80,7 @@ $id = $this->session->userdata('userid');
 $id = $id[0]->m_id;
 
 //get the current time
+date_default_timezone_set('America/New_York');
 $time =  date('Y-m-d H:i:s');
 //getting the username from the post array storing it in username and getting the data ready to insert
 		$username = $this->input->post('username');
@@ -128,7 +129,7 @@ $id = $id[0]->m_id;
 //gets the time to be inserted into daabase
 //$datestring = "%Y-%m-%d %h:%i:";
 //$time = time();
-
+date_default_timezone_set('America/New_York');
 $time =  date('Y-m-d H:i:s');
 
 		
@@ -233,6 +234,7 @@ $id = $id[0]->m_id;
     ); 
     */
    	 //get the time for the current update
+		date_default_timezone_set('America/New_York');
    		 $time =  date('Y-m-d H:i:s');
 		//getting the username from the post array storing it in username ready to insert
 		$username = $this->input->post('username');
