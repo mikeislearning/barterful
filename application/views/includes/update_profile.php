@@ -24,10 +24,21 @@ echo form_close();
 <?php echo anchor('members/changePassword','Change Password', 'class="button1"'); ?>
 
 <?php
+$fname ="";
+$lname="";
+
+if(isset($p->p_fname) and (!empty($p->p_fname)))
+{
+$fname= $p->p_fname;
+}
+if(isset($p->p_lname) and (!empty($p->p_lname)))
+{
+$lname = $p->p_lname;
+}
 
 echo form_open('members/updateProfile');
-echo form_input('first_name', set_value('first_name', ''),'placeholder="First Name"');
-echo form_input('last_name', set_value('last_name', ''),'placeholder="Last Name"');
+echo form_input('first_name', set_value('first_name', $fname),'placeholder="First Name"');
+echo form_input('last_name', set_value('last_name', $lname),'placeholder="Last Name"');
 echo form_submit('submit', 'Update Profile');
 echo validation_errors('<p class="error">');
 echo form_close();
