@@ -10,7 +10,7 @@
 		<header class="row">
 		    
 			<fieldset>
-		     		<?php echo form_open('site/textSearch') ?>
+		     		<?php echo form_open('search/searchII') ?>
 		     		<input type="text" required="required" placeholder="Search" name="txt_search" id="txt_search" />
 		     		<input type="submit" id="btn_search" name="btn_search" class="general foundicon-search" value="Search" />
 

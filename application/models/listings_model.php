@@ -374,6 +374,50 @@ class listings_model extends CI_Model{
 			return $listing;
 		}
 	}
+
+	public function complexSearch($terms)
+	{
+		$query = $this->db->query("
+				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, sp_details, sp_id, p.m_id as m_id
+				FROM profiles p
+				JOIN members m on p.m_id = m.m_id
+				JOIN skill_profiles sp on p.p_id = sp.p_id
+				JOIN skills s on sp.s_id = s.s_id
+				WHERE m_active = TRUE" . $category . " ORDER BY " . $sortset . " DESC;
+				");
+
+		if($query->num_rows > 0){
+			foreach($query->result() as $key => $row){
+				
+				//////////////////////////////////////
+				//give sort value based on date added
+				///////////////////////////////////////
+
+				//get the number of days between now and the last updated date
+				$now = strtotime(date("Y-m-d"));
+				$then = strtotime($row->p_last_updated);
+				$date_diff = abs($now - $then);
+				$days_diff = floor($date_diff/(60*60*24));
+
+				//note that the $row->sort is a new column in the record/table
+				//starting at 10, reduce the "score" of this factor by 1 per week old, min score is 0
+				$row->sort =  max(10-round($days_diff/7), 0);
+				
+				//add to the sort score based on rating
+				//the average rating is a decimal value (percentage)
+				//a rating of 100% would raise the sort rating by 5
+				//therefore rating is worth half of the recency of a post
+				$row->sort += round($row->p_avg_rating * 5);
+				
+				//add $row to the array, including the newly created sort column
+				$listing[]=$row;
+			}
+
+			//send the array to this AMAZING sort function, sending with it the column to sort by
+			$listing = $this->sortDataset($listing, $sortset, 'DESC');
+			return $listing;
+		}
+	}
 }
 
 ?>
