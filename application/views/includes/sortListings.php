@@ -51,6 +51,13 @@
 <script>
 	$(document).ready(function(e)
 	{
+		var term = '<?php if($this->uri->segment(3)) echo $this->uri->segment(3); ?>';
+		if(term)
+		{
+			$('#txt_search').val(term);
+			var button = 'general foundicon-search';
+			$('#btn_clear').html('<?php echo anchor("members/index", "Clear", "' + button +'");?>');
+		}
 		
 		//if any of the sort options are changed, get their values and pass them to the AJAX function
 		$('input[name=viewtype]:radio, #sortedby, #category').change(function(e)
@@ -73,7 +80,7 @@
 			var send_url = '<?=base_url()?>' + ext_url;
 
 			//send the variables through
-			$.post(send_url, { type: listtype, category: listcategory, sortset: listsortset }).done(function(msg){
+			$.post(send_url, { type: listtype, category: listcategory, sortset: listsortset, term: term }).done(function(msg){
                     $('main').html(msg);
                 }).fail(function(){$('main').html('Could not load!');});
 		}

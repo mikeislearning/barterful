@@ -78,6 +78,7 @@ class Site extends CI_Controller {
 		$type = "skills";
 		$sortset = "p_fname";
 		$category = "all";
+		$term = "";
 
 		//check if these values were sent through and assign them to the variables
 		if(isset($_POST['type']))
@@ -95,8 +96,19 @@ class Site extends CI_Controller {
 			$category = $_POST['category'];
 		}
 
-		//get the new listing from the listings_model
-		$this->data['row'] = $this->listings_model->listAll($type,$sortset,$category);
+		if(isset($_POST['term']))
+		{
+			$term = $_POST['term'];
+		}
+
+		if ($term != "")
+		{
+		    $this->data['row'] = $this->listings_model->complexSearch($term,$type,$sortset,$category);
+		}
+		else
+		{
+			$this->data['row'] = $this->listings_model->listAll($type,$sortset,$category);
+		}
 
 		$this->load->view('includes/listPostings',$this->data);
 	}
@@ -106,19 +118,7 @@ class Site extends CI_Controller {
 		$this->data['main_content'] = 'contact';
 		$this->load->view('includes/template', $this->data);
 	}
-
-	public function textSearch()
-	{
-		$this->load->model('listings_model');
-
-		
-		$term = $this->input->post('txt_search');
-
-		
-		$this->data['row'] = $this->listings_model->simpleSearch($term);
-		$this->data['main_content'] = 'mainpage';
-		$this->load->view('includes/template', $this->data);
-	}
+	
 	public function deadLink(){
 		$this->data['main_content']='nobodyhere';
 		$this->load->view('includes/template', $this->data);
