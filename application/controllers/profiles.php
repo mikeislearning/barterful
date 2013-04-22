@@ -65,32 +65,12 @@ class profiles extends CI_Controller {
 	    $id = $this->uri->segment(3);
 	}
 
-	$myid = "";
-
-   if(!$this->session->userdata('logged_in'))
+	//if the user clicked on their own profile, take them to their own profile view
+   if($this->session->userdata('logged_in') && $myid == $id)
 	 {
-		 //echo 'You do not have permission to access this page.';
-		 $this->data['header_content'] = 'includes/headerout';
-	 }
- 	else
-	 {
-		$this->data['header_content'] = 'includes/headerin';
-
-		//---------------------------------------------------------------------------------//
-		//this section loads the listings displayed based on the user's id in the session
-		//---------------------------------------------------------------------------------//
-	   	$this->load->model('inbox_model');
-
-	   	$this->data['count_inbox'] = $this->inbox_model->countUnread($myid);
-
-		//if the user clicked on their own profile, take them to their own profile view
-
-		if($myid == $id)
-		{
-			$baseurl = base_url();
-			$url = $baseurl . "index.php/members/profile";
-			redirect($url, 'refresh');
-		}
+		$baseurl = base_url();
+		$url = $baseurl . "index.php/members/profile";
+		redirect($url, 'refresh');
 	 }	
 
 	$this->load->model('listings_model');

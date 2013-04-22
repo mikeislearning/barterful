@@ -8,9 +8,6 @@
 		             <label>Barterspot</label>
 		             <select id = "barterspot">
 		               <option value = "Humber College">Humber</option>
-		               <option value = "UofT">U of T</option>
-		               <option value = "Queens">Queens</option>
-		               <option value = "York">York</option>
 		             </select>
 		       </fieldset>
 		    </form>

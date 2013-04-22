@@ -40,7 +40,7 @@
 <h2><?=$p->m_username?>'s Profile</h1>
 
 <!--user's profile image -->
-<?php echo '<img src="../../uploads/original/' .$p->p_img .'"/>' . '<br/>'; ?>
+<img src="../../uploads/original/<?=$p->p_img?>" />
 
 <?php endforeach; ?>
 
@@ -122,7 +122,7 @@
 
 
 <!--if the profile doesn't exist redirect them to the profile form page--> 
-<?php if(!$profile) redirect($this->load->view('profile_form')); ?>
+<?php if(!$profile || $profile[0] == "") redirect($this->load->view('includes/listPostings')); ?>
 
 
             </main>

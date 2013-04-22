@@ -119,25 +119,6 @@ class search extends CI_Controller {
 
  public function searchPosts()
  {
- 	if(!$this->session->userdata('logged_in'))
-		 {
-			 //echo 'You do not have permission to access this page.';
-			 $this->data['header_content'] = 'includes/headerout';
-		 }
-	 else{
-			 $this->data['header_content'] = 'includes/headerin';
-
-			//---------------------------------------------------------------------------------//
-			//this section loads the listings displayed based on the user's id in the session
-			//---------------------------------------------------------------------------------//
-		   	$this->load->model('inbox_model');
-		   	//get the array of id's (there should just be one in the array)
-			$id = $this->session->userdata('userid');
-			//get the id value from the first pair in the array
-			$id = $id[0]->m_id;
-
-		   	$this->data['count_inbox'] = $this->inbox_model->countUnread($id);
-		 }
 
 	$this->load->model('listings_model');
 	$term = "";
