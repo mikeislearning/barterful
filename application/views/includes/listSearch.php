@@ -31,4 +31,8 @@
 	         
 	            <?php endforeach; ?>
 
-<?php if(!$row) echo "There is no one matching that description!"; ?>
+<?php if(!$row) :?>
+
+<img src="<?php echo base_url('refs/_img/grumpy.jpg');?>" title="grumpy" id="grumpy">
+
+	<?php endif;?>

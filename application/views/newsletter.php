@@ -1,8 +1,3 @@
-
-
-
-
-
 	<?php echo form_open('email/send'); //this creates the following <form method="post" action="http://codeigniter/index.php/email/send"
 	 ?>
 	 <?php

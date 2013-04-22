@@ -1,9 +1,9 @@
 <div class="bgWrapper">
         <section class="mainWrapper">
         	<div class="row">
-            <main>
+            <main class="textInputArea">
             
-<h1>Create an Account!</h1>
+<h2>Create an Account</h2>
 <?php echo form_open('login/create_member');?>
 	<label for="username">Username </label>
 <?=form_input('username', set_value('username', ''),'placeholder="Username"'); ?>

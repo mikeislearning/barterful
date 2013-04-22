@@ -42,9 +42,9 @@ font-weight:900;
 @logoFont: barterFont, Helvetica, Arial, Sans-serif;
 @mainRed:#D45354;
 @mainBlue:#2FCAD8;
-@mainGreen:pink;
+@mainPink:pink;
 @mainOrange:#FF6526;
-@secondBlue:#1E86B9;
+@secondBlue:#1776B3;
 @secondGreen:#0CFB4A;
 @thirdGreen: #26FFDE;
 
@@ -60,20 +60,23 @@ font-weight:900;
 
 //sets default body characteristics
 body{
-
 font-size:16px/1em;
 font-family:@baseFont;
 font-weight:100;
 font-size-adjust:none;
 line-height:1.5;
-//background:url("../_img/landscape2.jpg") center center;
-background:@secondBlue;
+background:url("../_img/landscape2.jpg") 90% 10% !important;
+}
 
-
+#fullContainer{
+position:absolute;
+overflow:hidden;
+width:100%;
 }
 
 //bgWrapper surrounds every section of the site
 .bgWrapper{ 
+
 	overflow: hidden !important;//CRAZY IMPORTANT - otherwise page overflows a lot
 	&:first-of-type{
 		border-bottom:@mainBorder;
@@ -96,6 +99,7 @@ background:@secondBlue;
 
 #bulletinWrapper{
 	background: url("../_img/bulletin7.jpg");
+	border-bottom:3px solid gray;
 
 }
 
@@ -117,26 +121,31 @@ h3{ font-size: 1.17em; margin: .83em 0 }
 
 //default submit button styling
 button, input[type="submit"]{
-	.gradient(whitesmoke,@whiteSmoke,@lightGray);
-	text-shadow:1px 1px 1px @darkGray;
-	//background:@mainGreen;
-	.rounded(5px);
-	padding:5px;
-	color:black;
-	text-transform: uppercase;
-	border:@mainBorder;
+
+	background:@secondBlue;
+	
+	padding:3px 4px;
+	color:#fff;
+	font-family:'Helvetica Neue',sans-serif;
+	font-size:1em;
+
+	
+	border:1px solid #1A87B9;
+	text-transform: lowercase;
 	&:hover{
 		cursor:pointer;
-		color:@mainGreen;
+		background:white;
+		border:@mainBorder;
+		color:@secondBlue;
 	}
 }
 //styling for other buttons
 .button1{
-text-transform: uppercase;
+
 color:@whiteSmoke;
-text-shadow:0px -1px 1px black;
+font-size:1.2em;
 	&:hover{
-	color:@mainGreen;
+	color:@mainPink;
 	opacity:0.8;
 	}
 }
@@ -185,6 +194,13 @@ input[type="submit"]{
 	width:100%;
 	height:80%;
 }
+//used when you can't find what you need
+#grumpy{
+height:50%;
+width:50%;
+margin-left:25%;
+text-align: center;
+}
 
 
 
@@ -206,26 +222,36 @@ header{
 	line-height:1em;
 	.scale(4);
 	&:hover{
-	color:@mainGreen;
+	color:@mainPink;
 		opacity:.8;
 	       }
 	}
-	button{
-		position:relative;
-		top:-1px;
-		left:-15px;
-		padding:6px;
-	}
 
-		
 	h1{.column(4);
 		text-align: center;
 	}
 	
 	fieldset{
-	.column(4);
+	.column(3.9);
+
+.searchButton{
+			background:white;
+			color:@secondBlue;
+			margin:0;
+			padding:3px;
+			position:relative;
+			left:-5%;
+			padding-left:5%;
+			border:none;
+			.rounded(0px);
+			top:1px;
+		}
+
 		input[type="text"]{
 		display:inline;
+		position:relative;
+		.rounded(0px);
+		
 		
 		}
 	}
@@ -237,8 +263,39 @@ header{
 	ul{
 	float:right;
 	}
+
+
+
+
 	li{
 	display:inline;
+
+	//this is for dropdown lists
+		ul{
+			list-style:none;
+			position:absolute;
+			right:-9999px;
+			z-index:10;
+
+			li{
+				border:@mainBorder;
+				display:block;
+				float:right;
+				background:@secondBlue;
+				padding:5px;
+				width:55%;
+				&:hover{
+					background:white;
+					color:@secondBlue;
+				}
+
+			}
+			
+		}
+		//this has the dropdown occur upon hover
+		&:hover ul{
+			right:10%;}
+
 	&:not(:first-child){
 		margin-left:10px;
 		}
@@ -266,7 +323,7 @@ header{
 		color:black;
 		border:@mainBorder;	
 		&:hover{
-			background:@mainGreen;
+			background:@mainPink;
 		}
 	}
 	input[type="radio"] + label{
@@ -436,6 +493,7 @@ img{
     &:nth-child(1){color:blue;}
 
 }
+/* Shadowing is unnecessary based on our background
 
 .left-shadow{
 	width:140px;
@@ -468,8 +526,13 @@ img{
     -ms-transform: scale(1) rotate(184deg) translate(20px, 25px) skew(9deg, 0deg);
     transform: scale(1) rotate(184deg) translate(20px, 25px) skew(9deg, 0deg);
     }
+*/
 
-/* this is the profile area */
+/* this is the profile area, with skills and a person's info */
+/* proceed with caution
+/*
+/*
+*/
 .p_skills{
 	border:2px solid black;
 	padding:10px;
@@ -556,7 +619,21 @@ img{
 	}
 	
 }
+/* This is for the LOGIN PAGE AND SIGNUP PAGE
+/* as well as other text input forms
+/* 
+/*
+*/
 
+.textInputArea{
+	text-align:center;
+	h2{
+		text-transform:underline;
+	}
+	input{
+		margin:0 auto;
+	}
+}
 
 /***************************** Footer *********************************/
 
@@ -634,7 +711,9 @@ h1{
 		padding-bottom:20px;
 		
 	}
-	ul{margin:0 auto;}
+	nav{
+	ul{float:none;}
+}
 }
 
 #dropdown{
@@ -646,13 +725,8 @@ h1{
 	}
 
 main{
-	.profile{
-		.column(6);
-		width:200px;
-		
-	}
 	#adContainer{
-		.column(8);
+		.column(5.4);
 		padding:20px;
 		margin:0 auto;
 	}
@@ -662,9 +736,7 @@ main{
 
 @media screen and (max-width:30em){
 main{
-	.profile{
-		.column(12);
-		}
+
 		#adContainer{
 		.column(12);
 	}

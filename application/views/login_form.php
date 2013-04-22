@@ -1,12 +1,12 @@
 <div class="bgWrapper">
         <section class="mainWrapper">
         	<div class="row">
-            <main>
+            <main class="textInputArea">
             
 <?php if(isset($account_created)) { ?>
 <h3><?php echo $account_created; ?></h3>
 <?php } else {  ?>
-	<h1>Login, please.</h1><br />
+	<h2>Let's Get Bartering!</h2>
 
 	<?php
 	}

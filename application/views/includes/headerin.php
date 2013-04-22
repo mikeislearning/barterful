@@ -11,19 +11,31 @@
 		    
 			<fieldset>
 		     		<?php echo form_open('search/redir') ?>
-		     		<input type="text" required="required" placeholder="Search" name="txt_search" id="txt_search" />
-		     		<input type="submit" id="btn_search" name="btn_search" class="general foundicon-search" value="Search" />
+		     		<input type="text" required="required" placeholder="Search" name="txt_search" id="txt_search">
+		     		<button type="submit"id="btn_search" name="btn_search" class="searchButton"><i class="general foundicon-search"></i></button>
+		     	</input>
 		     		<span id="btn_clear"></span>
-
 		     		<?php echo form_close(); ?>
-		    		</fieldset>
+		     		
+		    </fieldset>
 		    <h1> <a href="<?php echo base_url()?>" class="logo">Barterful</a> </h1>
 		    		
 			<nav>
 			    <ul>
-			    	<li><?php echo anchor('members/inbox', $count_inbox . "Inbox", 'class="button1"');?> </li>
-			       <li><?php echo anchor('members/profile',$this->session->userdata('username'),'class="button1"');?> </li>
-			       <li> <?php echo anchor('login/logout','Logout','class="button1"');?></li>
+			    	
+			       <li><?php echo anchor('members/profile',$this->session->userdata('username')."  "."<i class='social foundicon-torso'></i>",'class="button1"');?> </li>
+			       <li><?php echo anchor('members/inbox', $count_inbox . "<i class='general foundicon-mail'></i>", 'class="button1"');?> 
+
+			       </li>
+			       <li><?php echo anchor('Profile_crud/edit',"<i class='general foundicon-settings button1' style='padding-bottom:10px'></i>"); ?>
+
+				    	<ul>
+				    		<?php echo anchor('Profile_crud/edit','<li>Edit Profile</li>','class="button1"');?>
+				    		<?php echo anchor('members/changePassword','<li>Change Password</li>','class="button1"');?>
+				    		<?php echo anchor('login/logout','<li>Logout</li>','class="button1"');?>
+				    	</ul>
+				     </li>
+			       
 			    </ul>
 			</nav>
 		</header>

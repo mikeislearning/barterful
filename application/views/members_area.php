@@ -1,7 +1,7 @@
   <?php $this->load->view('includes/sortListings.php'); ?>
        
 <!-- ************************ Main Content ************************** -->    
-        <div class="bgWrapper">
+        <div class="bgWrapper" id="bulletinWrapper">
 
          
           <div class="row">

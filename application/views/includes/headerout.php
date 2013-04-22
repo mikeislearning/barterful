@@ -6,8 +6,9 @@
 		<header class="row">
 		<fieldset>
 		     		<?php echo form_open('search/redir') ?>
-		     		<input type="text" required="required" placeholder="Search" name="txt_search" id="txt_search" />
-		     		<input type="submit" id="btn_search" name="btn_search" class="general foundicon-search" value="Search" />
+		     		<input type="text" required="required" placeholder="Search" name="txt_search" id="txt_search">
+		     		<button type="submit"id="btn_search" name="btn_search" class="searchButton"><i class="general foundicon-search"></i></button>
+		     	</input>
 		     		<span id="btn_clear"></span>
 		     		<?php echo form_close(); ?>
 		     		
@@ -20,7 +21,12 @@
 
 			    <li> <?php echo anchor('login','Log in','class="button1"');?> </li>
 			    <li> <?php echo anchor('login/signup','Sign up','class="button1"');?> </li>
-			    <li> <?php echo anchor('site/contact','Learn More','class="button1"');?> </li>
+			    <li> <a href="#" class="general foundicon-settings button1" style="padding-bottom:10px;" ></a>
+			    	<ul>
+			    		<?php echo anchor('site/about','<li>About Us</li>','class="button1"');?>
+			    		<?php echo anchor('site/contact','<li>Contact Us</li>','class="button1"');?>
+			    	</ul>
+			     </li>
 
 			    </ul>
 			</nav>
