@@ -318,103 +318,57 @@ class listings_model extends CI_Model{
 		
 	}
 
-
-	function simpleSearch($term)
-	{
-		/* 
-		* This search selects all the relevant data it needs to conduct a search, joining
-		* the skill_profiles, profiles, members, and skills table
-		* It searches based on IF the member account is active, where the skill name, skill details,
-		* profile heading, or profile keywords are similar to the search term
-		*/
-		$query = $this->db->query("
-		SELECT p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, s.s_id, sp_details, sp_keywords, , s.s_id, sp_id, p.m_id as m_id
-		FROM skill_profiles sp
-		JOIN profiles p on sp.p_id = p.p_id
-		JOIN members m on p.m_id = m.m_id
-		JOIN skills s on sp.s_id = s.s_id
-		WHERE m_active = TRUE AND
-		(s_name like '%" . $term . "%' 
-			OR sp_heading like '%" . $term . "%' 
-			OR sp_details like '%" . $term . "%' 
-			OR sp_keywords like '%" . $term . "%');
-		");
-		
-		//if there are any rows return, then...
-		if($query->num_rows > 0){
-			foreach($query->result() as $key => $row){
-				
-				//////////////////////////////////////
-				//give sort value based on date added
-				///////////////////////////////////////
-
-				//get the number of days between now and the last updated date
-				$now = strtotime(date("Y-m-d"));
-				$then = strtotime($row->p_last_updated);
-				$date_diff = abs($now - $then);
-				$days_diff = floor($date_diff/(60*60*24));
-
-				//note that the $row->sort is a new column in the record/table
-				//starting at 10, reduce the "score" of this factor by 1 per week old, min score is 0
-				$row->sort =  max(10-round($days_diff/7), 0);
-				
-				//add to the sort score based on rating
-				//the average rating is a decimal value (percentage)
-				//a rating of 100% would raise the sort rating by 5
-				//therefore rating is worth half of the recency of a post
-				$row->sort += round($row->p_avg_rating * 5);
-				
-				//add $row to the array, including the newly created sort column
-				$listing[]=$row;
-			}
-
-			//only return $listing if there were rows in the dataset
-			//send the array to this AMAZING sort function, sending with it the column to sort by
-			$listing = $this->sortDataset($listing, 'p_fname', 'DESC');
-			return $listing;
-		}
-	}
-
 	public function complexSearch($terms)
 	{
+		$terms = explode(' ',$terms);
+
 		$query = $this->db->query("
-				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, sp_details, sp_id, p.m_id as m_id
+				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, sp_details, sp_keywords, sp_id, p.m_id as m_id
 				FROM profiles p
 				JOIN members m on p.m_id = m.m_id
 				JOIN skill_profiles sp on p.p_id = sp.p_id
 				JOIN skills s on sp.s_id = s.s_id
-				WHERE m_active = TRUE" . $category . " ORDER BY " . $sortset . " DESC;
+				WHERE m_active = TRUE
+				ORDER BY sp_id DESC;
 				");
 
 		if($query->num_rows > 0){
 			foreach($query->result() as $key => $row){
-				
-				//////////////////////////////////////
-				//give sort value based on date added
-				///////////////////////////////////////
+			$row->sort = 0;
+				foreach($terms as $t)
+				{
+					$exists = strpos($row->sp_heading, $t);
+					if($exists !== false)
+					{
+						$row->sort .= 1;
+					}
 
-				//get the number of days between now and the last updated date
-				$now = strtotime(date("Y-m-d"));
-				$then = strtotime($row->p_last_updated);
-				$date_diff = abs($now - $then);
-				$days_diff = floor($date_diff/(60*60*24));
+					$exists = strpos($row->sp_details, $t);
+					if($exists !== false)
+					{
+						$row->sort .= 1;
+					}
 
-				//note that the $row->sort is a new column in the record/table
-				//starting at 10, reduce the "score" of this factor by 1 per week old, min score is 0
-				$row->sort =  max(10-round($days_diff/7), 0);
-				
-				//add to the sort score based on rating
-				//the average rating is a decimal value (percentage)
-				//a rating of 100% would raise the sort rating by 5
-				//therefore rating is worth half of the recency of a post
-				$row->sort += round($row->p_avg_rating * 5);
-				
+					$exists = strpos($row->sp_keywords, $t);
+					if($exists !== false)
+					{
+						$row->sort .= 1;
+					}
+				}
 				//add $row to the array, including the newly created sort column
 				$listing[]=$row;
 			}
 
+			foreach($listing as $i => $row)
+			{
+				if($row->sort == 0)
+				{
+					unset($listing[$i]);
+				}
+			}
+
 			//send the array to this AMAZING sort function, sending with it the column to sort by
-			$listing = $this->sortDataset($listing, $sortset, 'DESC');
+			$listing = $this->sortDataset($listing, 'sort', 'DESC');
 			return $listing;
 		}
 	}
