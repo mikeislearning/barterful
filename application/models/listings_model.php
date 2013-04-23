@@ -318,6 +318,23 @@ class listings_model extends CI_Model{
 		
 	}
 
+	function updateSkill($id,$name)
+	{
+		$this->db->set('s_name', $name);
+		$this->db->where('s_id', $id);
+		$this->db->update('skills');
+
+		return $this->skillList();
+	}
+
+	function deleteSkill($id)
+	{
+		$this->db->where('s_id', $id);
+		$this->db->delete('skills');
+
+		return $this->skillList();
+	}
+
 	public function complexSearch($terms, $type = 'skills', $sortset = 'sp_id', $category='all')
 	{
 		$terms = explode(' ',$terms);

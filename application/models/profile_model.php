@@ -388,6 +388,13 @@ return TRUE;
 			return "";
 		}
 	}
+
+	function countUnreviewed()
+	{
+		$this->db->where('rep_read', false);
+		$this->db->from('reports');
+		return $this->db->count_all_results();
+	}
 }	
 
 	 

@@ -40,7 +40,8 @@ class superuser extends CI_Controller {
 	   {
 	    $newdata = $this->session->userdata('logged_in');
 		$session_data['username'] = $newdata['username'];
-
+		$this->load->model('profile_model');
+		$this->data['count_unreviewed'] = $this->profile_model->countUnreviewed();
 	    $this->data['main_content'] = 'adminHome';
 		$this->load->view('includes/template', $this->data);
 	   }
@@ -53,110 +54,75 @@ class superuser extends CI_Controller {
 	   }
 	}
 
-	function validate_credentials() {
-		$this->load->model('membership_model');
-		$query = $this->membership_model->validate();
-
-		if($query)//if the user's credentials validated..
-			{
-			$newdata = array(
-				'username'=> $this->input->post('username'),
-				'userid'=> $this->membership_model->getID(),
-				'logged_in' => true
-			);
-			/*leave this!*/
-			$this->session->set_userdata($newdata);
-
-			redirect('members');
-
-		}
-		else //incorrect username or password
-			{
-			echo "invalid login";
-			$this->index();
-
-		}
-	}
-
-	function signup()
+	function skills()
 	{
-		$logged_in = $this->session->userdata('logged_in');
-		if(!isset($logged_in)|| $logged_in != true){
-			$this->data['main_content'] = 'signup_form';
-		}
-		else{
-			redirect('site');
-		}
-		$this->load->view('includes/template', $this->data);
-
+		if($this->session->userdata('logged_in'))
+	   {
+		$this->load->model('listings_model');
+	    $this->data['row'] = $this->listings_model->skillList();
+		$this->load->view('includes/adminSkills', $this->data);
+	   }
+	   else
+	   {
+	       session_destroy();
+	     //If no session, redirect to login page
+	     redirect('login', 'refresh');
+	    
+	   }
 	}
 
-	function create_member()
+	function deleteSkill()
 	{
-		$this->load->library('form_validation');
-		$this->load->helper('captcha');
-		//validation rules
+		if($this->session->userdata('logged_in'))
+	   {
+			$sid = "";
 
-		$this->form_validation->set_message('check_if_username_exists', "This Username is sadly already taken. Nice try though!.");
-
-		$this->form_validation->set_message('check_if_email_exists', "Someone has already signed up with this email address. Our sincerest apologies!.");
-
-//don't need first_name and last_Name to signup
-	//	$this->form_validation->set_rules('first_name', 'Name', 'trim|required');
-	//	$this->form_validation->set_rules('last_name', 'Last Name', 'trim|required');
-		$this->form_validation->set_rules('email', 'Email Address', 'trim|required|valid_email|callback_check_if_email_exists');
-		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|callback_check_if_username_exists');
-		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[32]');
-		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'trim|required|matches[password]');
-
-		if($this->form_validation->run() == FALSE)//didn't validate
+			if(isset($_POST['sid']))
 			{
-			$this->signup();
-
+				$sid = $_POST['sid'];
 			}
 
-		else
-		{
-			$this->load->model('membership_model');
-			if($query = $this->membership_model->create_member())
-			{
-				//you make a data variable in this block
-				$this->data['account_created'] = 'Your account has been created. <br/><br/>You may now login';
-				$this->index();
-			}
-			else
-			{
-				$this->signup();
-			}
-		}
+			$this->load->model('listings_model');
+		    $this->data['row'] = $this->listings_model->deleteSkill($sid);
+			$this->load->view('includes/adminSkills', $this->data);
+	   }
+	   else
+	   {
+	       session_destroy();
+	     //If no session, redirect to login page
+	     redirect('login', 'refresh');
+	    
+	   }
 	}
 
-	function check_if_username_exists($requested_username) { //custom callback function
+	function updateSkill()
+	{
+		if($this->session->userdata('logged_in'))
+	   {
+			$sid = "";
+			$sname = "";
 
-		$this->load->model('membership_model');
-		$username_available = $this->membership_model->check_if_username_exists($requested_username);
-		if($username_available)
-		{
-			return TRUE;
-		}
-		else {
-			return FALSE;
-		}
-	}
+			if(isset($_POST['hdf_id']))
+			{
+				$sid = $_POST['hdf_id'];
+			}
 
-	function check_if_email_exists($requested_email) { //custom callback functin
+			if(isset($_POST['txt_name']))
+			{
+				$sname = $_POST['txt_name'];
+			}
 
-		$this->load->model('membership_model');
-
-		$email_available = $this->membership_model->check_if_email_exists($requested_email);
-		if($email_available)
-		{
-			return TRUE;
-		}
-		else {
-			return FALSE;
-		}
-
+			$this->load->model('listings_model');
+			$this->data['row'] = $this->listings_model->updateSkill($sid,$sname);
+			$this->load->view('includes/adminSkills', $this->data);
+	   }
+	   else
+	   {
+	       session_destroy();
+	     //If no session, redirect to login page
+	     redirect('login', 'refresh');
+	    
+	   }
 	}
 
 	function logout()
