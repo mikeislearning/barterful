@@ -16,12 +16,15 @@
 		$select .= "<option value='" . $sl->s_id . "'>$sl->s_name</option>";
 	}
 
+	//populate the drop down list of reasons to report a user
 	$report_reasons = "<option value=''>Select</option>";
-	$reasons = array(1,2,3,4);
 
-	foreach($reasons as $k => $r)
+	if($reasons)
 	{
-		$report_reasons .= "<option value='" . $k . "'>" . $r . "</option>";
+		foreach($reasons as $r)
+		{
+			$report_reasons .= "<option value='" . $r->rr_id . "'>" . $r->rr_name . "</option>";
+		}
 	}
 
 	?>

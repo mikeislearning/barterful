@@ -88,6 +88,7 @@ class profiles extends CI_Controller {
 	$this->load->model('listings_model');
 	$this->load->model('profile_model');
 	$this->data['profile'] = $this->profile_model->getProfile($id);
+	$this->data['reasons'] = $this->profile_model->getReportReasons();
 	$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$id);
 	$this->data['wants'] = $this->listings_model->listAll("wants","sp_id","all",$id);
 	$this->data['projects'] = $this->listings_model->listAll("projects","sp_id","all",$id);
@@ -135,6 +136,8 @@ class profiles extends CI_Controller {
 		$this->load->model('profile_model');
 		$this->load->model('listings_model');
 		$this->data['profile'] = $this->profile_model->deleteSP($spid,$type);
+
+		$this->data['reasons'] = $this->profile_model->getReportReasons();
 		$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$myid);
 		$this->data['wants'] = $this->listings_model->listAll("wants","sp_id","all",$myid);
 		$this->data['projects'] = $this->listings_model->listAll("projects","sp_id","all",$myid);
@@ -202,6 +205,8 @@ class profiles extends CI_Controller {
 
 		$this->load->model('profile_model');
 		$this->load->model('listings_model');
+
+		$this->data['reasons'] = $this->profile_model->getReportReasons();
 		$this->data['profile'] = $this->profile_model->updateSP($spid,$sid,$spheading,$spdetails,$expiry,$spkeywords,$myid,$type);
 		$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$myid);
 		$this->data['wants'] = $this->listings_model->listAll("wants","sp_id","all",$myid);
@@ -236,7 +241,8 @@ class profiles extends CI_Controller {
 	} 
 
 	$this->load->model('profile_model');
-	$this->load->model('listings_model');
+	$this->load->model('listings_model');	
+	$this->data['reasons'] = $this->profile_model->getReportReasons();
 	$this->data['profile'] = $this->profile_model->getProfile($p_id);
 	$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$p_id);
 	$this->data['wants'] = $this->listings_model->listAll("wants","sp_id","all",$p_id);

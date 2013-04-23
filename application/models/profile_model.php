@@ -365,6 +365,28 @@ return TRUE;
 		
 		return $this->db->insert('reports'); 
 	}
+
+	function getReportReasons()
+	{
+		$query = $this->db->query("Select * FROM report_reasons");
+	
+		//if the user has already created a profile return their profile info
+		if($query->num_rows > 0) {
+				
+				
+			foreach($query->result() as $r)
+			{
+				$reasons[]=$r;
+			}
+			
+
+			return $reasons;
+		}
+		else 
+		{
+			return "";
+		}
+	}
 }	
 
 	 
