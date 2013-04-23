@@ -12,21 +12,34 @@ function __construct()
  
 public function logged_in(){
 	$logged_in = $this->session->userdata('logged_in');
- 
-	if(!isset($logged_in)|| $logged_in != true){
-	 //echo 'You do not have permission to access this page.';
-	 $this->data['header_content'] = 'includes/headerout';
-	}
-	else{
-	 $this->data['header_content'] = 'includes/headerin';
-	 $this->load->model('inbox_model');
-		   	//get the array of id's (there should just be one in the array)
-			$id = $this->session->userdata('userid');
-			//get the id value from the first pair in the array
-			$id = $id[0]->m_id;
+		 
+		 if(!isset($logged_in)|| $logged_in != true)
+		 {
+			 //echo 'You do not have permission to access this page.';
+			 $this->data['header_content'] = 'includes/headerout';
+		 }
+		 else{
 
-		   	$this->data['count_inbox'] = $this->inbox_model->countUnread($id);
-	}
+			$type = $this->session->userdata('usertype');
+			//get the id value from the first pair in the array
+			$type = $type[0]->m_type;
+
+			if(isset($type) && $type == 'superuser')
+			{
+				$this->data['header_content'] = 'includes/headeradmin';
+			}
+			else
+			{
+				 $this->data['header_content'] = 'includes/headerin';
+				 $this->load->model('inbox_model');
+			   	//get the array of id's (there should just be one in the array)
+				$id = $this->session->userdata('userid');
+				//get the id value from the first pair in the array
+				$id = $id[0]->m_id;
+
+			   	$this->data['count_inbox'] = $this->inbox_model->countUnread($id);
+		   }
+		 }
 }
  
 
