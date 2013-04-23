@@ -32,7 +32,7 @@
 	echo "<img src='../../uploads/original/" . $p->p_img . "' /><br />";
 
 	//display the username and other profile data
-	echo "Username: " .$this->session->userdata('username') ."<br/>";
+	echo "Username: " . $p->m_username ."<br/>";
 
 	if(!empty($p->p_fname)){
 		echo "First Name: " .$p->p_fname ."<br/>";

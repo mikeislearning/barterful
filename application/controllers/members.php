@@ -175,7 +175,6 @@ function profile() {
 		$this->load->model('listings_model');
 		$this->load->model('profile_model');
 		$this->data['profile'] = $this->profile_model->getProfile($id);
-		$this->data['reasons'] = $this->profile_model->getReportReasons();
 		$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$id);
 		$this->data['wants'] = $this->listings_model->listAll("wants","sp_id","all",$id);
 		$this->data['projects'] = $this->listings_model->listAll("projects","sp_id","all",$id);

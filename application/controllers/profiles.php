@@ -57,6 +57,10 @@ class profiles extends CI_Controller {
 	 
  public function viewprofile()
  {
+ 	$myid = "";
+ 	$usertype= "";
+
+ 	
  	//get current users id
 
    	//get the array of id's (there should just be one in the array)
@@ -64,13 +68,16 @@ class profiles extends CI_Controller {
 	//get the id value from the first pair in the array
 	$myid = $myid[0]->m_id;
 
-
+	//get the user type
+	$usertype = $this->session->userdata('usertype');
+	$usertype = $usertype[0]->m_type;
+ 	
  	$id = "";
 
- 	//get the user's id out of the url
+ 	//get the requested user's profile id out of the url
 	if ($this->uri->segment(3) === FALSE)
 	{
-	    $id = $myid;
+	    redirect('site');
 	}
 	else
 	{
@@ -94,11 +101,20 @@ class profiles extends CI_Controller {
 	$this->data['projects'] = $this->listings_model->listAll("projects","sp_id","all",$id);
 	$this->data['skill_list'] = $this->listings_model->skillList();
 
-	$this->data['main_content'] = 'publicProfile';
+	//if the user is a superuser, display the profile in edit format, otherwise display the public view
+	if($this->session->userdata('logged_in') && $usertype == 'superuser')
+	{
+		$this->data['main_content'] = 'profile_form';
+	}
+	else
+	{
+		$this->data['main_content'] = 'publicProfile';
+	}
 	$this->load->view('includes/template', $this->data);
 
  }
 
+ //send the posted id to the viewprofile page with the id in the url in order to allow for refresh (mimic a GET request)
  public function redir()
  {
  	if(isset($_POST['p_id']))
