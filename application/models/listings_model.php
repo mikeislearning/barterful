@@ -327,6 +327,14 @@ class listings_model extends CI_Model{
 		return $this->skillList();
 	}
 
+	function addSkill($name)
+	{
+		$this->db->set('s_name', $name);
+		$this->db->insert('skills');
+
+		return $this->skillList();
+	}
+
 	function deleteSkill($id)
 	{
 		$this->db->where('s_id', $id);

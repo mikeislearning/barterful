@@ -95,6 +95,30 @@ class superuser extends CI_Controller {
 	   }
 	}
 
+	function newSkill()
+	{
+		if($this->session->userdata('logged_in'))
+	   {
+			$name = "";
+
+			if(isset($_POST['name']))
+			{
+				$name = $_POST['name'];
+			}
+
+			$this->load->model('listings_model');
+		    $this->data['row'] = $this->listings_model->addSkill($name);
+			$this->load->view('includes/adminSkills', $this->data);
+	   }
+	   else
+	   {
+	       session_destroy();
+	     //If no session, redirect to login page
+	     redirect('login', 'refresh');
+	    
+	   }
+	}
+
 	function updateSkill()
 	{
 		if($this->session->userdata('logged_in'))
@@ -113,8 +137,8 @@ class superuser extends CI_Controller {
 			}
 
 			$this->load->model('listings_model');
-			$this->data['row'] = $this->listings_model->updateSkill($sid,$sname);
-			$this->load->view('includes/adminSkills', $this->data);
+			$this->listings_model->updateSkill($sid,$sname);
+			$this->index();
 	   }
 	   else
 	   {
