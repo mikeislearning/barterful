@@ -362,6 +362,7 @@ return TRUE;
 		$this->db->set('rep_reason', $reas);
 		$this->db->set('rep_description', $desc);
 		$this->db->set('rep_date', $date);
+		$this->db->set('rep_read', false);
 		
 		return $this->db->insert('reports'); 
 	}

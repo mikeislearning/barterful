@@ -242,6 +242,9 @@ class profiles extends CI_Controller {
 
 	$this->load->model('profile_model');
 	$this->load->model('listings_model');	
+
+	$this->profile_model->reportUser($p_id,$reason,$desc);
+
 	$this->data['reasons'] = $this->profile_model->getReportReasons();
 	$this->data['profile'] = $this->profile_model->getProfile($p_id);
 	$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$p_id);
