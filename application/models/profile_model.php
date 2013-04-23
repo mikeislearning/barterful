@@ -351,6 +351,20 @@ return TRUE;
 		
 		return $this->getProfile($myid);
 	}
+
+	function reportUser($id,$reas,$desc)
+	{
+		//set the timezone so that the time inputs correctly
+		date_default_timezone_set('America/New_York');
+		$date = date('Y-m-d H:i:s');
+
+		$this->db->set('p_id', $id);
+		$this->db->set('rep_reason', $reas);
+		$this->db->set('rep_description', $desc);
+		$this->db->set('rep_date', $date);
+		
+		return $this->db->insert('reports'); 
+	}
 }	
 
 	 

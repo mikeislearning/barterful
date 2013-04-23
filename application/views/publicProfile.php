@@ -16,6 +16,14 @@
 		$select .= "<option value='" . $sl->s_id . "'>$sl->s_name</option>";
 	}
 
+	$report_reasons = "<option value=''>Select</option>";
+	$reasons = array(1,2,3,4);
+
+	foreach($reasons as $k => $r)
+	{
+		$report_reasons .= "<option value='" . $k . "'>" . $r . "</option>";
+	}
+
 	?>
 
 <div class="bgWrapper">
@@ -38,7 +46,7 @@
 
 <!-- display the username as a page header -->  
 <h2><?=$p->m_username?>'s Profile</h1>
-
+<?php $pid = $p->p_id; ?>
 <!--user's profile image -->
 <img src="../../uploads/original/<?=$p->p_img?>" />
 
@@ -61,6 +69,9 @@
       <li><a href="#tab-3">Projects</a></li>
     </ul>
 
+<?php if(isset($profile)) foreach ($profile as $p): ?>
+    <input type="button" id="editskill" name="editskill" onClick='reportUser(<?=$pid ?>)' value="Report User" />
+<?php endforeach ?>
 
 <div id="tab-1">
 <?php if(isset($skills)): ?>
@@ -150,6 +161,26 @@
 		}
 	}
 
+	function reportUser(userid)
+	{
+		//show the modal box
+		showBox("show");
+
+		//here we dynamically create a form that lets the user create a message. This form also stores the id of
+		//the user receiving the message
+		$('#edit-box').append("<form id='reportuser' name='reportuser'></form>");
+		$('#reportuser').append("<input type='hidden' id='m_id' name='m_id' value='" + userid + "' />");
+		$('#reportuser').append("Please select one: <select id='report_reason' name='report_reason'></select><br />");
+		$('#report_reason').append("<?=$report_reasons ?>");
+		$('#reportuser').append("Description:<br /><textarea id='report_details' name='report_details'></textarea>");
+		$('#reportuser').append("<input type='button' id='send_report' name='send_report' value='Send Report' />");
+		$('#reportuser').append("<input type='button' id='btncancel' name='btncancel' value='Cancel' />");
+		$('#reportuser').append("</form>");
+
+		//now that the button elements have been created, bind them to their respective functions
+		bindButtons();
+	}
+
 	//when the user presses "send offer" and parameters are sent to this function
 	function sendOffer(toid,toskill,type)
 	{
@@ -197,17 +228,30 @@
 	//the elements were created!!
 	function bindButtons(){
 
-		//when the submit button is clicked, submit the form values using AJAX
-		$('#btnsubmit').bind('click', function() {
-			var toid = $('#m_id').val();
-			var toskill = $('#to_s_id').val();
-			var tounit = $('#to_unit').val();
-			var fromskill = $('#from_s_id').val();
-			var fromunit = $('#from_unit').val();
-			var message = $('#message').val();
+		if($('#btnsubmit').length)
+		{//when the submit button is clicked, submit the form values using AJAX
+			$('#btnsubmit').bind('click', function() {
+				var toid = $('#m_id').val();
+				var toskill = $('#to_s_id').val();
+				var tounit = $('#to_unit').val();
+				var fromskill = $('#from_s_id').val();
+				var fromunit = $('#from_unit').val();
+				var message = $('#message').val();
 
-			runAJAX(toid, toskill, tounit, fromskill, fromunit, message);
-		});
+				runAJAX(toid, toskill, tounit, fromskill, fromunit, message);
+			});
+		}
+
+		if($('#send_report').length)
+		{
+			//when the submit button is clicked, submit the form values using AJAX
+			$('#send_report').bind('click', function() {
+				var mid = $('#m_id').val();
+				var dets = $('#report_details').val();
+				var reason = $('#report_reason').val();
+				sendReport(mid,reason,dets);
+			});
+		}
 
 		//when the cancel button is clicked, hide the modal box
 		$('#btncancel').bind('click', function() {
@@ -230,6 +274,24 @@
 				
             }).fail(function(){
             	displayMsg('Oops! Your message could not be sent. Please try again later.');
+            });
+	}
+
+	//this function sends the message to the controller and then into the database
+	function sendReport(id,reason,details)
+	{
+		//determine which call to used based on whether user is logged in or not
+		ext_url = 'index.php/profiles/report';
+
+		//base_url us a php function to get to the root of the site, then add the extended url
+		var send_url = '<?=base_url()?>' + ext_url;
+
+		//send the variables through, and display appropriate success or error messages
+		$.post(send_url, { id: id, reason: reason, details: details}).done(function(msg){
+				displayMsg('Thank you');
+				
+            }).fail(function(){
+            	displayMsg('Oops! Your report could not be processed. Please try again later.');
             });
 	}
 

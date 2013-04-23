@@ -212,6 +212,40 @@ class profiles extends CI_Controller {
 		$this->load->view('includes/template', $this->data);
 	 }	
  }
+
+ public function report()
+ {
+
+ 	$p_id="";
+ 	$desc="";
+ 	$reason="";
+
+	if(isset($_POST['reason']))
+	{
+		$reason = $_POST['reason'];
+	} 
+
+ 	if(isset($_POST['id']))
+	{
+		$p_id = $_POST['id'];
+	} 
+
+ 	if(isset($_POST['details']))
+	{
+		$desc = $_POST['details'];
+	} 
+
+	$this->load->model('profile_model');
+	$this->load->model('listings_model');
+	$this->data['profile'] = $this->profile_model->getProfile($p_id);
+	$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$p_id);
+	$this->data['wants'] = $this->listings_model->listAll("wants","sp_id","all",$p_id);
+	$this->data['projects'] = $this->listings_model->listAll("projects","sp_id","all",$p_id);
+	$this->data['skill_list'] = $this->listings_model->skillList();
+	
+	$this->data['main_content'] = 'publicProfile';
+	$this->load->view('includes/template', $this->data);
+ }
 	
 	
 }
