@@ -24,7 +24,7 @@
 			    <ul>
 			    	
 			       <li><?php echo anchor('members/profile',$this->session->userdata('username')."  "."<i class='social foundicon-torso'></i>",'class="button1"');?> </li>
-			       <li><?php echo anchor('members/inbox', $count_inbox . "<i class='general foundicon-mail'></i>", 'class="button1"');?> 
+			       <li><?php echo anchor('members/inbox', "<i class='general foundicon-mail'></i> " . $count_inbox, 'class="button1"');?> 
 
 			       </li>
 			       <li><?php echo anchor('Profile_crud/edit',"<i class='general foundicon-settings button1' style='padding-bottom:10px'></i>"); ?>

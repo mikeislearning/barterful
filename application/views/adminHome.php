@@ -14,7 +14,7 @@
 				<h2>What would you like to do?</h2>
 
 				<ul>
-					<li><input type="submit" id="btn_reports" name="btn_reports" value="<?=$count_unreviewed ?>Manage Reported Profiles" class="button1" /></li>
+					<li><input type="submit" id="btn_reports" name="btn_reports" value="Manage Reported Profiles <?=$count_unreviewed ?>" class="button1" /></li>
 					<li><input type="submit" id="btn_skills" name="btn_skills" value="Manage Skills" class="button1" /></li>
 					<li><input type="submit" id="btn_users" name="btn_users" value="Manage Users" class="button1" /></li>
 					<li><input type="submit" id="btn_messages" name="btn_messages" value="Manage Messages" class="button1" /></li>

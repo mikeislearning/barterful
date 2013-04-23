@@ -73,7 +73,7 @@
     </ul>
 
 <?php if(isset($profile)) foreach ($profile as $p): ?>
-    <input type="button" id="editskill" name="editskill" onClick='reportUser(<?=$pid ?>)' value="Report User" />
+    <input type="button" id="report" name="report" onClick='reportUser(<?=$pid ?>)' value="Report User" />
 <?php endforeach ?>
 
 <div id="tab-1">
