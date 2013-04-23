@@ -359,7 +359,7 @@ return TRUE;
 		$date = date('Y-m-d H:i:s');
 
 		$this->db->set('p_id', $id);
-		$this->db->set('rep_reason', $reas);
+		$this->db->set('rr_reason', $reas);
 		$this->db->set('rep_description', $desc);
 		$this->db->set('rep_date', $date);
 		$this->db->set('rep_read', false);
