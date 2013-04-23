@@ -53,7 +53,7 @@
 		{
 			$('#txt_search').val(term);
 			var button = 'general foundicon-search';
-			$('#btn_clear').html('<?php echo anchor("members/index", "Clear", "' + button +'");?>');
+			$('#btn_clear').html('<?php echo anchor("site", "Clear", "' + button +'");?>');
 		}
 		
 		//if any of the sort options are changed, get their values and pass them to the AJAX function
