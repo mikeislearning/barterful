@@ -462,7 +462,7 @@ return TRUE;
 
 	function reportAction($id, $action, $userid)
 	{
-		if($userid != '')
+		if($action != 'true' && $action != 'false')
 		{
 			$this->db->set('rep_read', true);
 			$this->db->set('rep_action', $action);
