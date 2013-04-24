@@ -47,7 +47,7 @@ class Membership_model extends CI_Model {
 		'm_email' => $this->input->post('email'),
 		//we run the md5 function so we can store 32 bit hash in our database
 		'm_password' => md5($this->input->post('password')),
-		'm_join_date' => $this->input->post($date)
+		'm_join_date' => $date
 		);
 		//doing our insert into the members table in the database
 		$insert = $this->db->insert('members', $new_member_insert_data);
