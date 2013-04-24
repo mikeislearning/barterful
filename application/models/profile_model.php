@@ -30,13 +30,10 @@ class Profile_model extends CI_Model {
 	
   //end April 13th uploader test//  
 function getProfile($id){
-$myid = "";
 
-if($this->session->userdata('logged_in'))
-{
 	//get this own users id
 	$myid = $this->session->userdata('userid');
-}
+	$myid = $myid[0]->m_id;
 
 //get the profile info based on the member
 $queryProfile = $this->db->query("
@@ -80,6 +77,7 @@ function createProfile() {
 	
 //gets user id fmor session array	
 $id = $this->session->userdata('userid');
+$id = $id[0]->m_id;
 
 //get the current time
 date_default_timezone_set('America/New_York');
@@ -108,6 +106,9 @@ redirect('members/profile', 'refresh');
 function getMemberInfo() {
 //gets member info for the includes/profile view
 		$id = $this->session->userdata('userid');
+
+		//get the id value from the first pair in the array
+		$id = $id[0]->m_id;
 		
 	$queryMember = $this->db->get_where('members', array('m_id'=>$id));
 		
@@ -123,6 +124,7 @@ function getMemberInfo() {
 function updateProfile() {
 $this->load->helper('date');
 $id = $this->session->userdata('userid');
+$id = $id[0]->m_id;
 
 //gets the time to be inserted into daabase
 //$datestring = "%Y-%m-%d %h:%i:";
@@ -156,6 +158,7 @@ function do_upload_profile(){
 //$this->data['member'] = $this->profile_model->getMemberInfo();
 
 	$id = $this->session->userdata('userid');
+	$id = $id[0]->m_id;
 	
 	//get the posted file name and change it before uploaded
 	$newFileName = $_FILES['userfile']['name'];

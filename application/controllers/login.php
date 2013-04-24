@@ -22,6 +22,8 @@ class Login extends CI_Controller {
 		 else{
 
 			$type = $this->session->userdata('usertype');
+			//get the id value from the first pair in the array
+			$type = $type[0]->m_type;
 
 			if(isset($type) && $type == 'superuser')
 			{
@@ -33,6 +35,8 @@ class Login extends CI_Controller {
 				 $this->load->model('inbox_model');
 			   	//get the array of id's (there should just be one in the array)
 				$id = $this->session->userdata('userid');
+				//get the id value from the first pair in the array
+				$id = $id[0]->m_id;
 
 			   	$this->data['count_inbox'] = $this->inbox_model->countUnread($id);
 		   }
@@ -58,16 +62,11 @@ class Login extends CI_Controller {
 
 		if($query)//if the user's credentials validated..
 			{
-			$usertype = $this->membership_model->getType();
-			$usertype = $usertype[0]->m_type;
-
-			$id = $this->membership_model->getID();
-			$id = $id[0]->m_id;
 
 			$newdata = array(
 				'username'=> $this->input->post('username'),
-				'userid'=> $id,
-				'usertype' => $usertype,
+				'userid'=> $this->membership_model->getID(),
+				'usertype' => $this->membership_model->getType(),
 				'logged_in' => true
 			);
 			/*leave this!*/

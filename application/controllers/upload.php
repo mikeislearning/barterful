@@ -21,6 +21,8 @@ public function logged_in(){
 		 else{
 
 			$type = $this->session->userdata('usertype');
+			//get the id value from the first pair in the array
+			$type = $type[0]->m_type;
 
 			if(isset($type) && $type == 'superuser')
 			{
@@ -32,6 +34,8 @@ public function logged_in(){
 				 $this->load->model('inbox_model');
 			   	//get the array of id's (there should just be one in the array)
 				$id = $this->session->userdata('userid');
+				//get the id value from the first pair in the array
+				$id = $id[0]->m_id;
 
 			   	$this->data['count_inbox'] = $this->inbox_model->countUnread($id);
 		   }
@@ -55,6 +59,9 @@ function do_upload_profile(){
 
 	//get the array of id's (there should just be one in the array)
 	$id = $this->session->userdata('userid');
+
+	//get the id value from the first pair in the array
+	$id = $id[0]->m_id;
 		
 	$this->load->model('profile_model');
 	 if($this->input->post('upload')){//checks if the upload is coming from the upload form
@@ -109,6 +116,7 @@ function display_errors(){
 
 function do_upload(){
 	$id = $this->session->userdata('userid');
+	$id = $id[0]->m_id;
 				 
 		
 	$config['upload_path'] = './uploads/';

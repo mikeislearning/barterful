@@ -34,6 +34,8 @@ class profiles extends CI_Controller {
 		 else{
 
 			$type = $this->session->userdata('usertype');
+			//get the id value from the first pair in the array
+			$type = $type[0]->m_type;
 
 			if(isset($type) && $type == 'superuser')
 			{
@@ -45,6 +47,8 @@ class profiles extends CI_Controller {
 				 $this->load->model('inbox_model');
 			   	//get the array of id's (there should just be one in the array)
 				$id = $this->session->userdata('userid');
+				//get the id value from the first pair in the array
+				$id = $id[0]->m_id;
 
 			   	$this->data['count_inbox'] = $this->inbox_model->countUnread($id);
 		   }
@@ -56,14 +60,17 @@ class profiles extends CI_Controller {
  	$myid = "";
  	$usertype= "";
 
- 	if($this->session->userdata('logged_in'))
-	{
-	   	//get the users id
-		$myid = $this->session->userdata('userid');
+ 	
+ 	//get current users id
 
-		//get the user type
-		$usertype = $this->session->userdata('usertype');
-	}
+   	//get the array of id's (there should just be one in the array)
+	$myid = $this->session->userdata('userid');
+	//get the id value from the first pair in the array
+	$myid = $myid[0]->m_id;
+
+	//get the user type
+	$usertype = $this->session->userdata('usertype');
+	$usertype = $usertype[0]->m_type;
  	
  	$id = "";
 
@@ -140,6 +147,7 @@ class profiles extends CI_Controller {
 	 {
 		//get their own id
 		$myid = $this->session->userdata('userid');
+		$myid = $myid[0]->m_id;
 
 		$this->load->model('profile_model');
 		$this->load->model('listings_model');
@@ -209,6 +217,7 @@ class profiles extends CI_Controller {
 	 {
 		//get their own id
 		$myid = $this->session->userdata('userid');
+		$myid = $myid[0]->m_id;
 
 		$this->load->model('profile_model');
 		$this->load->model('listings_model');
