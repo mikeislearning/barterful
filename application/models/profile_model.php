@@ -293,53 +293,54 @@ return TRUE;
 		date_default_timezone_set('America/New_York');
 		$date = date('Y-m-d H:i:s');
 
-		$expiry = date('Y-m-d H:i:s', strtotime($expiry));
+		if($expiry != "")
+			$expiry = date('Y-m-d H:i:s', strtotime($expiry));
 
 		switch($table)
 		{
 			case "skills":
 				$table = 'skill_profiles';
 				$id = 'sp_id';
-				$data = array(
-		           's_id' => $sid,
-		           'sp_heading' => $spheading,
-		           'sp_details' => $spdetails,
-		           'sp_keywords' => $spkeywords
-		        );
+				$this->db->set('s_id', $sid);
+				$this->db->set('sp_heading', $spheading);
+				$this->db->set('sp_details', $spdetails);
+				$this->db->set('sp_keywords', $spkeywords);
 			break;
 			case "wants":
 				$table = 'want_profiles';
 				$id = 'wp_id';
-				$data = array(
-		           's_id' => $sid,
-		           'wp_heading' => $spheading,
-		           'wp_details' => $spdetails,
-		           'wp_keywords' => $spkeywords,
-		           'wp_expiry' => $expiry
-		        );
+				$this->db->set('s_id', $sid);
+				$this->db->set('wp_heading', $spheading);
+				$this->db->set('wp_details', $spdetails);
+				$this->db->set('wp_keywords', $spkeywords);
+				if($expiry != "")
+					$this->db->set('wp_expiry', $expiry);
+				else
+					$this->db->set('wp_expiry', null);
 			break;
 			case "projects":
 				$table = 'want_profiles';
 				$id = 'wp_id';
-				$data = array(
-		           's_id' => $sid,
-		           'wp_heading' => $spheading,
-		           'wp_details' => $spdetails,
-		           'wp_keywords' => $spkeywords,
-		           'wp_expiry' => $expiry
-		        );
+				$this->db->set('s_id', $sid);
+				$this->db->set('wp_heading', $spheading);
+				$this->db->set('wp_details', $spdetails);
+				$this->db->set('wp_keywords', $spkeywords);
+				if($expiry != "")
+					$this->db->set('wp_expiry', $expiry);
+				else
+					$this->db->set('wp_expiry', null);
 			break;
 		}
 
 		if(substr($spid, 0, 3) != "new")
 		{
 			$this->db->where($id, $spid);
-			$this->db->update($table, $data);
+			$this->db->update($table);
 		}
 		else
 		{
 			$this->db->set('p_id', substr($spid,3));
-			$this->db->insert($table, $data);
+			$this->db->insert($table);
 		}
 
 		$pdata = array(

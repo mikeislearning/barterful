@@ -187,8 +187,24 @@ new want profile (on an update this would be left out since the posting already 
 			$('#skilledit').append("<input type='hidden' id='type' name='type' value='" + type + "' />");
 
 			//create and populate (if applicable) the input fields
-			$('#skilledit').append("Skill:<br /><select id='sel_type' name='sel_type'></select><br />");
-			$('#sel_type').append("<option value='skills'>Skill</option><option value='wants'>Want</option>");
+			if(type == "new")
+			{
+				$('#skilledit').append("Posting Type: <select id='sel_type' name='sel_type'></select><br />");
+				$('#sel_type').append("<option value='skills'>Skill</option><option value='wants'>Want</option>");
+				$('#sel_type').change(function(){
+					if($('#sel_type').val() == "wants")
+					{
+						$('#sp_details').after("<span id='expiry'>Required by: <input type='date' id='wp_expiry' name='wp_expiry' value='' placeholder='yyyy/mm/dd' /><br /></span>");
+					}
+					else
+					{
+						if($('#expiry'))
+						{
+							$('#expiry').remove();
+						}
+					}
+				});
+			}
 			$('#skilledit').append("Heading: <input required='required' type='text' id='sp_heading' name='sp_heading' value='" + heading + "' style='width:50%;' />");
 			$('#skilledit').append("Skill:<br /><select id='s_id' name='s_id'></select><br />");
 
@@ -220,6 +236,8 @@ new want profile (on an update this would be left out since the posting already 
 			//set the skill selected in the dropdown list to the skill of the selected record (if this is an edit)
 			$("#s_id").val(skill);
 
+			$('#sel')
+
 			//bind functions to the newly added buttons
 			bindButtons();
 		}
@@ -228,7 +246,6 @@ new want profile (on an update this would be left out since the posting already 
 		//the elements were created!!
 		function bindButtons(){
 			$('#btnsubmit').bind('click', function() {
-				$('#skilledit').valid();
 				var expiry = "";
 				var spid = $('#sp_id').val();
 				var heading = $('#sp_heading').val();
