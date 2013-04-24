@@ -226,6 +226,20 @@ class superuser extends CI_Controller {
 
 	}
 
+	function getMessages()
+	{
+		$id="";
+		
+		if(isset($_POST['id']))
+		{
+			$id = $_POST['id'];
+		}
+
+		$this->load->model('inbox_model');
+		$this->data['row'] = $this->inbox_model->listAll($id, 'outbox');
+		$this->load->view('includes/outboxAdmin', $this->data);
+	}
+
 	function logout()
 	{
 		$this->session->unset_userdata('logged_in');
