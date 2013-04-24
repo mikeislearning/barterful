@@ -167,6 +167,65 @@ class superuser extends CI_Controller {
 	   }
 	}
 
+	function reportAction()
+	{
+		$id="";
+		
+		if(isset($_POST['id']))
+		{
+			$id = $_POST['id'];
+		}
+
+		$action="";
+		
+		if(isset($_POST['action']))
+		{
+			$action = $_POST['action'];
+		}
+
+		$userid="";
+		
+		if(isset($_POST['userid']))
+		{
+			$userid = $_POST['userid'];
+		}
+
+		$this->load->model('profile_model');
+		$this->profile_model->reportAction($id, $action, $userid);
+
+		$this->reports();
+	}
+
+	function reopen()
+	{
+		$id="";
+		
+		if(isset($_POST['id']))
+		{
+			$id = $_POST['id'];
+		}
+
+		$action="";
+		
+		if(isset($_POST['action']))
+		{
+			$action = $_POST['action'];
+		}
+
+		$userid="";
+		
+		if(isset($_POST['userid']))
+		{
+			$userid = $_POST['userid'];
+		}
+
+		$this->load->model('profile_model');
+		$this->profile_model->reOpen($id, $action, $userid);
+
+		$this->reports();
+
+	}
+
 	function logout()
 	{
 		$this->session->unset_userdata('logged_in');

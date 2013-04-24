@@ -421,9 +421,10 @@ return TRUE;
 	function getOldReports()
 	{
 		$query = $this->db->query(
-			"Select *, rr.rr_name as rr_name 
+			"Select *, rr.rr_name as rr_name, m.m_username as m_username
 			FROM reports r 
 			JOIN report_reasons rr ON r.rr_id = rr.rr_id 
+			JOIN members m ON r.p_id = m.m_id
 			WHERE rep_read = true"
 			);
 	
@@ -442,6 +443,35 @@ return TRUE;
 		else 
 		{
 			return "";
+		}
+	}
+
+	function reOpen($id, $action, $userid)
+	{
+		$this->db->set('rep_read', false);
+		$this->db->where('rep_id', $id);
+		$this->db->update('reports');
+
+		if($action != "ignore")
+		{
+			$this->db->set('m_active', true);
+			$this->db->where('m_id', $userid);
+			$this->db->update('members');
+		}
+	}
+
+	function reportAction($id, $action, $userid)
+	{
+		$this->db->set('rep_read', true);
+		$this->db->set('rep_action', $action);
+		$this->db->where('rep_id', $id);
+		$this->db->update('reports');
+
+		if($action == "deactivate")
+		{
+			$this->db->set('m_active', false);
+			$this->db->where('m_id', $userid);
+			$this->db->update('members');
 		}
 	}
 
