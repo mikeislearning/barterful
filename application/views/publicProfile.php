@@ -49,9 +49,12 @@
 
 <!-- display the username as a page header -->  
 <h2><?=$p->m_username?>'s Profile</h1>
-<?php $pid = $p->p_id; ?>
+<?php $pid = $p->p_id; 
+	$baseurl = base_url(); 
+		?>
+
 <!--user's profile image -->
-<img src="../../uploads/original/<?=$p->p_img?>" />
+<img src="<?=$baseurl?>/uploads/original/<?=$p->p_img?>" />
 
 <?php endforeach; ?>
 
