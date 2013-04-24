@@ -389,6 +389,61 @@ return TRUE;
 		}
 	}
 
+	function getNewReports()
+	{
+		$query = $this->db->query(
+			"Select *, rr.rr_name as rr_name, m.m_username as m_username
+			FROM reports r 
+			JOIN report_reasons rr ON r.rr_id = rr.rr_id 
+			JOIN members m ON r.p_id = m.m_id
+			WHERE rep_read = false"
+			);
+	
+		//if the user has already created a profile return their profile info
+		if($query->num_rows > 0) {
+				
+				
+			foreach($query->result() as $r)
+			{
+				$reports[]=$r;
+			}
+			
+
+			return $reports;
+		}
+		else 
+		{
+			return "";
+		}
+	}
+
+	function getOldReports()
+	{
+		$query = $this->db->query(
+			"Select *, rr.rr_name as rr_name 
+			FROM reports r 
+			JOIN report_reasons rr ON r.rr_id = rr.rr_id 
+			WHERE rep_read = true"
+			);
+	
+		//if the user has already created a profile return their profile info
+		if($query->num_rows > 0) {
+				
+				
+			foreach($query->result() as $r)
+			{
+				$reports[]=$r;
+			}
+			
+
+			return $reports;
+		}
+		else 
+		{
+			return "";
+		}
+	}
+
 	function countUnreviewed()
 	{
 		$this->db->where('rep_read', false);

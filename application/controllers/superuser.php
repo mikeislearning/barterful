@@ -149,6 +149,24 @@ class superuser extends CI_Controller {
 	   }
 	}
 
+	function reports()
+	{
+		if($this->session->userdata('logged_in'))
+	   {
+		$this->load->model('profile_model');
+	    $this->data['new'] = $this->profile_model->getNewReports();
+	    $this->data['old'] = $this->profile_model->getOldReports();
+		$this->load->view('includes/adminReports', $this->data);
+	   }
+	   else
+	   {
+	       session_destroy();
+	     //If no session, redirect to login page
+	     redirect('login', 'refresh');
+	    
+	   }
+	}
+
 	function logout()
 	{
 		$this->session->unset_userdata('logged_in');
