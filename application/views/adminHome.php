@@ -66,6 +66,23 @@
 		            });
 			});
 
+		$('#btn_users').bind('click', function() {
+
+				//determine which call to used based on whether user is logged in or not
+				ext_url = 'index.php/superuser/users';
+
+				//base_url us a php function to get to the root of the site, then add the extended url
+				var send_url = '<?=base_url()?>' + ext_url;
+
+				//send the variables through, and display appropriate success or error messages
+				$.post(send_url, {}).done(function(msg){
+						$('#manageContent').html(msg);
+						
+		            }).fail(function(){
+		            	$('#manageContent').html("Unable to load content. Please try again later.");
+		            });
+			});
+
 	})
 
 </script>

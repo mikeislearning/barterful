@@ -240,6 +240,23 @@ class superuser extends CI_Controller {
 		$this->load->view('includes/outboxAdmin', $this->data);
 	}
 
+	function users()
+	{
+		if($this->session->userdata('logged_in'))
+	   {
+		$this->load->model('membership_model');
+	    $this->data['row'] = $this->membership_model->getUsers();
+		$this->load->view('includes/adminUsers', $this->data);
+	   }
+	   else
+	   {
+	       session_destroy();
+	     //If no session, redirect to login page
+	     redirect('login', 'refresh');
+	    
+	   }
+	}
+
 	function logout()
 	{
 		$this->session->unset_userdata('logged_in');

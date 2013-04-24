@@ -134,6 +134,22 @@ class Membership_model extends CI_Model {
 
 	}
 
+	function getUsers()
+	{
+		$query = $this->db->query("
+			SELECT *, p.p_id as p_id 
+			FROM members m 
+			JOIN profiles p ON m.m_id = p.m_id 
+			WHERE m_type = 'user'");
+
+		if($query->num_rows > 0){
+			foreach($query->result() as $key => $row){
+				$users[]=$row;
+			}
+			return $users;
+		}
+	}
+
 
 
 

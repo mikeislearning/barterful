@@ -118,7 +118,7 @@
 			$.post(send_url, { id:id}).done(function(msg){
 					showBox('show');
 					$('#edit-box').html(msg);
-					$('#edit-box').append("<input type='button' id='btncancel' class='btn btnyellow' name='btncancel' value='Cancel' />");
+					$('#edit-box').append("<input type='button' id='btncancel' class='btn btnyellow' name='btncancel' value='Close' />");
 					$('#btncancel').bind('click', function() {
 						showBox('hide');
 					});
