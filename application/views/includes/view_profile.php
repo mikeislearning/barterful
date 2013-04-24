@@ -72,7 +72,7 @@
 special paramater instead of the sp_id... this paramater starts with "new", which indicates to the model that it should be 
 inserting a record rather than updating one. The paramater ends with the profile id of the user that it will add into the 
 new skill profile (on an update this would be left out since the posting already contains a profile id) -->
-<input type="button" id="btn_new_skill" class="btn btngreen" name="btn_new_skill" value="Add New" onClick="showEdit('new<?=$profileid?>','','','','','','skills')" />
+<input type="button" id="btn_new_skill" class="btn btngreen" name="btn_new_skill" value="Add New" onClick="showEdit('new<?=$profileid?>','','','','','','new')" />
 
 <!-- if there are skills, display each one. The $params string is used to send parameters through the showEdit function on submit -->
 <?php if(isset($skills)) foreach($skills as $s): ?>
@@ -187,6 +187,8 @@ new want profile (on an update this would be left out since the posting already 
 			$('#skilledit').append("<input type='hidden' id='type' name='type' value='" + type + "' />");
 
 			//create and populate (if applicable) the input fields
+			$('#skilledit').append("Skill:<br /><select id='sel_type' name='sel_type'></select><br />");
+			$('#sel_type').append("<option value='skills'>Skill</option><option value='wants'>Want</option>");
 			$('#skilledit').append("Heading: <input required='required' type='text' id='sp_heading' name='sp_heading' value='" + heading + "' style='width:50%;' />");
 			$('#skilledit').append("Skill:<br /><select id='s_id' name='s_id'></select><br />");
 
@@ -205,7 +207,7 @@ new want profile (on an update this would be left out since the posting already 
 			}
 
 			//add the butttons
-			$('#skilledit').append("<input type='submit' class='btn btngreen' id='btnsubmit' name='btnsubmit' value='Submit' />");
+			$('#skilledit').append("<input type='button' class='btn btngreen' id='btnsubmit' name='btnsubmit' value='Submit' />");
 			$('#skilledit').append("<input type='button' id='btncancel' class='btn btnyellow' name='btncancel' value='Cancel' />");
 			$('#skilledit').append("</form>");
 			//"new" has been appended to the id variable if this is a new posting. If its not a new posting, display a delete option
@@ -226,6 +228,7 @@ new want profile (on an update this would be left out since the posting already 
 		//the elements were created!!
 		function bindButtons(){
 			$('#btnsubmit').bind('click', function() {
+				$('#skilledit').valid();
 				var expiry = "";
 				var spid = $('#sp_id').val();
 				var heading = $('#sp_heading').val();
@@ -233,6 +236,7 @@ new want profile (on an update this would be left out since the posting already 
 				var keywords = $('#sp_keywords').val();
 				var details = $('#sp_details').val();
 				var type = $('#type').val();
+				if(type == "new") type = $('#sel_type').val();
 				if(type == "wants")
 					expiry = $('#wp_expiry').val();
 
