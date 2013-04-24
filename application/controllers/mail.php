@@ -33,8 +33,6 @@ class mail extends CI_Controller {
 		 else{
 
 			$type = $this->session->userdata('usertype');
-			//get the id value from the first pair in the array
-			$type = $type[0]->m_type;
 
 			if(isset($type) && $type == 'superuser')
 			{
@@ -46,8 +44,6 @@ class mail extends CI_Controller {
 				 $this->load->model('inbox_model');
 			   	//get the array of id's (there should just be one in the array)
 				$id = $this->session->userdata('userid');
-				//get the id value from the first pair in the array
-				$id = $id[0]->m_id;
 
 			   	$this->data['count_inbox'] = $this->inbox_model->countUnread($id);
 		   }
@@ -73,11 +69,8 @@ class mail extends CI_Controller {
 		//this section loads the listings displayed based on the user's id in the session
 		//---------------------------------------------------------------------------------//
 
-		//get the array of id's (there should just be one in the array)
+		//get the users id
 		$id = $this->session->userdata('userid');
-
-		//get the id value from the first pair in the array
-		$id = $id[0]->m_id;
 
 		//send the id through to the query function
 		$this->data['row'] = $this->inbox_model->listAll($id,$view,'');
@@ -115,8 +108,6 @@ class mail extends CI_Controller {
 
 			//get the array of id's (there should just be one in the array)
 			$id = $this->session->userdata('userid');
-			//get the id value from the first pair in the array (current user's id)
-			$id = $id[0]->m_id;
 
 			//Check the id of the participants in the conversation selected against the current 
 			//user id to send the right variables to the controller
@@ -209,9 +200,6 @@ class mail extends CI_Controller {
 
 		//get the array of id's (there should just be one in the array)
 		$id = $this->session->userdata('userid');
-
-		//get the id value from the first pair in the array
-		$id = $id[0]->m_id;
 
 		//send the id through to the query function
 		$this->data['row'] = $this->inbox_model->sendMessage($id,$to,$to_skill,$to_unit,$from_skill,$from_unit,$message,$response);

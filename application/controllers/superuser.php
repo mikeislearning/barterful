@@ -18,8 +18,6 @@ class superuser extends CI_Controller {
 		if($logged_in)
 			{
 				$type = $this->session->userdata('usertype');
-				//get the id value from the first pair in the array
-				$type = $type[0]->m_type;
 			}
 
 		if(isset($type) && $type == 'superuser')

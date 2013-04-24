@@ -22,8 +22,6 @@ public function logged_in(){
 		 else{
 
 			$type = $this->session->userdata('usertype');
-			//get the id value from the first pair in the array
-			$type = $type[0]->m_type;
 
 			if(isset($type) && $type == 'superuser')
 			{
@@ -35,8 +33,6 @@ public function logged_in(){
 				 $this->load->model('inbox_model');
 			   	//get the array of id's (there should just be one in the array)
 				$id = $this->session->userdata('userid');
-				//get the id value from the first pair in the array
-				$id = $id[0]->m_id;
 
 			   	$this->data['count_inbox'] = $this->inbox_model->countUnread($id);
 		   }
@@ -49,7 +45,6 @@ function index(){
 		$newdata = $this->session->userdata('logged_in');
 		$session_data['username'] = $newdata['username'];
 		$id = $this->session->userdata('userid');
-		$id = $id[0]->m_id;
 
 		$this->load->model('profile_model');
 		$this->data['main_content'] = 'profile_form';
@@ -70,7 +65,6 @@ function edit()
    if($this->input->post('edit') === FALSE){
    ////need this to get the profile info
 		$id = $this->session->userdata('userid');
-		$id = $id[0]->m_id;	
 		$this->load->model('profile_model');
 		$this->data['profile'] = $this->profile_model->getProfile($id);
 		//we will probably need to insert memebers here too
