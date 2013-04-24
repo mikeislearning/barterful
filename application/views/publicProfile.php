@@ -73,7 +73,7 @@
     </ul>
 
 <?php if(isset($profile)) foreach ($profile as $p): ?>
-    <input type="button" id="report" name="report" onClick='reportUser(<?=$pid ?>)' value="Report User" />
+    <input type="button" id="report" class="btn btnred" name="report" onClick='reportUser(<?=$pid ?>)' value="Report User" />
 <?php endforeach ?>
 
 <div id="tab-1">
@@ -87,7 +87,7 @@
 		Skill: <?=$s->s_name ?><br />
 		Keywords: <?=$s->sp_keywords ?><br />
 		Details: <?=$s->sp_details ?><br />
-		<input id="editskill" name="editskill" type="button" onClick='sendOffer(<?=$params?>)' value="Send Offer" />
+		<input id="editskill" name="editskill" class="btn btnyellow" type="button" onClick='sendOffer(<?=$params?>)' value="Send Offer" />
 	</form>
 	
 <?php endforeach; endif; ?>
@@ -105,7 +105,7 @@
 		Keywords: <?=$s->sp_keywords ?><br />
 		Details: <?=$s->sp_details ?><br />
 		<?php if($s->wp_expiry) echo "Required by: " . $s->wp_expiry . "<br />"; ?>
-		<input id="editskill" name="editskill" type="button" onClick='sendOffer(<?=$params?>)' value="Send Offer" />
+		<input id="editskill" name="editskill" class="btn btnyellow" type="button" onClick='sendOffer(<?=$params?>)' value="Send Offer" />
 	</form>
 	
 <?php endforeach; endif; ?>
@@ -123,7 +123,7 @@
 		Keywords: <?=$s->sp_keywords ?><br />
 		Details: <?=$s->sp_details ?><br />
 		Required by: <?=$s->wp_expiry ?><br />
-		<input id="editskill" name="editskill" type="button" onClick='sendOffer(<?=$params?>)' value="Send Offer" />
+		<input id="editskill" name="editskill" class="btn btnyellow" type="button" onClick='sendOffer(<?=$params?>)' value="Send Offer" />
 	</form>
 	
 <?php endforeach; endif; ?>
@@ -176,8 +176,8 @@
 		$('#reportuser').append("Please select one: <select id='report_reason' name='report_reason'></select><br />");
 		$('#report_reason').append("<?=$report_reasons ?>");
 		$('#reportuser').append("Description:<br /><textarea id='report_details' name='report_details'></textarea>");
-		$('#reportuser').append("<input type='button' id='send_report' name='send_report' value='Send Report' />");
-		$('#reportuser').append("<input type='button' id='btncancel' name='btncancel' value='Cancel' />");
+		$('#reportuser').append("<input type='button' class='btn btngreen' id='send_report' name='send_report' value='Send Report' />");
+		$('#reportuser').append("<input type='button' class='btn btnred' id='btncancel' name='btncancel' value='Cancel' />");
 		$('#reportuser').append("</form>");
 
 		//now that the button elements have been created, bind them to their respective functions
@@ -205,18 +205,18 @@
 		//the user receiving the message
 		$('#edit-box').append("<form id='sendmsg' name='sendmsg'></form>");
 		$('#sendmsg').append("<input type='hidden' id='m_id' name='m_id' value='" + toid + "' />");
-		$('#sendmsg').append("I'd like <input type='text' id='to_unit' name='to_unit' />");
+		$('#sendmsg').append("I'd like <input type='text' required='required' id='to_unit' name='to_unit' />");
 		$('#sendmsg').append("of <select id='to_s_id' name='to_s_id'></select><br />");
 		$('#to_s_id').append("<?=$select ?>");
-		$('#sendmsg').append("and I'm offering <input type='text' id='from_unit' name='from_unit' />");
+		$('#sendmsg').append("and I'm offering <input type='text' required='required' id='from_unit' name='from_unit' />");
 		$('#sendmsg').append("of <select id='from_s_id' name='from_s_id'></select><br />");
 
 		//this populates the dropdown list using the variable created in php at the top of the page
 		$('#from_s_id').append("<?=$select ?>");
 
-		$('#sendmsg').append("Message: <textarea id='message' name='message'></textarea>");
-		$('#sendmsg').append("<input type='button' id='btnsubmit' name='btnsubmit' value='Send Offer' />");
-		$('#sendmsg').append("<input type='button' id='btncancel' name='btncancel' value='Cancel' />");
+		$('#sendmsg').append("Message: <textarea id='message' required='required' name='message'></textarea>");
+		$('#sendmsg').append("<input type='submit' class='btn btngreen' id='btnsubmit' name='btnsubmit' value='Send Offer' />");
+		$('#sendmsg').append("<input type='button' id='btncancel' class='btn btnyellow' name='btncancel' value='Cancel' />");
 		$('#sendmsg').append("</form>");
 
 		//set the selected skill in the dropdown list to the one chosen on the users profile

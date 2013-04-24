@@ -40,14 +40,14 @@ font-weight:900;
 //sets the default colors
 @baseFont: 'Open Sans', Helvetica, Arial, Sans-serif;
 @logoFont: barterFont, Helvetica, Arial, Sans-serif;
-@mainRed:#D45354;
+@mainRed:#C33036;
 @mainBlue:#2FCAD8;
-@mainPink:pink;
+
 @mainOrange:#FF6526;
 @secondBlue:#1776B3;
 @secondGreen:#0CFB4A;
-@thirdGreen: #26FFDE;
-
+@thirdGreen: #51A351;
+@mainYellow:#B7B312;
 @darkGray:#818B85;
 @lightGray:#CDCDC1;
 @whiteSmoke: whitesmoke;
@@ -98,7 +98,8 @@ width:100%;
 }
 
 #bulletinWrapper{
-	background: url("../_img/bulletin7.jpg");
+	margin-top:2px;
+	background: url("../_img/textured_paper.png");
 	border-bottom:3px solid gray;
 
 }
@@ -121,35 +122,61 @@ h3{ font-size: 1.17em; margin: .83em 0 }
 
 //default submit button styling
 button, input[type="submit"]{
-
 	background:@secondBlue;
-	
 	padding:3px 4px;
-	color:#fff;
-	font-family:'Helvetica Neue',sans-serif;
-	font-size:1em;
-
-	
-	border:1px solid #1A87B9;
+	color:white;
+	font-size:.9em;
+	.rounded(5px);
+	border:@mainBorder;
 	text-transform: lowercase;
 	&:hover{
 		cursor:pointer;
 		background:white;
-		border:@mainBorder;
 		color:@secondBlue;
 	}
 }
 //styling for other buttons
 .button1{
-
 color:@whiteSmoke;
 font-size:1.2em;
 	&:hover{
-	color:@mainPink;
+	color:@whiteSmoke;
 	opacity:0.8;
 	}
 }
 
+.btn{
+	padding:5px 7px !important;
+	color:whitesmoke;
+	font-size:.9em !important;
+	.rounded(5px);
+	border:@mainBorder;
+	text-transform:lowercase;
+	&:hover{
+		cursor:pointer;
+		background:whitesmoke !important;
+		color:black;
+		}
+}
+
+.btnred{
+	background:@mainRed !important;
+	&:hover{
+	color:@mainRed !important;
+	}
+}
+
+.btngreen{
+	background:@thirdGreen !important;
+	&:hover{
+		color:@thirdGreen !important;}
+}
+
+.btnyellow{
+		background:@mainYellow !important;
+	&:hover{
+		color:@mainYellow !important;}
+}
 
 a{text-decoration:none;}
 
@@ -222,7 +249,7 @@ header{
 	line-height:1em;
 	.scale(4);
 	&:hover{
-	color:@mainPink;
+	color:@whiteSmoke;
 		opacity:.8;
 	       }
 	}
@@ -232,28 +259,29 @@ header{
 	}
 	
 	fieldset{
-	.column(3.9);
+	.column(4);
+
+#txt_search{
+
+	background:white;
+	.rounded(0px);
+	border:2px solid white;
+	display:inline;
+
+}
 
 .searchButton{
 			background:white;
 			color:@secondBlue;
 			margin:0;
-			padding:3px;
-			position:relative;
-			left:-5%;
-			padding-left:5%;
+			padding:0;
 			border:none;
-			.rounded(0px);
-			top:1px;
+			position:relative;
+			left:-25px;
+
+
 		}
 
-		input[type="text"]{
-		display:inline;
-		position:relative;
-		.rounded(0px);
-		
-		
-		}
 	}
 	
 	nav{
@@ -323,7 +351,7 @@ header{
 		color:black;
 		border:@mainBorder;	
 		&:hover{
-			background:@mainPink;
+			background:@whiteSmoke;
 		}
 	}
 	input[type="radio"] + label{
@@ -534,16 +562,18 @@ img{
 /*
 */
 .p_skills{
-	border:2px solid black;
+	border:@mainBorder;
+	.rounded(5px);
 	padding:10px;
 	margin:5px;
-	background-color:gray;
+	color:@secondBlue;
+	background:whitesmoke;
 }
 
 #edit-background{
 	width:100%;
 	height:100%;
-	background-color:grey;
+	background:grey;
 	opacity:0.7;
 	position:fixed;
 	top:0;
@@ -566,37 +596,73 @@ img{
 /* looks ugly right now
 /* will work to add more stuff
 /*
-*/	.profile{
-	.column(12);
-	margin-bottom:20px;
-	.box-shadow(4px 4px 4px #999);
-	color:whitesmoke;
-	p{
-		padding:0px 0px 0px 10px;
+*/	.inbox{
+		.column(12);
+
+	table{
+		margin-right:20px;
+		.box-shadow(4px 4px 4px #999);
+		border:@mainBorder;
+		background:whitesmoke;
+		.rounded(5px);
+		color:darkgray;
+		tbody{
+
+			tr{
+				padding:100px;
+
+				&:nth-of-type(2n){
+				background:darkgray;
+				color:whitesmoke;
+				}
+
+			}
+		}
+		th{
+			text-decoration: underline;
+			padding-left:5px;
+			color:black;
+		}
+		td{
+			padding-left:5px;
+		}
 	}
-	.rounded(2px);
-	background:@secondBlue;
+		.inbox_sender{
+			padding-left:5px;
+			text-transform: uppercase;
+		}
+		.inbox_message{
+			background:none;
+			border:none;
+			color:@secondBlue;
+			text-transform: none;
+		text-align: center;
+		margin:0px 20px 0px 20px;
+
+		}
 		
-	img{padding-right:1px;}
-	p{&:nth-of-type(2){font-style: italic;}}
+		
+
+
 	}    
 
 }
 
-/* This is for the PROFILE PAGE
+/*************** This is for the PROFILE PAGE***************************/
 /* as well as all the postings
 /* 
 /*
 */
 #user_info{
-	float:left;
 
+.column(4);
 
 }
 
 
 #tabs{
-	margin-left:30%;
+	.column(8);
+
 	ul{
 		padding-bottom:20px;
 
@@ -619,7 +685,7 @@ img{
 	}
 	
 }
-/* This is for the LOGIN PAGE AND SIGNUP PAGE
+/* This is for the LOGIN PAGE AND SIGNUP PAGE AND ABOUT US
 /* as well as other text input forms
 /* 
 /*
@@ -627,48 +693,39 @@ img{
 
 .textInputArea{
 	text-align:center;
+	color:@darkGray;
 	h2{
 		text-transform:underline;
 	}
-	input{
-		margin:0 auto;
-	}
-}
-
-/***************************** Footer *********************************/
-
-//styles the footer, which I'm going to remove soon enough anyways, because it's useless
-#footerWrapper{
-background-color:rgba(255,255,255,0.6);
-color:@darkGray;
-}
-
-
-footer{
-text-align:center;
-i{
+li{
+		i{
 	color:@darkGray;
 	&:hover{
-	color:@mainRed;
+	color:whitesmoke;
 		opacity:.8;
 		cursor:pointer;
 	}
 }
-
-	li{
 	display:inline;
-		&:hover{
-		color:@mainRed;
-			opacity:.8;
-			cursor:pointer;
-		}
-	}
-	 li:not(:first-child){
+	 &:not(:first-child){
 		&:before{
 		content:"|";
 			}	
 		}
+	}
+
+	input{
+		margin:10px auto;
+		display:block;
+
+	}
 }
+
+
+
+
+	
+
 
 
 
@@ -729,6 +786,13 @@ main{
 		.column(5.4);
 		padding:20px;
 		margin:0 auto;
+	}
+	#user_info{
+		.column(12);
+		margin-bottom:20px;
+	}
+	#tabs{
+		.column(12);
 	}
 	
 }

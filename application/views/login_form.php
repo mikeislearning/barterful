@@ -15,9 +15,9 @@
 	<?php echo form_input('username', '','placeholder="Username"'); ?>
 	<label for="password">Password </label>
 	<?php echo form_password('password', '', 'placeholder="Password" class="password"');
-	echo form_submit('submit','Login');
-	//echo validation_errors('<p class="error">');
-	echo anchor('login/signup', 'Create Account');
+	echo form_submit('submit','Login',"class='btn btngreen'");
+	echo validation_errors('<p class="error">');
+	echo anchor('login/signup', 'Create Account',"class='btn btnred'");
 	
 	echo form_close();
 	?>

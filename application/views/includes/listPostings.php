@@ -18,7 +18,7 @@
 		           <li> 
 		           		<form id="btn_msg_user" name="btn_msg_user" method="POST" action='<?=base_url()?>index.php/profiles/redir'>
 		           			<input type="hidden" id="p_id" name="p_id" value='<?=$r->m_id ?>' />
-		           			<input type="submit" value="More about <?=$r->p_fname ?>" />
+		           			<input type="submit" class="btn btngreen" value="More about <?=$r->p_fname ?>" />
 		           		</form>
 		           </li>
 		           <li></li>

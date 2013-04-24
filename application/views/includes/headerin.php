@@ -32,7 +32,10 @@
 				    	<ul>
 				    		<?php echo anchor('Profile_crud/edit','<li>Edit Profile</li>','class="button1"');?>
 				    		<?php echo anchor('members/changePassword','<li>Change Password</li>','class="button1"');?>
-				    		<?php echo anchor('login/logout','<li>Logout</li>','class="button1"');?>
+				    		
+				    		<?php echo anchor('site/about','<li>About Us</li>','class="button1"');?>
+			    		<?php echo anchor('site/contact','<li>Contact Us</li>','class="button1"');?>
+			    		<?php echo anchor('login/logout','<li>Logout</li>','class="button1"');?>
 				    	</ul>
 				     </li>
 			       

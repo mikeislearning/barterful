@@ -8,7 +8,7 @@
 		     		<?php echo form_open('search/redir') ?>
 		     		<input type="text" required="required" placeholder="Search" name="txt_search" id="txt_search">
 		     		<button type="submit"id="btn_search" name="btn_search" class="searchButton"><i class="general foundicon-search"></i></button>
-		     	</input>
+		     		</input>
 		     		<span id="btn_clear"></span>
 		     		<?php echo form_close(); ?>
 		     		

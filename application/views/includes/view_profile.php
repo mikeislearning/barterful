@@ -50,7 +50,7 @@
 	endforeach; 
 
 	//this takes you to the edit function of the profile
-	echo anchor('Profile_crud/edit', 'edit'); 
+	echo anchor('Profile_crud/edit', 'edit profile',"class='btn btnyellow'"); 
 
 ?>	 
 <br />
@@ -72,7 +72,7 @@
 special paramater instead of the sp_id... this paramater starts with "new", which indicates to the model that it should be 
 inserting a record rather than updating one. The paramater ends with the profile id of the user that it will add into the 
 new skill profile (on an update this would be left out since the posting already contains a profile id) -->
-<input type="button" id="btn_new_skill" name="btn_new_skill" value="Add New" onClick="showEdit('new<?=$profileid?>','','','','','','skills')" />
+<input type="button" id="btn_new_skill" class="btn btngreen" name="btn_new_skill" value="Add New" onClick="showEdit('new<?=$profileid?>','','','','','','skills')" />
 
 <!-- if there are skills, display each one. The $params string is used to send parameters through the showEdit function on submit -->
 <?php if(isset($skills)) foreach($skills as $s): ?>
@@ -84,13 +84,13 @@ new skill profile (on an update this would be left out since the posting already
 		Skill: <?=$s->s_name ?><br />
 		Keywords: <?=$s->sp_keywords ?><br />
 		Details: <?=$s->sp_details ?><br />
-		<input id="editskill" name="editskill" type="button" onClick='showEdit(<?=$params?>)' value="Edit" />
+		<input id="editskill" class="btn btnyellow" name="editskill" type="button" onClick='showEdit(<?=$params?>)' value="Edit" />
 	</form>
 	
 <?php endforeach; 
 
 //if no skills exist, suggest that the user adds one
-else echo "You have no offers, add one now!";?>
+else echo "<br />You have no offers, add one now!";?>
 
 </div><!-- end #tab-1 -->
 
@@ -100,7 +100,7 @@ else echo "You have no offers, add one now!";?>
 special paramater instead of the sp_id... this paramater starts with "new", which indicates to the model that it should be 
 inserting a record rather than updating one. The paramater ends with the profile id of the user that it will add into the 
 new want profile (on an update this would be left out since the posting already contains a profile id) -->
-<input type="button" id="btn_new_skill" name="btn_new_skill" value="Add New" onClick="showEdit('new<?=$profileid?>','','','','','','wants')" />
+<input type="button" id="btn_new_skill" class="btn btngreen" name="btn_new_skill" value="Add New" onClick="showEdit('new<?=$profileid?>','','','','','','wants')" />
 
 <!-- if there are wants, display each one. The $params string is used to send parameters through the showEdit function on submit -->
 <?php if(isset($wants)) foreach($wants as $s): ?>
@@ -113,13 +113,13 @@ new want profile (on an update this would be left out since the posting already 
 		Keywords: <?=$s->sp_keywords ?><br />
 		Details: <?=$s->sp_details ?><br />
 		<?php if($s->wp_expiry) echo "Required by: " . $s->wp_expiry . "<br />"; ?>
-		<input id="editskill" name="editskill" type="button" onClick='showEdit(<?=$params?>)' value="Edit" />
+		<input id="editskill" class="btn btnyellow" name="editskill" type="button" onClick='showEdit(<?=$params?>)' value="Edit" />
 	</form>
 	
 <?php endforeach; 
 
 //if no wants exist, suggest that the user adds one
-else echo "You have no wants, add one now!"; ?>
+else echo "<br />You have no wants, add one now!"; ?>
 
 </div> <!-- end wanting -->
 
@@ -129,7 +129,7 @@ else echo "You have no wants, add one now!"; ?>
 special paramater instead of the sp_id... this paramater starts with "new", which indicates to the model that it should be 
 inserting a record rather than updating one. The paramater ends with the profile id of the user that it will add into the 
 new want profile (on an update this would be left out since the posting already contains a profile id) -->
-<input type="button" id="btn_new_skill" name="btn_new_skill" value="Add New" onClick="showEdit('new<?=$profileid?>','','','','','','wants')" />
+<input type="button" id="btn_new_skill" class="btn btngreen" name="btn_new_skill" value="Add New" onClick="showEdit('new<?=$profileid?>','','','','','','wants')" />
 
 <!-- if there are projects, display each one. The $params string is used to send parameters through the showEdit function on submit -->
 <?php if(isset($projects)) foreach($projects as $s): ?>
@@ -142,11 +142,11 @@ new want profile (on an update this would be left out since the posting already 
 		Keywords: <?=$s->sp_keywords ?><br />
 		Details: <?=$s->sp_details ?><br />
 		Required by: <?=$s->wp_expiry ?><br />
-		<input id="editskill" name="editskill" type="button" onClick='showEdit(<?=$params?>)' value="Edit" />
+		<input id="editskill" class="btn btnyellow" name="editskill" type="button" onClick='showEdit(<?=$params?>)' value="Edit" />
 	</form>
 	
 <!--if no skills exist, suggest that the user adds one-->
-<?php endforeach; else echo "You have no projects, add one now!";?>
+<?php endforeach; else echo "<br />You have no projects, add one now!";?>
 </div><!-- end #tab3 -->
 </div><!-- end #tabs -->
 
@@ -187,15 +187,16 @@ new want profile (on an update this would be left out since the posting already 
 			$('#skilledit').append("<input type='hidden' id='type' name='type' value='" + type + "' />");
 
 			//create and populate (if applicable) the input fields
-			$('#skilledit').append("Heading: <input type='text' id='sp_heading' name='sp_heading' value='" + heading + "' style='width:50%;' />");
+			$('#skilledit').append("Heading: <input required='required' type='text' id='sp_heading' name='sp_heading' value='" + heading + "' style='width:50%;' />");
 			$('#skilledit').append("Skill:<br /><select id='s_id' name='s_id'></select><br />");
 
 			//add options to the dropdown list using the list of options created in php at the top of the page
 			$('#s_id').append("<?=$select ?>");
 
 			//add more input fields
-			$('#skilledit').append("Keywords: <input type='text' id='sp_keywords' name='sp_keywords' value='" + keywords + "' />");
-			$('#skilledit').append("Details: <textarea id='sp_details' name='sp_details' style='width:75%;height:100px;'>" + details + "</textarea>");
+			$('#skilledit').append("<form>");
+			$('#skilledit').append("Keywords: <input type='text' required='required' id='sp_keywords' name='sp_keywords' value='" + keywords + "' />");
+			$('#skilledit').append("Details: <textarea id='sp_details' required='required' name='sp_details' style='width:75%;height:100px;'>" + details + "</textarea>");
 			
 			//allow the user to add or edit the date needed by if this is a want (or project) posting
 			if(type == "wants")
@@ -204,13 +205,13 @@ new want profile (on an update this would be left out since the posting already 
 			}
 
 			//add the butttons
-			$('#skilledit').append("<input type='button' id='btnsubmit' name='btnsubmit' value='Submit' />");
-			$('#skilledit').append("<input type='button' id='btncancel' name='btncancel' value='Cancel' />");
-
+			$('#skilledit').append("<input type='submit' class='btn btngreen' id='btnsubmit' name='btnsubmit' value='Submit' />");
+			$('#skilledit').append("<input type='button' id='btncancel' class='btn btnyellow' name='btncancel' value='Cancel' />");
+			$('#skilledit').append("</form>");
 			//"new" has been appended to the id variable if this is a new posting. If its not a new posting, display a delete option
 			if(id.substring(0,3) != "new")
 			{
-				$('#skilledit').append("<input type='button' id='btndelete' name='btndelete' value='Delete' style='float:right;position:relative;'/>");
+				$('#skilledit').append("<input type='button' class='btn btnred' id='btndelete' name='btndelete' value='Delete' style='float:right;position:relative;'/>");
 			}
 			$('#skilledit').append("</form>");
 

@@ -1,10 +1,10 @@
 <!-- ************************ Footer ************************** -->
-   <div class="bgWrapper" id="footerWrapper">
+   <div class="bgWrapper">
    <section class="mainWrapper" >
 
           <div class="row">
-            <main>   
-	     <footer>
+            <main class="textInputArea">   
+
 	     	<h2> About Barterful</h2>
 
 	     <p> Basically we're just a super amazing site. That is all</p>
@@ -17,8 +17,8 @@
 			     <li> <a href="http:///www.pinterest.com/barterful"><i class="social foundicon-pinterest"></i></a></li>
 		     </ul>
 		     
-		     <p>  &copy; <?php echo date("Y"); ?> Barterful Inc. </p>
-	     </footer>
+		     <footer>  &copy; <?php echo date("Y"); ?> Barterful Inc. </footer>
+
 	 </main>
 	</div>
    </section>
