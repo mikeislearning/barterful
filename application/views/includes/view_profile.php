@@ -6,6 +6,10 @@
 		$select .= "<option value='" . $sl->s_id . "'>$sl->s_name</option>";
 	}
 
+	$type = $this->session->userdata('usertype');
+	//get the id value from the first pair in the array
+	$type = $type[0]->m_type;  
+
 	?>
 
 <!--This view is loaded from views/profile_form and is only included if profile information has already been set -->
@@ -17,11 +21,10 @@
 <!--make sure the profiles array exists (there should only be one row since it matches the member id)-->
 <?php if(isset($profile)) foreach ($profile as $p):?>           
 <div id="user_info">
-<!-- display a page header -->  
-<h2>Your Profile</h2>
+<!-- display a page header -->
+<?php if($type == 'superuser') echo "<h2>" . $p->m_username . "'s Profile</h2>";
+	else echo "<h2>Your Profile</h2>";
 
-<?php
-	
 	//this is stored in case the posting is new, and the p_id needs to be inserted into a new skill or want posting
 	$profileid = $p->p_id;
 
