@@ -10,7 +10,7 @@
 				 else $logged_in = true;
 
 	//this populates the drop down lists later when sending an offer
-	$select = "<option value=''></option>";
+	$select = "<option value='' selected='true'></option>";
 	foreach($skill_list as $sl)
 	{
 		$select .= "<option value='" . $sl->s_id . "'>$sl->s_name</option>";
@@ -225,6 +225,36 @@
 		//set the selected skill in the dropdown list to the one chosen on the users profile
 		if(type=="skill") $("#to_s_id").val(toskill);
 		else $("#from_s_id").val(toskill);
+
+		$('#to_s_id').change(function()
+		{
+			sel = ($(this).val());
+			unit_to = "";
+			skills = <?php echo json_encode($skill_list); ?>;
+			for(var i=0;i<skills.length;i++)
+			{
+				if(skills[i].s_id == sel)
+					{
+						unit_to = skills[i].s_default;
+					}
+			}
+			$('#to_unit').val(unit_to);
+		});
+
+		$('#from_s_id').change(function()
+		{
+			sel = ($(this).val());
+			unit_from = "";
+			skills = <?php echo json_encode($skill_list); ?>;
+			for(var i=0;i<skills.length;i++)
+			{
+				if(skills[i].s_id == sel)
+					{
+						unit_from = skills[i].s_default;
+					}
+			}
+			$('#from_unit').val(unit_from);
+		});
 
 		//now that the button elements have been created, bind them to their respective functions
 		bindButtons();
