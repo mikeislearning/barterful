@@ -105,13 +105,15 @@ $this->load->view('includes/template',$this->data);
 
 function getBarterspot(){	 
 	//include below to get info based on ip address//
-	include_once("./geo/geoip.inc");
-	include("./geo/geoipcity.inc");
+	$baseurl = base_url();
+	
+	include_once($baseurl."geo/geoip.inc");
+	include($baseurl."geo/geoipcity.inc");
 	//("./geo/geoipregionvars.php");
-	$gi = geoip_open("./geo/GeoLiteCity.dat", GEOIP_STANDARD);
+	$gi = geoip_open($baseurl . "geo/GeoLiteCity.dat", GEOIP_STANDARD);
 
 	//when we put this on the server we have to change ti to SERVER_ADDR
-	$rsGeoData = geoip_record_by_addr($gi, '184.147.234.239');
+	$rsGeoData = geoip_record_by_addr($gi, $_SERVER['REMOTE_ADDR']);
 
 	//get variables from the $rsGeoData object that stores IP location info
 	$center_lat = $rsGeoData->latitude;
