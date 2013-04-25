@@ -70,7 +70,7 @@ class Login extends CI_Controller {
 
 		//this determines if the user's account is set to active or if it has been deactivated by admin
 		$active = $this->membership_model->getType();
-		$active = $active[0]->m_active;
+		if($active != "") $active = $active[0]->m_active;
 
 		if($query)//if the user's credentials validated..
 			{
