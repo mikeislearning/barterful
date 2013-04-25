@@ -12,8 +12,11 @@ class Login extends CI_Controller {
 	var $data;//this variable is declared so all functions can make use of it
 
 	public function logged_in(){
+		//set a variable to represent the log in status of the user
 		$logged_in = $this->session->userdata('logged_in');
 		 
+
+		 //if the user is logged out, show the public header
 		 if(!isset($logged_in)|| $logged_in != true)
 		 {
 			 //echo 'You do not have permission to access this page.';
@@ -21,17 +24,21 @@ class Login extends CI_Controller {
 		 }
 		 else{
 
+		 	//get the type of user from the type array
 			$type = $this->session->userdata('usertype');
-			//get the id value from the first pair in the array
+			//get the type value from the first set in the array
 			$type = $type[0]->m_type;
 
+			//load the admin header for admin users
 			if(isset($type) && $type == 'superuser')
 			{
 				$this->data['header_content'] = 'includes/headeradmin';
 			}
 			else
-			{
+			{	//load the logged in header
 				 $this->data['header_content'] = 'includes/headerin';
+
+				 //get a count of how many unread messages that user has in their inbox
 				 $this->load->model('inbox_model');
 			   	//get the array of id's (there should just be one in the array)
 				$id = $this->session->userdata('userid');
@@ -45,6 +52,7 @@ class Login extends CI_Controller {
 
 	function index()
 	{
+		//direct logged in users to the main site page, and others to the log in page
 		$logged_in = $this->session->userdata('logged_in');
 		if(!isset($logged_in)|| $logged_in != true){
 			$this->data['main_content'] = 'login_form';
@@ -59,12 +67,15 @@ class Login extends CI_Controller {
 	function validate_credentials() {
 		$this->load->model('membership_model');
 		$query = $this->membership_model->validate();
+
+		//this determines if the user's account is set to active or if it has been deactivated by admin
 		$active = $this->membership_model->getType();
 		$active = $active[0]->m_active;
 
 		if($query)//if the user's credentials validated..
 			{
 
+			//add data to the session that is retrievable on any age
 			$newdata = array(
 				'username'=> $this->input->post('username'),
 				'userid'=> $this->membership_model->getID(),

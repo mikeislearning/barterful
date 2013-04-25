@@ -2,7 +2,7 @@
 session_start();
 class Members extends CI_Controller {
 
-	 
+	 //run the login function automatically
 	 function __construct()
 	 {
 	   parent::__construct();
@@ -10,11 +10,16 @@ class Members extends CI_Controller {
 		 
 	 }
 	 
+	 //initialize the data variable
 	 var $data;
 	 
 	 public function logged_in(){
-		 $logged_in = $this->session->userdata('logged_in');
 		 
+		//set a variable to represent the log in status of the user
+		$logged_in = $this->session->userdata('logged_in');
+		 
+
+		 //if the user is logged out, show the public header
 		 if(!isset($logged_in)|| $logged_in != true)
 		 {
 			 //echo 'You do not have permission to access this page.';
@@ -22,17 +27,21 @@ class Members extends CI_Controller {
 		 }
 		 else{
 
+		 	//get the type of user from the type array
 			$type = $this->session->userdata('usertype');
-			//get the id value from the first pair in the array
+			//get the type value from the first set in the array
 			$type = $type[0]->m_type;
 
+			//load the admin header for admin users
 			if(isset($type) && $type == 'superuser')
 			{
 				$this->data['header_content'] = 'includes/headeradmin';
 			}
 			else
-			{
+			{	//load the logged in header
 				 $this->data['header_content'] = 'includes/headerin';
+
+				 //get a count of how many unread messages that user has in their inbox
 				 $this->load->model('inbox_model');
 			   	//get the array of id's (there should just be one in the array)
 				$id = $this->session->userdata('userid');
@@ -46,7 +55,7 @@ class Members extends CI_Controller {
 	 
 	 function index()
 	 {
-	 
+	 	//check that the user is logged in
 	   if($this->session->userdata('logged_in'))
 	   {
 	    $newdata = $this->session->userdata('logged_in');
@@ -61,7 +70,8 @@ class Members extends CI_Controller {
 		$id = $id[0]->m_id;
 
 		$this->load->model('listings_model');
-		//send the id through to the query function
+
+		//send the id through to the query function to get a list of postings that are relevant to the logged-in user
 		$this->data['row'] = $this->listings_model->listLoggedIn($id,'skills','p_fname', 'all');
 
 		//get a list of the skills and their id to allow for sorting
@@ -166,18 +176,19 @@ function profile() {
 		$newdata = $this->session->userdata('logged_in');
 		$session_data['username'] = $newdata['username'];
 		
+		//get the id value from the first pair in the userdata array set in the session
 		$id = $this->session->userdata('userid');
-		$id = $id[0]->m_id;	 
-
-	//echo $id;
+		$id = $id[0]->m_id;
 		
-		
+		//the profile requires data on that user, as well as a list of the skills, wants, and projects listed by that user
 		$this->load->model('listings_model');
 		$this->load->model('profile_model');
 		$this->data['profile'] = $this->profile_model->getProfile($id);
 		$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$id);
 		$this->data['wants'] = $this->listings_model->listAll("wants","sp_id","all",$id);
 		$this->data['projects'] = $this->listings_model->listAll("projects","sp_id","all",$id);
+
+		//getting a list of skills allows for populating drop down lists in update/new posting forms
 		$this->data['skill_list'] = $this->listings_model->skillList();
 		
 		$this->data['main_content'] = 'profile_form';
@@ -203,9 +214,11 @@ function profile() {
 
 		//get the id value from the first pair in the array
 		$id = $id[0]->m_id;
+
+
 		$this->load->model('inbox_model');
 
-		//send the id through to the query function
+		//send the id through to the query function to load all messages received by that user
 		$this->data['row'] = $this->inbox_model->listAll($id,'inbox','');
 
 		//set all messages in the inbox to read

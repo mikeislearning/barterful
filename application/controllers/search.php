@@ -1,12 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
-* This controller was created because AJAX calls can only be made to public functions.
-*	The members controller is currently not public
+* This controller deals with search and listings on the index page of the site
 *
 * This controller includes:
 *   - re-sort for the skill listings shown to logged-in users
-*	- display all messages in the inbox (and re-load this view for sent messages as well)
+*	- redirect (redirects to the re-sort, adding the search term to the url)
 *	- show the entire conversation between 2 users
 *	- reply to a message
 */

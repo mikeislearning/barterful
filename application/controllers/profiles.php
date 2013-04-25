@@ -21,11 +21,16 @@ class profiles extends CI_Controller {
 		 
 	 }
 	 
+	 //initialize the data variable
 	 var $data;
 
 	public function logged_in(){
-		 $logged_in = $this->session->userdata('logged_in');
 		 
+		//set a variable to represent the log in status of the user
+		$logged_in = $this->session->userdata('logged_in');
+		 
+
+		 //if the user is logged out, show the public header
 		 if(!isset($logged_in)|| $logged_in != true)
 		 {
 			 //echo 'You do not have permission to access this page.';
@@ -33,17 +38,21 @@ class profiles extends CI_Controller {
 		 }
 		 else{
 
+		 	//get the type of user from the type array
 			$type = $this->session->userdata('usertype');
-			//get the id value from the first pair in the array
+			//get the type value from the first set in the array
 			$type = $type[0]->m_type;
 
+			//load the admin header for admin users
 			if(isset($type) && $type == 'superuser')
 			{
 				$this->data['header_content'] = 'includes/headeradmin';
 			}
 			else
-			{
+			{	//load the logged in header
 				 $this->data['header_content'] = 'includes/headerin';
+
+				 //get a count of how many unread messages that user has in their inbox
 				 $this->load->model('inbox_model');
 			   	//get the array of id's (there should just be one in the array)
 				$id = $this->session->userdata('userid');
@@ -57,30 +66,36 @@ class profiles extends CI_Controller {
 	 
  public function viewprofile()
  {
+ 	//-------NOTE: this function is received by redir() below it --------//
+
+ 	//the default value for each of these is an empty string
  	$myid = "";
  	$usertype= "";
 
  	
- 	//get current users id
+ 	//---get current users id---//
 
    	//get the array of id's (there should just be one in the array)
 	$myid = $this->session->userdata('userid');
 	//get the id value from the first pair in the array
 	$myid = $myid[0]->m_id;
 
-	//get the user type
+	//get the user type (to determine how the profile is viewed)
 	$usertype = $this->session->userdata('usertype');
 	$usertype = $usertype[0]->m_type;
  	
+ 	//this represents the id of the profile owner
  	$id = "";
 
  	//get the requested user's profile id out of the url
 	if ($this->uri->segment(3) === FALSE)
 	{
+		//redirect to the home page if no id is found in the url
 	    redirect('site');
 	}
 	else
 	{
+		//the id of the profile's owner
 	    $id = $this->uri->segment(3);
 	}
 
@@ -92,6 +107,7 @@ class profiles extends CI_Controller {
 		redirect($url, 'refresh');
 	 }	
 
+	 //load the user's profile data, their skill, want, and project postings, as well as a list of skills and reasons to report a user for drop down lists
 	$this->load->model('listings_model');
 	$this->load->model('profile_model');
 	$this->data['profile'] = $this->profile_model->getProfile($id);
@@ -128,11 +144,11 @@ class profiles extends CI_Controller {
  public function deleteSkill()
  {
 
-	$this->load->model('profile_model');
-
+	//initialize the type and profile id variables
 	$type = "";
  	$spid="";
 
+ 	//get the posted values
 	if(isset($_POST['type']))
 	{
 		$type = $_POST['type'];
@@ -143,33 +159,20 @@ class profiles extends CI_Controller {
 		$spid = $_POST['sp_id'];
 	} 
 
-	if($this->session->userdata('logged_in'))
-	 {
-		//get their own id
-		$myid = $this->session->userdata('userid');
-		$myid = $myid[0]->m_id;
+	$this->load->model('profile_model');
+	$this->load->model('listings_model');
 
-		$this->load->model('profile_model');
-		$this->load->model('listings_model');
-		$this->data['profile'] = $this->profile_model->deleteSP($spid,$type);
+	//send the values through to the model for deleting
+	$this->data['profile'] = $this->profile_model->deleteSP($spid,$type);
 
-		$this->data['reasons'] = $this->profile_model->getReportReasons();
-		$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$myid);
-		$this->data['wants'] = $this->listings_model->listAll("wants","sp_id","all",$myid);
-		$this->data['projects'] = $this->listings_model->listAll("projects","sp_id","all",$myid);
-		$this->data['skill_list'] = $this->listings_model->skillList();
-		
-		$this->data['main_content'] = 'profile_form';
-		$this->load->view('includes/template', $this->data);
-	 }	
-
+	//this is an ajax function and thus does not return anything
+	echo true;
  }
 
  public function editSkill()
  {
 
-	$this->load->model('profile_model');
-
+	//initialize the variables
 	$type = "";
  	$spid="";
  	$sid="";
@@ -178,6 +181,8 @@ class profiles extends CI_Controller {
  	$spkeywords="";
  	$expiry = "";
 
+
+ 	//receive the value of each of the above variables from the POST method
 	if(isset($_POST['type']))
 	{
 		$type = $_POST['type'];
@@ -220,27 +225,23 @@ class profiles extends CI_Controller {
 		$myid = $myid[0]->m_id;
 
 		$this->load->model('profile_model');
-		$this->load->model('listings_model');
 
-		$this->data['reasons'] = $this->profile_model->getReportReasons();
+		//update the posting
 		$this->data['profile'] = $this->profile_model->updateSP($spid,$sid,$spheading,$spdetails,$expiry,$spkeywords,$myid,$type);
-		$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$myid);
-		$this->data['wants'] = $this->listings_model->listAll("wants","sp_id","all",$myid);
-		$this->data['projects'] = $this->listings_model->listAll("projects","sp_id","all",$myid);
-		$this->data['skill_list'] = $this->listings_model->skillList();
-		
-		$this->data['main_content'] = 'profile_form';
-		$this->load->view('includes/template', $this->data);
+
+		echo true;
 	 }	
  }
 
+//this controller sends a report regarding the behaviour of a user
  public function report()
  {
-
+ 	//initialize variables
  	$p_id="";
  	$desc="";
  	$reason="";
 
+ 	//get values from post
 	if(isset($_POST['reason']))
 	{
 		$reason = $_POST['reason'];
@@ -256,20 +257,15 @@ class profiles extends CI_Controller {
 		$desc = $_POST['details'];
 	} 
 
+	//load the data models
 	$this->load->model('profile_model');
 	$this->load->model('listings_model');	
 
+	//send the report
 	$this->profile_model->reportUser($p_id,$reason,$desc);
 
-	$this->data['reasons'] = $this->profile_model->getReportReasons();
-	$this->data['profile'] = $this->profile_model->getProfile($p_id);
-	$this->data['skills'] = $this->listings_model->listAll("skills","sp_id","all",$p_id);
-	$this->data['wants'] = $this->listings_model->listAll("wants","sp_id","all",$p_id);
-	$this->data['projects'] = $this->listings_model->listAll("projects","sp_id","all",$p_id);
-	$this->data['skill_list'] = $this->listings_model->skillList();
-	
-	$this->data['main_content'] = 'publicProfile';
-	$this->load->view('includes/template', $this->data);
+	//this is an ajax call -> does not need a return message
+	echo true;
  }
 	
 	
