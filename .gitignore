@@ -3,7 +3,5 @@ application/config
 
 *.jpg
 
-drupal
-drush
 
 .gitignore

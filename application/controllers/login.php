@@ -222,16 +222,7 @@ class Login extends CI_Controller {
 
 			$useremail = $this->input->post('email');
 
-            $this->load->library('email');
-			$config['useragent']           = "CodeIgniter";
-			$config['mailpath']            = "/usr/bin/sendmail"; // or "/usr/sbin/sendmail"
-			$config['protocol']            = "mail";
-			$config['smtp_host']           = "localhost";
-			$config['smtp_user']           = "";
-			$config['smtp_pass']           = "";
-			$config['smtp_port']           = "25";
-
-        	$this->email->initialize($config);
+            $this->load->library('email', array('mailtype'=>'html'));
 
             $this->email->set_newline("\r\n");//prevents an error in CI for sending an email
 
@@ -242,7 +233,7 @@ class Login extends CI_Controller {
            
 
             $message = "<p>This email has been sent as a request to reset our password</p>";
-            //$message .= "<p><a href='".base_url()."login/recover/$temp_pass.'>Click here </a>if you want to reset your password, if not, then ignore</p>";
+            $message .= "<p><a href='".base_url()."login/recover/$temp_pass.'>Click here </a>if you want to reset your password, if not, then ignore</p>";
             $this->email->message($message);
 
             if($this->email->send())

@@ -7,12 +7,12 @@
         <link rel="shortcut icon" href="<?php echo base_url('refs/_img/thinkpink.ico');?>" type="image/x-icon" >
         
   
-   <!--   CSS FILE ISFOR THE SERVER 
-   <link rel="stylesheet" type="text/css" href="<?php echo base_url('refs/_styles/main.css');?>"/>-->
+
+   <link rel="stylesheet" type="text/css" href="<?php echo base_url('refs/_styles/main.css');?>"/> <!--
 <link rel="stylesheet/less" type="text/css" href="<?php echo base_url('refs/_styles/main.less');?>" media="all" />
           <script type="text/javascript" src="<?php echo base_url('refs/_js/less.js');?>"></script>
-     
-       <!-- Foundicons http://www.zurb.com/playground/foundation-icons -->
+     -->
+       <!-- Taken from foundicons http://www.zurb.com/playground/foundation-icons -->
        <link rel="stylesheet" type="text/css" href="<?php echo base_url('refs/_styles/general_foundicons_ie7.css');?>" />
        <link rel="stylesheet" type="text/css" href="<?php echo base_url('refs/_styles/general_foundicons.css');?>"/>
        <link rel="stylesheet" type="text/css" href="<?php echo base_url('refs/_styles/social_foundicons_ie7.css');?>" />
