@@ -35,7 +35,7 @@ $baseurl = base_url();
 	
 
 
-	require_once($baseurl."geo/geoip.inc");
+	require_once "http://www.barterful/geo/geoip.inc";
 	require_once 'geoipregionvars.php';
 
 class geoiprecord {
