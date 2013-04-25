@@ -110,11 +110,13 @@ function getBarterspot(){
 	
 	include_once($baseurl."geo/geoip.inc");
 	include($baseurl."geo/geoipcity.inc");
+	
+	$remoteip = $_SERVER['REMOTE_ADDR'];
 	//("./geo/geoipregionvars.php");
 	$gi = geoip_open($baseurl . "geo/GeoLiteCity.dat", GEOIP_STANDARD);
 
 	//when we put this on the server we have to change ti to SERVER_ADDR
-	$rsGeoData = geoip_record_by_addr($gi, $_SERVER['REMOTE_ADDR']);
+	$rsGeoData = geoip_record_by_addr($gi, $remoteip);
 
 	//get variables from the $rsGeoData object that stores IP location info
 	$center_lat = $rsGeoData->latitude;
