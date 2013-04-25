@@ -10,7 +10,7 @@
 
 	<?php
 	}
-	echo form_open('login/recover_process');?>
+	echo form_open('login/recover_password');?>
 	<label for="email">Email Address </label>
 	<?php echo form_input('email', '','placeholder="email"'); ?>
 

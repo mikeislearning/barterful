@@ -148,6 +148,7 @@ class Login extends CI_Controller {
 		}
 	}
 
+
 	function check_if_email_exists($requested_email) { //custom callback functin
 
 		$this->load->model('membership_model');
@@ -163,6 +164,21 @@ class Login extends CI_Controller {
 
 	}
 
+	function check_if_email_reset($requested_email) { //custom callback functin
+
+		$this->load->model('membership_model');
+
+		$email_available = $this->membership_model->check_if_email_exists($requested_email);
+		if($email_available)
+		{
+			return FALSE;
+		}
+		else {
+			return TRUE;
+		}
+
+	}
+
 	function logout()
 	{
 		$this->session->unset_userdata('logged_in');
@@ -174,9 +190,11 @@ class Login extends CI_Controller {
 		$this->load->view('includes/template', $this->data);
 	}
 
-	function recover_process()
+	function recover_password()
 	{
-		$this->form_validation->set_rules('email','Email Address','xss_clean|required|valid_email|callback_check_if_email_exists');
+		$this->load->library('form_validation');
+		$this->form_validation->set_message('check_if_email_reset', "That email does not seem to be in our database!");
+		$this->form_validation->set_rules('email','Email Address','xss_clean|required|valid_email|callback_check_if_email_reset');
 
 		if($this->form_validation->run() == FALSE)
 		{
@@ -187,14 +205,21 @@ class Login extends CI_Controller {
 		{
 			$temp_pass = md5(uniqid());
             //send email with #temp_pass as a link
+
+			$useremail = $this->input->post('email');
+
             $this->load->library('email', array('mailtype'=>'html'));
+
+            $this->email->set_newline("\r\n");//prevents an error in CI for sending an email
+
             $this->email->from('info@barterful.com', "Barterful Password Reset");
-            $this->email->to($this->input->post('email'));
+            $this->email->to($useremail,'Some user guy');
             $this->email->subject("Reset your Password");
 
+            echo $this->input->post('email');
+
             $message = "<p>This email has been sent as a request to reset our password</p>";
-            $message .= "<p><a href='".base_url()."login/recover/".$temp_pass."'>Click here </a>if you want to reset your password,
-                        if not, then ignore</p>";
+            //$message .= "<p><a href='".base_url()."login/recover/$temp_pass.'>Click here </a>if you want to reset your password, if not, then ignore</p>";
             $this->email->message($message);
 
             if($this->email->send())
