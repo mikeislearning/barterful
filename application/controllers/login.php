@@ -204,6 +204,11 @@ class Login extends CI_Controller {
 		$this->load->view('includes/template', $this->data);
 	}
 
+	function reset(){
+		$this->data['main_content'] = 'reset_password';
+		$this->load->view('includes/template', $this->data);
+	}
+
 	function recover_password()
 	{
 		$this->load->library('form_validation');
@@ -233,7 +238,7 @@ class Login extends CI_Controller {
            
 
             $message = "<p>This email has been sent as a request to reset our password</p>";
-            $message .= "<p><a href='".base_url()."login/recover/$temp_pass.'>Click here </a>if you want to reset your password, if not, then ignore</p>";
+            $message .= "<p><a href='".base_url()."login/reset/$temp_pass.'>Click here </a>if you want to reset your password, if not, then ignore</p>";
             $this->email->message($message);
 
             if($this->email->send())

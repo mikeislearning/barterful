@@ -92,6 +92,7 @@ $marker['icon']= "http://1.gravatar.com/avatar/b357aaf387437314ec4dac6ba60ea871?
 $this->googlemaps->add_marker($marker);
 
 //creates the map
+$rsGeoData = geoip_record_by_addr($gi,$_SERVER['REMOTE_ADDR']);
 $this->data['map'] = $this->googlemaps->create_map();
 
 // Load our view, passing the map data that has just been created
