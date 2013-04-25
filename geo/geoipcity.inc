@@ -35,8 +35,8 @@ $baseurl = base_url();
 	
 
 
-	require_once "http://www.barterful/geo/geoip.inc";
-	require_once 'geoipregionvars.php';
+	require_once "http://www.barterful.com/geo/geoip.inc";
+	require_once 'http://www.barterful.com/geo/geoipregionvars.php';
 
 class geoiprecord {
   var $country_code;
