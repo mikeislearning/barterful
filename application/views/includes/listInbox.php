@@ -21,15 +21,11 @@
 <td class="inbox_sender">
 <?php echo $r->sender ?> 
 </td>
-		<td  ><form id="seemore" name="seemore" action='<?=base_url()?>index.php/mail/conversation' method="post">
+		<td ><form id="seemore" name="seemore" action='<?=base_url()?>index.php/mail/conversation' method="post">
 			    <input name="sender" id="sender" type="hidden" value='<?php echo $r->mes_from ?>' />
 			    <input name="receiver" id="receiver" type="hidden" value='<?php echo $r->mes_to ?>' />
 			    <input type="submit" class="inbox_message" value="<?php echo "Offering " . $r->s_from . " " . $r->mes_from_unit . " for " . $r->s_to . " " . $r->mes_to_unit ?> " />
 			</form>
-
-
-
-
 		    </td>
 
 <td><?=$newdate ?></td>

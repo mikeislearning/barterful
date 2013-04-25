@@ -65,19 +65,18 @@ font-family:@baseFont;
 font-weight:100;
 font-size-adjust:none;
 line-height:1.5;
-background:url("../_img/landscape2.jpg") 90% 10% !important;
+background:url("../_img/landscape2.jpg") 90% 10% no-repeat;
 }
 
 #fullContainer{
 position:absolute;
 overflow:hidden;
 width:100%;
+z-index:0;
 }
 
 //bgWrapper surrounds every section of the site
 .bgWrapper{ 
-
-	overflow: hidden !important;//CRAZY IMPORTANT - otherwise page overflows a lot
 	&:first-of-type{
 		border-bottom:@mainBorder;
 		}
@@ -278,22 +277,14 @@ header{
 			border:none;
 			position:relative;
 			left:-25px;
-
-
 		}
-
 	}
 	
 	nav{
 	.column(4);
-	
-
 	ul{
 	float:right;
 	}
-
-
-
 
 	li{
 	display:inline;
@@ -303,7 +294,7 @@ header{
 			list-style:none;
 			position:absolute;
 			right:-9999px;
-			z-index:10;
+			z-index:20;
 
 			li{
 				border:@mainBorder;
@@ -592,7 +583,7 @@ img{
 	padding:20px;
 }
 
-/* this affects THE INBOX - will return to this later 
+/* this affects THE INBOX  AND MAIL CONVERSATION- will return to this later 
 /* looks ugly right now
 /* will work to add more stuff
 /*
@@ -606,12 +597,13 @@ img{
 		background:whitesmoke;
 		.rounded(5px);
 		color:darkgray;
+
 		tbody{
 
 			tr{
 				padding:100px;
 
-				&:nth-of-type(2n){
+				&:nth-of-type(2n-1){
 				background:darkgray;
 				color:whitesmoke;
 				}
@@ -620,11 +612,11 @@ img{
 		}
 		th{
 			text-decoration: underline;
-			padding-left:5px;
+			padding:5px;
 			color:black;
 		}
 		td{
-			padding-left:5px;
+			padding:5px;
 		}
 	}
 		.inbox_sender{
@@ -641,12 +633,27 @@ img{
 
 		}
 		
-		
-
-
 	}    
 
 }
+/* this affects THE FEATURED CONVERSATION on the CONVERSATION PAGE- will return to this later 
+/* looks ugly right now
+/* will work to add more stuff
+/*
+*/
+.featured_message{
+	span{
+		display:block;
+	}
+	.sender{
+		color:red;
+		text-transform: uppercase;
+
+
+	}
+
+}
+
 
 /*************** This is for the PROFILE PAGE***************************/
 /* as well as all the postings

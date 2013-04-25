@@ -8,47 +8,49 @@
             
 
 <!--display the most recent message (the array is already sorted by date DESC) -->
-<article class="profile">
-	<section class="info">
+<article class="featured_message">
+<h2>Current Offer</h2>
 
 <?php 
 	//convert mySQL DateTime to AM/PM
 	$datetime = strtotime($row[0]->date);
 	$newdate = date("m/d/y g:i A", $datetime);
 ?>
-	    <p>
+	    
 	    	<!-- Display the most recent message at the top of the page. Messages are ordered by date DESC, so row[0] 
 	    	is the most recent message -->
-	    	<?=$row[0]->sender ?> 
-	    	offers 
+	    	<span class="sender"><?=$row[0]->sender ?> 	</span>
+	    	<span class="offer"> 
 	    	<?=$row[0]->s_from ?> 
 	    	(<?=$row[0]->mes_from_unit ?>) 
+	    </span>
+	    <span>
 	    	for 
 	    	<?=$row[0]->s_to ?> 
-	    	(<?=$row[0]->mes_to_unit ?>)
-	    	from
-	    	<?=$row[0]->receiver ?>
-	    </p>
-	    <p><?=$newdate ?></p>
-	    <p>Message: <?=$row[0]->mes_message ?></p>
-	</section>
+	    	(<?=$row[0]->mes_to_unit ?>)</span>
+	    	
+	    	<span class="receiver">from <?=$row[0]->receiver ?></span>
+	    
+
+	    <span class="message">Message: <?=$row[0]->mes_message ?></span>
+	    <span class="sent">Sent:<?=$newdate ?></p></span>
 </article>
 
 <!-- /////////////////////////////////////// -->
-<!-- NOTE!!!!! REMOVE INLINE STYLING!!! -->
+<!-- this is the panel that contains offers and counter-offers -->
 <!-- //////////////////////////////////// -->
 <div id="panel_response" style="display:none;">
 	<table>
 		<tr>
-			<td><input type="radio" name="response" id="response_accept" value="accept" style="display:inline;" /></td>
+			<td><input type="radio" name="response" id="response_accept" value="accept" /></td>
 			<td>Accept this offer</td>
 		</tr>
 		<tr>
-			<td><input type="radio" name="response" id="response_counter" value="counter" style="display:inline;" /></td>
+			<td><input type="radio" name="response" id="response_counter" value="counter" /></td>
 			<td>Make a counter-offer</td>
 		</tr>
 		<tr>
-			<td><input type="radio" name="response" id="response_reject" value="reject" style="display:inline;" /></td>
+			<td><input type="radio" name="response" id="response_reject" value="reject" /></td>
 			<td>Reject offer</td>
 		</tr>
 	</table>
@@ -80,40 +82,52 @@
 			</select>	
 			
 	</div><!-- counteroffer -->
-	<textarea id="message" name="message"></textarea>
+	<textarea id="message" name="message" placeholder="Type your message here"></textarea>
 
-	<input id="send" name="send" type="button" value="Send Response" />
+	<input id="send" name="send" type="button" value="Send Response" class="btn btngreen" />
 </div><!-- panel_response -->
 
-
+<h3>Previous Offers</h3>
 <!-- display the remaining messages -->
 <div id="listing">  
-
+<article  class="inbox">
+<table>
+	<thead>
+		<th> From</th>
+		<th>Offer</th>
+		<th>Message</th>
+		<th>Sent</th>
+	</thead>
+	<tbody>
 	<!-- array_slice cuts out the first row in the array since it is already shown above -->
 	<?php if($row) foreach (array_slice($row,1) as $r):?>
-	<?php 
+	
+	<tr>
+		<?php 
 		$datetime = strtotime($r->date);
 		$newdate = date("m/d/y g:i A", $datetime);
 	?>
 
-		<article class="profile">
-			<section class="info">
-			    <p><?=$r->sender ?> 
-			    	offers 
-			    	<?=$r->s_from ?> 
+			   <td> <?=$r->sender ?> </td>
+			    	
+			    <td>	<?=$r->s_from ?> 
 			    	(<?=$r->mes_from_unit ?>) 
 			    	for 
 			    	<?=$r->s_to ?> 
 			    	(<?=$r->mes_to_unit ?>)
-			    	from
-			    	<?=$r->receiver ?>
-			    </p>
-			    <p><?=$newdate ?></p>
-			    <p>Message: <?=$r->mes_message ?></p>
-			</section>
-		</article>
+			    	<hr>
+			    	Offer made by <?=$r->receiver ?>
+			    	</td>
+			    	<td><?=$r->mes_message ?></td>
+			
+			   
+			    <td><?=$newdate ?></td>
+			    
+</tr>
 	<?php endforeach; ?>
-
+</tbody>
+</table>
+</article>
 	<?php if(!$row) echo "There are no messages to display"; ?>
 </div><!-- listing -->
 
