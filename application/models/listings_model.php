@@ -345,8 +345,10 @@ class listings_model extends CI_Model{
 		return $this->skillList();
 	}
 
+	//this function is used when a search term is provided
 	public function complexSearch($terms, $type = 'skills', $sortset = 'sp_id', $category='all')
 	{
+		//the search terms are currently within a string separated by "00", here they are split on those characters and made into an array
 		$terms = explode('00',$terms);
 
 		// if a custom filter variable was provided, apply it to the query
@@ -359,6 +361,8 @@ class listings_model extends CI_Model{
 			$category = " AND s_name = '" . $category . "'";
 		}
 
+		//Because results are displayed on the page in the same way regardless of what table they came from, it is important to make sure that
+		//column names match. Therefore, if a want profile is used as a source, many of its columns are given aliases to mimic the skills table
 		switch($type)
 		{
 			case "skills":
@@ -398,39 +402,48 @@ class listings_model extends CI_Model{
 
 		}
 
+		//This section loops through each resulting row, and within that loops through each search term. 
+		//When a match is found the "sort" column being added to the row increases in value to help with sorting.
+		//As well, compared strings are converted to uppercase in order to avoid case mismatches
 		if($query->num_rows > 0){
 			foreach($query->result() as $key => $row){
 			$row->sort = 0;
 				foreach($terms as $t)
 				{
+					//strtoupper ensures that the search is not case sensitive
 					$exists = strpos(strtoupper($row->s_name), strtoupper($t));
 					if($exists !== false)
 					{
 						$row->sort .= 1;
 					}
 
+					//strtoupper ensures that the search is not case sensitive
 					$exists = strpos(strtoupper($row->sp_heading), strtoupper($t));
 					if($exists !== false)
 					{
 						$row->sort .= 1;
 					}
 
+					//strtoupper ensures that the search is not case sensitive
 					$exists = strpos(strtoupper($row->sp_details), strtoupper($t));
 					if($exists !== false)
 					{
 						$row->sort .= 1;
 					}
 
+					//strtoupper ensures that the search is not case sensitive
 					$exists = strpos(strtoupper($row->sp_keywords), strtoupper($t));
 					if($exists !== false)
 					{
 						$row->sort .= 1;
 					}
 				}
+
 				//add $row to the array, including the newly created sort column
 				$listing[]=$row;
 			}
 
+			//in this section, any rows that have no match to the search are removed from the array
 			foreach($listing as $i => $row)
 			{
 				if($row->sort == 0)

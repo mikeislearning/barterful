@@ -1,5 +1,19 @@
 <?php
 class superuser extends CI_Controller {
+	/**
+* This controller deals with functions the administrative user would need
+*
+* This controller includes:
+*   - index as the home page for the admin user
+*	- skills to get a list of skills available for user selection
+*	- delete, new, and update skills for managing the skills available
+*	- reports displaying a list of new and reviewed reports filed by users
+*		-report action and reopen pertain to dealing with reports
+*	- getMessages displays a list of barter offers sent by user that was reported
+*	-users displays all users and their active status on the site
+*	- memactive changes the active status of a user
+*	-messages displays all barter offers exchanged on the site for review
+*/
 
 	function __construct()
 	{

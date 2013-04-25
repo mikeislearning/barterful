@@ -1,3 +1,5 @@
+<!-- this administrative view allows administration to make changes to the skills available on the site -->
+
 <h1>Add New Skill:</h1>
 Name: <input type="text" id="txt_new" name="txt_new" />
 Default Barter Unit: <input type="text" id="txt_default_new" name="txt_default_new" />

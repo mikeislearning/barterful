@@ -1,3 +1,6 @@
+<!-- this page populated the administrative view for handling messages/barter offers sent between users. 
+	Administrators can only view and delete messages, as it is impractical to edit a message sent between two people in the past -->
+
 <div id="messages">
 
 	<h1>Messages</h1>

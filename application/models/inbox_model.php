@@ -91,6 +91,7 @@ class inbox_model extends CI_Model
 		}
 	}
 
+	//This function sends a barter offer from one user to another
 	function sendMessage($id,$to,$to_skill,$to_unit,$from_skill,$from_unit,$message,$response)
 	{		
 		//set the timezone so that the time inputs correctly
@@ -112,6 +113,7 @@ class inbox_model extends CI_Model
 		return $this->listAll($id,'inbox','');
 	}
 
+	//when a user clicks on their inbox they are marked as read
 	function readMessages($userid)
 	{
 		$this->db->set('mes_new', false);
@@ -125,6 +127,7 @@ class inbox_model extends CI_Model
 		$this->db->delete('messages');
 	}
 
+	//given a user id, return the number of messages that are set to new that have been received by that user (and not viewed)
 	function countUnread($userid)
 	{
 		$this->db->where('mes_to', $userid);

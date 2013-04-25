@@ -1,4 +1,4 @@
-
+<!--this view displays the inbox of the user -->
 <article class="inbox">
 <table>
 			<thead>

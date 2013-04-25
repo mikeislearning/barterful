@@ -1,3 +1,7 @@
+<!-- This administrative section deals with the display and actions taken against reported users. 
+	Each report can either be ignored, or dealt with by deactivating that user's account -->
+
+<!-- these two elements act as a modal display for actions taken on the page and are populated dynamically -->
 <div id="edit-background" >
 </div>
 <div id="edit-box" style="width:80%;">
@@ -56,6 +60,7 @@
 
 <script>
 
+		//this function allows administrators to re-open previously dealt with reports and change their actions toward them
 		function subreopen(id, action, userid)
 		{
 
@@ -65,6 +70,7 @@
 			//base_url us a php function to get to the root of the site, then add the extended url
 			var send_url = '<?=base_url()?>' + ext_url;
 
+			//re-opening a report may mean reactivating that user if the previous action was deactivating them
 			if(action != "ignore")
 			{
 				if(confirm('Are you sure? This will reactivate this user\'s account.'))
@@ -89,6 +95,7 @@
             }
 		}
 
+		//this is what the administrator decided to do about the report
 		function subaction(id, action, userid)
 		{
 			//determine which call to used based on whether user is logged in or not
@@ -105,7 +112,7 @@
                 });
 		}
 
-
+		//this function displays a list of messages sent by the selected user to help in the decision process
 		function subMessages(id)
 		{
 			//determine which call to used based on whether user is logged in or not
@@ -114,7 +121,7 @@
 			//base_url us a php function to get to the root of the site, then add the extended url
 			var send_url = '<?=base_url()?>' + ext_url;
 
-			//send the variables through
+			//send the variables through, actually loading another view into the modal box
 			$.post(send_url, { id:id}).done(function(msg){
 					showBox('show');
 					$('#edit-box').html(msg);
@@ -127,6 +134,7 @@
                 });
 		}
 
+		//this function shows and hides the modal box
 		function showBox(choice)
 		{
 			switch(choice)

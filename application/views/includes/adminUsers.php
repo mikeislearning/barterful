@@ -1,3 +1,7 @@
+<!-- this view shows the administrator all users on the site, allowing them to change each user's active 
+status and visit their profile to make changes to their profile and/or postings. IT IS IMPORTANT to note that administrators can never
+delete a user - this would result in missing links on the site since there may be content posted associated with that user (such as messages) -->
+
 <h1> Users </h1>
 
 <table>
@@ -33,6 +37,7 @@
 <script>
 	$(document).ready(function(){
 
+		//change the active status of the user
 		$('.actives').change(function()
 		{
 			var id = ($(this).attr("id"));

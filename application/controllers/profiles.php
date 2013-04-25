@@ -1,14 +1,13 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
-* This controller was created because AJAX calls can only be made to public functions.
-*	The members controller is currently not public
+* This controller deals with user profiles and content on the site
 *
 * This controller includes:
-*   - re-sort for the skill listings shown to logged-in users
-*	- display all messages in the inbox (and re-load this view for sent messages as well)
-*	- show the entire conversation between 2 users
-*	- reply to a message
+*   - viewprofile as a public profile view
+*	- redirect (redirects to the profile view, adding the profile id to the url)
+*	- delete/edit skill (new skills are shared with the edit skill function)
+*	- report a user for bad behaviour
 */
 
 class profiles extends CI_Controller {

@@ -1,20 +1,28 @@
 <!-- ************************ Header ************************** -->
+<!-- This is the header that shows up when you are logged in -->
+
+
 <?php
+	//here we obtain a variable to represent the unread messages in the user's inbox that will be displayed next to the inbox icon
 	if($count_inbox > 0)
 		$count_inbox = "(" . $count_inbox . ")";
 	else $count_inbox = "";
 ?>
-<!-- This is the header that shows up when you are logged in -->
+
+<!-- this section displays only if the user's account has been deactivated, letting them know that this is the case -->
 <?php if(!$this->session->userdata('active')): ?>
 	<div style="width:90%;z-index:100;background-color:red;height:50px;color:black;font-size:1em;font-weight:bold;opacity:0.9;text-align:center;padding:1% 5%;">
 			Your account had been deactivated by our site administrators due to reports of offensive and/or inappropriate behaviour. Your postings will not be visible to other users.
 	</div>
 <?php endif; ?>
 
+
+
 	<div class="bgWrapper">
 	<section class="mainWrapper">
 		<header class="row">
 		    
+		    <!--search section -->
 			<fieldset>
 		     		<?php echo form_open('search/redir'); ?>
 		     		<input type="text" required="required" placeholder="Search" name="txt_search" id="txt_search">
@@ -25,7 +33,8 @@
 		     		
 		    </fieldset>
 		    <h1> <a href="<?php echo base_url()?>" class="logo">Barterful</a> </h1>
-		    		
+
+			<!-- navigation -->		    		
 			<nav>
 			    <ul>
 			    	

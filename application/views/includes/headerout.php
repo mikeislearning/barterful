@@ -4,6 +4,8 @@
 	<div class="bgWrapper">
 	<section class="mainWrapper">
 		<header class="row">
+
+		<!-- search area -->
 		<fieldset>
 		     		<?php echo form_open('search/redir') ?>
 		     		<input type="text" required="required" placeholder="Search" name="txt_search" id="txt_search">
@@ -16,6 +18,7 @@
 		    
 		    <h1> <a href="<?php echo base_url()?>" class="logo">Barterful</a> </h1>
 		    
+		    <!-- navigation -->	
 		    <nav>
 			    <ul>
 

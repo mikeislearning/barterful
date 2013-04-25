@@ -82,6 +82,7 @@ $id = $id[0]->m_id;
 //get the current time
 date_default_timezone_set('America/New_York');
 $time =  date('Y-m-d H:i:s');
+
 //getting the username from the post array storing it in username and getting the data ready to insert
 		$username = $this->input->post('username');
 		
@@ -260,12 +261,14 @@ return TRUE;
 	}
     }
 
+    //this function deletes postings based on the posting id and its respective table provided
     public function deleteSP($spid,$table)
     {
-		//set the timezone so that the time inputs correctly
+		//set the timezone so that the time inputs correctly (for indicating that the user has updated their profile)
 		date_default_timezone_set('America/New_York');
 		$date = date('Y-m-d H:i:s');
 
+		//determine what table and column names to use
 		switch($table)
 		{
 			case "skills":
@@ -282,8 +285,16 @@ return TRUE;
 			break;
 		}
 
+		//execute the query
 		$this->db->where($id, $spid);
 		$this->db->delete($table);
+
+		//update the user's profile
+		$this->db->set('p_last_updated', $date);
+		$this->db->where('m_id', $myid);
+		$this->db->update('profiles');
+
+		echo 'success';
 
     }
 
@@ -293,9 +304,11 @@ return TRUE;
 		date_default_timezone_set('America/New_York');
 		$date = date('Y-m-d H:i:s');
 
+		//since only some want profiles have an expiry, check that it exists before setting a date
 		if($expiry != "")
 			$expiry = date('Y-m-d H:i:s', strtotime($expiry));
 
+		//determine what table and column names to use
 		switch($table)
 		{
 			case "skills":
@@ -313,6 +326,7 @@ return TRUE;
 				$this->db->set('wp_heading', $spheading);
 				$this->db->set('wp_details', $spdetails);
 				$this->db->set('wp_keywords', $spkeywords);
+				//there may not be an expiry provided
 				if($expiry != "")
 					$this->db->set('wp_expiry', $expiry);
 				else
@@ -325,6 +339,7 @@ return TRUE;
 				$this->db->set('wp_heading', $spheading);
 				$this->db->set('wp_details', $spdetails);
 				$this->db->set('wp_keywords', $spkeywords);
+				//there may not be an expiry provided
 				if($expiry != "")
 					$this->db->set('wp_expiry', $expiry);
 				else
@@ -332,23 +347,24 @@ return TRUE;
 			break;
 		}
 
+		//the spid variable was assigned a string starting with "new" if no id exists yet (because it's new)
+		//update the table if a posting id was provided
 		if(substr($spid, 0, 3) != "new")
 		{
 			$this->db->where($id, $spid);
 			$this->db->update($table);
 		}
 		else
+			//insert a new record if the id was provided as "new"
 		{
 			$this->db->set('p_id', substr($spid,3));
 			$this->db->insert($table);
 		}
 
-		$pdata = array(
-           'p_last_updated' => $date
-        );
-
+		//update the user's profile
+		$this->db->set('p_last_updated', $date);
 		$this->db->where('m_id', $myid);
-		$this->db->update('profiles', $pdata);
+		$this->db->update('profiles');
 		
 		return $this->getProfile($myid);
 	}
@@ -368,6 +384,7 @@ return TRUE;
 		return $this->db->insert('reports'); 
 	}
 
+	//this is used to fill the dropdownlist
 	function getReportReasons()
 	{
 		$query = $this->db->query("Select * FROM report_reasons");
@@ -390,6 +407,7 @@ return TRUE;
 		}
 	}
 
+	//this populates the "Unreviewed" section of reported users that have not yet been reviewed by an administator
 	function getNewReports()
 	{
 		$query = $this->db->query(
@@ -418,6 +436,7 @@ return TRUE;
 		}
 	}
 
+	//this populates the "Reviewed" section of reported users that have already been reviewed by an administator
 	function getOldReports()
 	{
 		$query = $this->db->query(
@@ -446,6 +465,7 @@ return TRUE;
 		}
 	}
 
+	//this just reverses whatever action was orginally taken regarding the report (ignored or deactivated user account)
 	function reOpen($id, $action, $userid)
 	{
 		$this->db->set('rep_read', false);
@@ -460,6 +480,9 @@ return TRUE;
 		}
 	}
 
+	//this function deals with handling a report, where either the report is ignored or the user's account is deactivated
+	//deactivated accounts do not display postings anywhere
+	//this function is also used for activating and deactivating users from the users section on the administrative account
 	function reportAction($id, $action, $userid)
 	{
 		if($action != 'true' && $action != 'false')
@@ -486,6 +509,7 @@ return TRUE;
 		}
 	}
 
+	//this returns a number of unreviewed reports to display next to the menu item
 	function countUnreviewed()
 	{
 		$this->db->where('rep_read', false);
