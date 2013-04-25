@@ -1,4 +1,7 @@
+<!-- This is the main content page for administrative users and provides them with a menu for administrative-related tasks -->
+
 <?php
+	//find out how many reports have not been reviewed for display next to reports on the admin menu
 	if($count_unreviewed > 0)
 		$count_unreviewed = "(" . $count_unreviewed . ")";
 	else $count_unreviewed = "";
@@ -31,6 +34,8 @@
 <script>
 
 	$(document).ready(function(){
+		
+	//the following functions load different content into the #manageContent div
 
 		$('#btn_skills').bind('click', function() {
 

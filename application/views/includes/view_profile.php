@@ -1,3 +1,6 @@
+<!-- this view is available to logged-in users who want to view and edit their own profiles -->
+<!-- it is ALSO available to administrators for viewing and editing user profiles and postings -->
+
 <?php
 	//this populates the drop down lists later when adding or editing a posting
 	$select = "";
@@ -6,13 +9,14 @@
 		$select .= "<option value='" . $sl->s_id . "'>$sl->s_name</option>";
 	}
 
+	//determine who the user is
 	$type = $this->session->userdata('usertype');
 	//get the id value from the first pair in the array
 	$type = $type[0]->m_type;  
 
 	?>
 
-<!--This view is loaded from views/profile_form and is only included if profile information has already been set -->
+<!-- these elements display as a modal box when changes are being made -->
 <div id="edit-background">
 </div>
 <div id="edit-box">
@@ -20,35 +24,35 @@
 
 <!--make sure the profiles array exists (there should only be one row since it matches the member id)-->
 <?php if(isset($profile)) foreach ($profile as $p):?>           
-<div id="user_info">
-<!-- display a page header -->
-<?php if($type == 'superuser') echo "<h2>" . $p->m_username . "'s Profile</h2>";
-	else echo "<h2>Your Profile</h2>";
+	<div id="user_info">
+	<!-- display a page header -->
+	<?php if($type == 'superuser') echo "<h2>" . $p->m_username . "'s Profile</h2>";
+		else echo "<h2>Your Profile</h2>";
 
-	//this is stored in case the posting is new, and the p_id needs to be inserted into a new skill or want posting
-	$profileid = $p->p_id;
+		//this is stored in case the posting is new, and the p_id needs to be inserted into a new skill or want posting
+		$profileid = $p->p_id;
 
-	//checks if there is an error in an update.
-	if(isset($error)){echo $error; } 
+		//checks if there is an error in an update.
+		if(isset($error)){echo $error; } 
 
-	//display the profile image
-	echo "<img src='../../uploads/original/" . $p->p_img . "' /><br />";
+		//display the profile image
+		echo "<img src='../../uploads/original/" . $p->p_img . "' /><br />";
 
-	//display the username and other profile data
-	echo "Username: " . $p->m_username ."<br/>";
+		//display the username and other profile data
+		echo "Username: " . $p->m_username ."<br/>";
 
-	if(!empty($p->p_fname)){
-		echo "First Name: " .$p->p_fname ."<br/>";
-	};
-	if(!empty($p->p_lname)){
-		echo "Last: Name: " .$p->p_lname ."<br/>";
-	};
-	if(!empty($p->m_email)){
-		echo "Email: " . $p->m_email . "<br/>";
-	};
-	if(!empty($p->m_sex)){
-		echo "Gender: " . $p->m_sex . "<br/>";
-	};
+		if(!empty($p->p_fname)){
+			echo "First Name: " .$p->p_fname ."<br/>";
+		};
+		if(!empty($p->p_lname)){
+			echo "Last: Name: " .$p->p_lname ."<br/>";
+		};
+		if(!empty($p->m_email)){
+			echo "Email: " . $p->m_email . "<br/>";
+		};
+		if(!empty($p->m_sex)){
+			echo "Gender: " . $p->m_sex . "<br/>";
+		};
 
 	endforeach; 
 

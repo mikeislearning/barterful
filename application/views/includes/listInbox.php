@@ -1,4 +1,5 @@
-<!--this view displays the inbox of the user -->
+<!--this view displays the messages sent or received by the user -->
+
 <article class="inbox">
 <table>
 			<thead>

@@ -1,3 +1,5 @@
+<!-- this displays postings on the page, along with a link to the poster's profile -->
+
 <?php if($row) foreach ($row as $r):?>
 
 <div id="adContainer">

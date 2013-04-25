@@ -226,6 +226,7 @@
 		if(type=="skill") $("#to_s_id").val(toskill);
 		else $("#from_s_id").val(toskill);
 
+		//this function sets the appropriate barter unit for each selection in the skills drop down list
 		$('#to_s_id').change(function()
 		{
 			sel = ($(this).val());
@@ -241,6 +242,8 @@
 			$('#to_unit').val(unit_to);
 		});
 
+		//this function sets the appropriate barter unit for each selection in the skills drop down list 
+		//(but for the receiver of the message)
 		$('#from_s_id').change(function()
 		{
 			sel = ($(this).val());

@@ -1,3 +1,6 @@
+<!-- this view displays a conversation view of messages between two users, 
+	giving the logged in user a chance to respond if they havent already -->
+
 <div class="bgWrapper">
     <section class="mainWrapper">
      <a href="#" id="inbox">Inbox</a> --- <a href='#' id="sent">Sent</a>
@@ -87,8 +90,12 @@
 	<input id="send" name="send" type="button" value="Send Response" class="btn btngreen" />
 </div><!-- panel_response -->
 
+
+
 <h3>Previous Offers</h3>
-<!-- display the remaining messages -->
+
+<!-- /////////display the remaining messages//////////// -->
+
 <div id="listing">  
 <article  class="inbox">
 <table>
