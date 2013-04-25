@@ -9,7 +9,7 @@
 <table>
 			<thead>
 				<!-- show "to" or "from" based on if this is an inbox or outbox -->
-				<th><?php if($row[0]->mes_from == $id) echo "To"; else echo "From"; ?> </th>
+				<th><?php if($row) {if($row[0]->mes_from == $id) echo "To";} else echo "From"; ?> </th>
 				<th> Offer</th>
 				<th>Sent</th>
 			</thead>
