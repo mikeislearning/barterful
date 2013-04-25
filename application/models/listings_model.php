@@ -347,7 +347,7 @@ class listings_model extends CI_Model{
 
 	public function complexSearch($terms, $type = 'skills', $sortset = 'sp_id', $category='all')
 	{
-		$terms = explode(' ',$terms);
+		$terms = explode('00',$terms);
 
 		// if a custom filter variable was provided, apply it to the query
 		if($category == 'all')
@@ -403,25 +403,25 @@ class listings_model extends CI_Model{
 			$row->sort = 0;
 				foreach($terms as $t)
 				{
-					$exists = strpos($row->s_name, $t);
+					$exists = strpos(strtoupper($row->s_name), strtoupper($t));
 					if($exists !== false)
 					{
 						$row->sort .= 1;
 					}
 
-					$exists = strpos($row->sp_heading, $t);
+					$exists = strpos(strtoupper($row->sp_heading), strtoupper($t));
 					if($exists !== false)
 					{
 						$row->sort .= 1;
 					}
 
-					$exists = strpos($row->sp_details, $t);
+					$exists = strpos(strtoupper($row->sp_details), strtoupper($t));
 					if($exists !== false)
 					{
 						$row->sort .= 1;
 					}
 
-					$exists = strpos($row->sp_keywords, $t);
+					$exists = strpos(strtoupper($row->sp_keywords), strtoupper($t));
 					if($exists !== false)
 					{
 						$row->sort .= 1;

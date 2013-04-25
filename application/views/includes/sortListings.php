@@ -51,6 +51,9 @@
 		var term = '<?php if($this->uri->segment(3)) echo $this->uri->segment(3); ?>';
 		if(term)
 		{
+			term = term.substring(0,term.length -2);
+			term = term.split("00");
+			term = term.join(" ");
 			$('#txt_search').val(term);
 			var button = 'general foundicon-search';
 			$('#btn_clear').html('<?php echo anchor("site", "Clear", "' + button +'");?>');
@@ -62,11 +65,12 @@
 			sortset = $('#sortedby').val();
 			category = $('#category').val();
 			listtype = $('input[name=viewtype]:checked').val();
-			runAJAX(sortset,category,listtype);
+			term = $('#txt_search').val();
+			runAJAX(sortset,category,listtype,term);
 
 		});
 
-		function runAJAX(listsortset,listcategory,listtype)
+		function runAJAX(listsortset,listcategory,listtype, term)
 		{		
 			//determine which call to used based on whether user is logged in or not
 			var logstatus = '<?=$this->session->userdata('logged_in')?>';  
@@ -77,7 +81,7 @@
 			var send_url = '<?=base_url()?>' + ext_url;
 
 			//send the variables through
-			$.post(send_url, { type: listtype, category: listcategory, sortset: listsortset, term: term }).done(function(msg){
+			$.post(send_url, { type: listtype, category: listcategory, sortset: listsortset, term:term }).done(function(msg){
                     $('main').html(msg);
                 }).fail(function(){$('main').html('Could not load!');});
 		}

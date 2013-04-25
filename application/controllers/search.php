@@ -6,8 +6,7 @@
 * This controller includes:
 *   - re-sort for the skill listings shown to logged-in users
 *	- redirect (redirects to the re-sort, adding the search term to the url)
-*	- show the entire conversation between 2 users
-*	- reply to a message
+*	- search posts which takes search terms and redirects them to the listings model
 */
 
 class search extends CI_Controller {
@@ -20,11 +19,16 @@ class search extends CI_Controller {
 		 
 	 }
 	 
+	 //initialize data variable
 	 var $data;
 
 	public function logged_in(){
-		 $logged_in = $this->session->userdata('logged_in');
 		 
+		//set a variable to represent the log in status of the user
+		$logged_in = $this->session->userdata('logged_in');
+		 
+
+		 //if the user is logged out, show the public header
 		 if(!isset($logged_in)|| $logged_in != true)
 		 {
 			 //echo 'You do not have permission to access this page.';
@@ -32,17 +36,21 @@ class search extends CI_Controller {
 		 }
 		 else{
 
+		 	//get the type of user from the type array
 			$type = $this->session->userdata('usertype');
-			//get the id value from the first pair in the array
+			//get the type value from the first set in the array
 			$type = $type[0]->m_type;
 
+			//load the admin header for admin users
 			if(isset($type) && $type == 'superuser')
 			{
 				$this->data['header_content'] = 'includes/headeradmin';
 			}
 			else
-			{
+			{	//load the logged in header
 				 $this->data['header_content'] = 'includes/headerin';
+
+				 //get a count of how many unread messages that user has in their inbox
 				 $this->load->model('inbox_model');
 			   	//get the array of id's (there should just be one in the array)
 				$id = $this->session->userdata('userid');
@@ -90,6 +98,12 @@ class search extends CI_Controller {
 				if(isset($_POST['term']))
 				{
 					$term = $_POST['term'];
+					$term = explode(' ',$term);
+					$term = implode('00',$term);
+				}
+				else if($this->uri->segment(3) !== FALSE)
+				{
+				    $term = $this->uri->segment(3);
 				}
 
 				//get the array of id's (there should just be one in the array)
@@ -97,6 +111,7 @@ class search extends CI_Controller {
 				//get the id value from the first pair in the array
 				$id = $id[0]->m_id;
 
+				//send the data to the search function if any terms were listed in the search bar, otherwise just get a listing
 				if($term != "")
 				{
 					$this->data['row'] = $this->listings_model->complexSearch($term,$type,$sortset,$category);
@@ -118,12 +133,16 @@ class search extends CI_Controller {
 	   }
 	}
 
+//since codeigniter doesn't enable GET requests, I mimicked one by manually placing the search terms in the url
  public function redir()
  {
  	if(isset($_POST['txt_search']))
 	{
 		$terms = $_POST['txt_search'];
 	} 
+
+	$terms = explode(" ", $terms);
+	$terms = implode('00',$terms);
 
  	redirect("search/searchPosts/{$terms}");
  }
@@ -153,6 +172,11 @@ class search extends CI_Controller {
 	$this->data['main_content'] = 'searchResults';
 
 	$this->load->view('includes/template', $this->data);
+ }
+
+ public function test()
+ {
+ 	$this->load->view('test');
  }
 	
 }

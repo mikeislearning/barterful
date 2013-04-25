@@ -83,8 +83,6 @@ class Site extends CI_Controller {
 	public function sortListings()
 	{
 
-		//load the postings
-		$this->load->model('listings_model');
 
 		//set the default values to send through to the sort function
 		$type = "skills";
@@ -111,7 +109,16 @@ class Site extends CI_Controller {
 		if(isset($_POST['term']))
 		{
 			$term = $_POST['term'];
+			$term = explode(' ',$term);
+			$term = implode('00',$term);
 		}
+		else if($this->uri->segment(3) !== FALSE)
+		{
+		    $term = $this->uri->segment(3);
+		}
+
+		//load the postings
+		$this->load->model('listings_model');
 
 		if ($term != "")
 		{
