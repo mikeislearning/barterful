@@ -169,5 +169,43 @@ class Login extends CI_Controller {
 		redirect('members');
 	}
 
+	function recover(){
+		$this->data['main_content'] = 'forgot_password';
+		$this->load->view('includes/template', $this->data);
+	}
+
+	function recover_process()
+	{
+		$this->form_validation->set_rules('email','Email Address','xss_clean|required|valid_email|callback_check_if_email_exists');
+
+		if($this->form_validation->run() == FALSE)
+		{
+			$this->data['main_content'] = 'forgot_password';
+			$this->load->view('includes/template', $this->data);
+		}
+		else
+		{
+			$temp_pass = md5(uniqid());
+            //send email with #temp_pass as a link
+            $this->load->library('email', array('mailtype'=>'html'));
+            $this->email->from('info@barterful.com', "Barterful Password Reset");
+            $this->email->to($this->input->post('email'));
+            $this->email->subject("Reset your Password");
+
+            $message = "<p>This email has been sent as a request to reset our password</p>";
+            $message .= "<p><a href='".base_url()."login/recover/".$temp_pass."'>Click here </a>if you want to reset your password,
+                        if not, then ignore</p>";
+            $this->email->message($message);
+
+            if($this->email->send())
+            {
+            	echo 'Please check your email to reset the password';
+            }
+            else{
+            	show_error($this->email->print_debugger());
+            }
+		}
+	}
+
 }
 ?>
