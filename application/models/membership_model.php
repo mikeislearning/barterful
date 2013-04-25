@@ -99,9 +99,13 @@ class Membership_model extends CI_Model {
 		{
 			//stores the found row in the variable $row
 			$row=$query->row();
+
+			//get this own users id
+			$id = $this->session->userdata('userid');
+			$id = $id[0]->m_id;
 	
 			//if the id of the found row is equal to the session id
-			if($row->m_id === $this->session->userdata('userid')[0]->m_id)
+			if($row->m_id == $id)
             {
             		//stores the value of the new password in an array
                     $data = array(
