@@ -31,12 +31,13 @@
 define("FULL_RECORD_LENGTH",50);
 
 
-$baseurl = base_url();
+
+//	remote
+//require_once$baseurl./geoip.inc";
+	//require_once 'http://www.barterful.com/geo/geoipregionvars.php';
 	
-
-
-	require_once "http://www.barterful.com/geo/geoip.inc";
-	require_once 'http://www.barterful.com/geo/geoipregionvars.php';
+require_once 'geoip.inc';
+require_once 'geoipregionvars.php';
 
 class geoiprecord {
   var $country_code;

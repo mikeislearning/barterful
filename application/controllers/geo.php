@@ -92,7 +92,6 @@ $marker['icon']= "http://1.gravatar.com/avatar/b357aaf387437314ec4dac6ba60ea871?
 $this->googlemaps->add_marker($marker);
 
 //creates the map
-$rsGeoData = geoip_record_by_addr($gi,$_SERVER['REMOTE_ADDR']);
 $this->data['map'] = $this->googlemaps->create_map();
 
 // Load our view, passing the map data that has just been created
@@ -105,28 +104,16 @@ $this->load->view('includes/template',$this->data);
 
 
 function getBarterspot(){	 
-
-/*include("geoip.inc");
-include("geoipcity.inc");
-include("geoipregionvars.php");
-require_once("database.php");
- 
-$gi = geoip_open("./GeoLiteCity.dat", GEOIP_STANDARD);
- 
-$rsGeoData = geoip_record_by_addr($gi, '184.147.234.239');
- */
 	//include below to get info based on ip address//
 	$baseurl = base_url();
 	
 	include_once($baseurl."geo/geoip.inc");
-	include($baseurl."geo/geoipcity.inc");
-	
-	$remoteip = $_SERVER['REMOTE_ADDR'];
+	include($baseurl."/geo/geoipcity.inc");
 	//("./geo/geoipregionvars.php");
-	$gi = geoip_open($baseurl . "./GeoLiteCity.dat", GEOIP_STANDARD);
+	$gi = geoip_open($baseurl . './geo/GeoLiteCity.dat', GEOIP_STANDARD);
 
 	//when we put this on the server we have to change ti to SERVER_ADDR
-	$rsGeoData = geoip_record_by_addr($gi, $_SERVER['REMOTE_ADDR']);
+	$rsGeoData = geoip_record_by_addr($gi, '184.147.234.239');
 
 	//get variables from the $rsGeoData object that stores IP location info
 	$center_lat = $rsGeoData->latitude;
