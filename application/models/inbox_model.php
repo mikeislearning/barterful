@@ -49,28 +49,33 @@ class inbox_model extends CI_Model
 		////////////////////////////////////////////////////////
 
 		//if this is an inbox view, the messages must be sent to the current user id
-		if($view == 'inbox')
-			{$view = 'mes_to=' . $id;}
+		if($view == 'conversation' && $id == "")
+			$view = "";
+		else if ($view == 'inbox')
+			{$view = 'WHERE mes_to=' . $id;}
 
 		//if outbox view, messages sent FROM the current user id
 		else if($view == 'outbox')
-			{$view = 'mes_from=' . $id;}
+			{$view = 'WHERE mes_from=' . $id;}
 
 		//if conversation, the message must either be from the current user to the selected one or vice versa
 		else 
 		{
-			$view = 'mes_to=' . $id . ' AND mes_from=' . $to . ' OR mes_to=' . $to . ' AND mes_from=' . $id;
+			$view = 'WHERE mes_to=' . $id . ' AND mes_from=' . $to . ' OR mes_to=' . $to . ' AND mes_from=' . $id;
 		}
 		
 
 		$query = $this->db->query("
-			SELECT mes_from, mes_to, mes_message, mes_date as date, sk.s_name as s_from, mes_from_s, mes_from_unit, mes_to_unit, mes_to_s, s.s_name as s_to, pr.p_fname as receiver, p.p_fname as sender
+			SELECT mes_id, mes_from, mes_to, mes_message, mes_date as date, sk.s_name as s_from, mes_from_s, mes_from_unit, mes_to_unit, mes_to_s, s.s_name as s_to, 
+			pr.p_fname as receiver, p.p_fname as sender, mt.m_username as userto, mf.m_username as userfrom, mes_status
 				FROM messages mes
 				JOIN skills s ON mes.mes_to_s = s.s_id
 				JOIN skills sk ON mes.mes_from_s = sk.s_id
 				JOIN profiles pr ON mes.mes_to = pr.p_id
 				JOIN profiles p ON mes.mes_from = p.p_id
-				where " . $view . "
+				JOIN members mt ON pr.m_id = mt.m_id
+				JOIN members mf ON p.m_id = mf.m_id
+				" .$view . "
 				ORDER BY date DESC;
 			");
 
@@ -112,6 +117,12 @@ class inbox_model extends CI_Model
 		$this->db->set('mes_new', false);
 		$this->db->where('mes_to', $userid);
 		$this->db->update('messages');
+	}
+
+	function deleteMessage($id)
+	{
+		$this->db->where('mes_id', $id);
+		$this->db->delete('messages');
 	}
 
 	function countUnread($userid)

@@ -279,6 +279,51 @@ class superuser extends CI_Controller {
 		$this->users();
 	}
 
+	function messages()
+	{
+		if($this->session->userdata('logged_in'))
+	   {
+	   	$id="";
+		
+		if(isset($_POST['id']))
+		{
+			$id = $_POST['id'];
+		}
+
+		$to="";
+		
+		if(isset($_POST['to']))
+		{
+			$to = $_POST['to'];
+		}
+
+		$this->load->model('inbox_model');
+	    $this->data['row'] = $this->inbox_model->listAll($id,'conversation',$to);
+		$this->load->view('includes/adminMessages', $this->data);
+	   }
+	   else
+	   {
+	       session_destroy();
+	     //If no session, redirect to login page
+	     redirect('login', 'refresh');
+	   }
+	}
+
+	function deleteMessage()
+	{
+		$id="";
+		
+		if(isset($_POST['mid']))
+		{
+			$id = $_POST['mid'];
+		}
+
+		$this->load->model('inbox_model');
+		$this->inbox_model->deleteMessage($id);
+
+		$this->messages();
+	}
+
 	function logout()
 	{
 		$this->session->unset_userdata('logged_in');
