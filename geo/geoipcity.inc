@@ -30,12 +30,6 @@
 
 define("FULL_RECORD_LENGTH",50);
 
-
-
-//	remote
-//require_once$baseurl./geoip.inc";
-	//require_once 'http://www.barterful.com/geo/geoipregionvars.php';
-	
 require_once 'geoip.inc';
 require_once 'geoipregionvars.php';
 
