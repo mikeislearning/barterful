@@ -35,6 +35,7 @@ class Membership_model extends CI_Model {
 			}
 			return $user;
 		}
+		else return "";
 	}
 	
 	function create_member() {
