@@ -218,9 +218,9 @@
 		$('#from_s_id').append("<?=$select ?>");
 
 		$('#sendmsg').append("Message: <textarea id='message' required='required' name='message'></textarea>");
-		$('#sendmsg').append("<input type='submit' class='btn btngreen' id='btnsubmit' name='btnsubmit' value='Send Offer' />");
+		$('#sendmsg').append("<input type='button' class='btn btngreen' id='btnsubmit' name='btnsubmit' value='Send Offer' />");
 		$('#sendmsg').append("<input type='button' id='btncancel' class='btn btnyellow' name='btncancel' value='Cancel' />");
-		$('#sendmsg').append("</form>");
+
 
 		//set the selected skill in the dropdown list to the one chosen on the users profile
 		if(type=="skill") $("#to_s_id").val(toskill);

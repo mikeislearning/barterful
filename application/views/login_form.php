@@ -18,7 +18,7 @@
 	echo form_submit('submit','Login',"class='btn btngreen'");
 	echo validation_errors('<p class="error">');
 	echo anchor('login/signup', 'Create Account',"class='btn btnred'");
-	
+		echo anchor('login/recover', 'Forgot Password?',"class='btn btnyellow'");
 	echo form_close();
 	?>
 

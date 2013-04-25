@@ -21,7 +21,7 @@ echo form_close();
 
 </form>-->
 
-<?php echo anchor('members/changePassword','Change Password', 'class="button1"'); ?>
+
 
 <?php
 $fname ="";

@@ -182,7 +182,7 @@ new want profile (on an update this would be left out since the posting already 
 			showBox("show");
 
 			//create a form that allows the user to add or edit a posting
-			$('#edit-box').append("<form id='skilledit' name='skilledit'></form>");
+			$('#edit-box').append("<form id='skilledit' name='skilledit'>");
 
 			//hide the id of the skill profile/profile id (based on if its a new posting) in the form, as well as whether this 
 			//is a skill or a want posting
@@ -215,7 +215,7 @@ new want profile (on an update this would be left out since the posting already 
 			$('#s_id').append("<?=$select ?>");
 
 			//add more input fields
-			$('#skilledit').append("<form>");
+			
 			$('#skilledit').append("Keywords: <input type='text' required='required' id='sp_keywords' name='sp_keywords' value='" + keywords + "' />");
 			$('#skilledit').append("Details: <textarea id='sp_details' required='required' name='sp_details' style='width:75%;height:100px;'>" + details + "</textarea>");
 			
@@ -227,8 +227,8 @@ new want profile (on an update this would be left out since the posting already 
 
 			//add the butttons
 			$('#skilledit').append("<input type='button' class='btn btngreen' id='btnsubmit' name='btnsubmit' value='Submit' />");
-			$('#skilledit').append("<input type='button' id='btncancel' class='btn btnyellow' name='btncancel' value='Cancel' />");
-			$('#skilledit').append("</form>");
+			$('#skilledit').append("<input type='button' novalidate id='btncancel' class='btn btnyellow' name='btncancel' value='Cancel' />");
+
 			//"new" has been appended to the id variable if this is a new posting. If its not a new posting, display a delete option
 			if(id.substring(0,3) != "new")
 			{
@@ -239,7 +239,7 @@ new want profile (on an update this would be left out since the posting already 
 			//set the skill selected in the dropdown list to the skill of the selected record (if this is an edit)
 			$("#s_id").val(skill);
 
-			$('#sel')
+			//$('#sel');
 
 			//bind functions to the newly added buttons
 			bindButtons();
@@ -260,7 +260,10 @@ new want profile (on an update this would be left out since the posting already 
 				if(type == "wants")
 					expiry = $('#wp_expiry').val();
 
-				runAJAX(spid,heading,skill,keywords,details,expiry,type);
+				if(skilledit.checkValidity())
+					runAJAX(spid,heading,skill,keywords,details,expiry,type);
+				else{
+					$("#skilledit").append("<p id='#error' style='color:red'>Please do not leave any fields blank.</p>");}
 			});
 
 			//this button clears and hides the modal box
