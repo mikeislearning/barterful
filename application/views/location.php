@@ -5,7 +5,7 @@
 
 <div>
 
-<div class="bgWrapper" style="width:60em; margin:0 auto; background-color:rgba(255,​ 255,​ 255,​ 0.9)">
+<div class="bgWrapper" style="color:white; width:60em; margin:0 auto; background-color:rgba(255,​ 255,​ 255,​ 0.9)">
 <?php 
 //if there is more than one barterspot
 if(isset($barterspot['closest'])){

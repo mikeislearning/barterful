@@ -36,11 +36,11 @@ class Site extends CI_Controller {
 			 $this->data['header_content'] = 'includes/headerout';
 		 }
 		 else{
-
+			 
 			$type = $this->session->userdata('usertype');
 			//get the id value from the first pair in the array
 			$type = $type[0]->m_type;
-
+			
 			if(isset($type) && $type == 'superuser')
 			{
 				$this->data['header_content'] = 'includes/headeradmin';
