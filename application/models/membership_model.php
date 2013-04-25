@@ -28,7 +28,7 @@ class Membership_model extends CI_Model {
 
 	//uses the username to get the user id
 	function getType(){
-		$query = $this->db->query('SELECT m_type from members where m_username ="' . $this->input->post('username') . '"');
+		$query = $this->db->query('SELECT m_type, m_active from members where m_username ="' . $this->input->post('username') . '"');
 		if($query->num_rows == 1){
 			foreach($query->result() as $key => $row){
 				$user[]=$row;
