@@ -72,16 +72,20 @@ class profiles extends CI_Controller {
  	$usertype= "";
 
  	
- 	//---get current users id---//
+ 	if($this->session->userdata('logged_in'))
+ 	{
+	 	//---get current users id---//
 
-   	//get the array of id's (there should just be one in the array)
-	$myid = $this->session->userdata('userid');
-	//get the id value from the first pair in the array
-	$myid = $myid[0]->m_id;
+	   	//get the array of id's (there should just be one in the array)
+		$myid = $this->session->userdata('userid');
+		//get the id value from the first pair in the array
+		$myid = $myid[0]->m_id;
 
-	//get the user type (to determine how the profile is viewed)
-	$usertype = $this->session->userdata('usertype');
-	$usertype = $usertype[0]->m_type;
+		//get the user type (to determine how the profile is viewed)
+		$usertype = $this->session->userdata('usertype');
+		$usertype = $usertype[0]->m_type;
+ 		
+ 	}
  	
  	//this represents the id of the profile owner
  	$id = "";

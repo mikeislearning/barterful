@@ -1,9 +1,15 @@
 <!--this view displays the messages sent or received by the user -->
+<?php 
 
+		$id = $this->session->userdata('userid');
+		//get the id value from the first pair in the array
+		$id = $id[0]->m_id;
+		?>
 <article class="inbox">
 <table>
 			<thead>
-				<th> From </th>
+				<!-- show "to" or "from" based on if this is an inbox or outbox -->
+				<th><?php if($row[0]->mes_from == $id) echo "To"; else echo "From"; ?> </th>
 				<th> Offer</th>
 				<th>Sent</th>
 			</thead>
@@ -20,7 +26,13 @@
 <tr class="inbox_long">
 	<!-- first td is the name of the other person -->
 <td class="inbox_sender">
-<?php echo $r->sender ?> 
+
+
+<!-- show "to" or "from" based on if this is an inbox or outbox -->
+<?php
+		if($id == $r->mes_from)
+			echo $r->receiver;
+		else echo $r->sender; ?>
 </td>
 		<td ><form id="seemore" name="seemore" action='<?=base_url()?>index.php/mail/conversation' method="post">
 			    <input name="sender" id="sender" type="hidden" value='<?php echo $r->mes_from ?>' />

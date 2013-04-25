@@ -30,10 +30,13 @@ class Profile_model extends CI_Model {
 	
   //end April 13th uploader test//  
 function getProfile($id){
-
+$myid="";
+if($this->session->userdata('logged_in'))
+{
 	//get this own users id
 	$myid = $this->session->userdata('userid');
 	$myid = $myid[0]->m_id;
+}
 
 //get the profile info based on the member
 $queryProfile = $this->db->query("
