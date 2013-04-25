@@ -257,6 +257,28 @@ class superuser extends CI_Controller {
 	   }
 	}
 
+	function memActive()
+	{
+		$id="";
+		
+		if(isset($_POST['id']))
+		{
+			$id = $_POST['id'];
+		}
+
+		$status="";
+		
+		if(isset($_POST['status']))
+		{
+			$status = $_POST['status'];
+		}
+
+		$this->load->model('profile_model');
+		$this->profile_model->reportAction($id, $status, "");
+
+		$this->users();
+	}
+
 	function logout()
 	{
 		$this->session->unset_userdata('logged_in');

@@ -462,15 +462,26 @@ return TRUE;
 
 	function reportAction($id, $action, $userid)
 	{
-		$this->db->set('rep_read', true);
-		$this->db->set('rep_action', $action);
-		$this->db->where('rep_id', $id);
-		$this->db->update('reports');
-
-		if($action == "deactivate")
+		if($action != 'true' && $action != 'false')
 		{
-			$this->db->set('m_active', false);
-			$this->db->where('m_id', $userid);
+			$this->db->set('rep_read', true);
+			$this->db->set('rep_action', $action);
+			$this->db->where('rep_id', $id);
+			$this->db->update('reports');
+
+			if($action == "deactivate")
+			{
+				$this->db->set('m_active', false);
+				$this->db->where('m_id', $userid);
+				$this->db->update('members');
+			}
+		}
+		else
+		{
+			if($action == 'false') $this->db->set('m_active', false);
+			else $this->db->set('m_active', true);
+			
+			$this->db->where('m_id', $id);
 			$this->db->update('members');
 		}
 	}

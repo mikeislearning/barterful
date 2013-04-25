@@ -8,19 +8,49 @@
 		<th>Sex</th>
 		<th>Join Date</th>
 		<th></th>
-		<th></th>
-		<th></th>
 	</tr>
 
 <?php if($row) foreach($row as $r): ?>
 	<tr>
-		<td><input type="checkbox" checked='<?=$r->m_active ?>' /></td>
+		<td><input type="checkbox" <?php if($r->m_active == true) echo "checked" ?> class="actives" id='<?=$r->m_id ?>' /></td>
 		<td><?=$r->m_username ?></td>
 		<td><?=$r->m_email ?></td>
 		<td><?=$r->m_sex ?></td>
 		<td><?=$r->m_join_date ?></td>
+		<td>
+			<form id="btn_msg_user" name="btn_msg_user" method="POST" action='<?=base_url()?>index.php/profiles/redir'>
+       			<input type="hidden" id="p_id" name="p_id" value='<?=$r->m_id ?>' />
+       			<input type="submit" class="btn btngreen" value="See/Edit Profile" />
+       		</form>
+       	</td>
 
 	</tr>
+
 <?php endforeach; ?>
 
 </table>
+
+<script>
+	$(document).ready(function(){
+
+		$('.actives').change(function()
+		{
+			var id = ($(this).attr("id"));
+			var status = this.checked;
+
+			//determine which call to used based on whether user is logged in or not
+			ext_url = 'index.php/superuser/memActive';
+
+			//base_url us a php function to get to the root of the site, then add the extended url
+			var send_url = '<?=base_url()?>' + ext_url;
+
+			//send the variables through
+			$.post(send_url, { id:id, status:status }).done(function(msg){
+					$('#manageContent').html(msg);
+                }).fail(function(){
+                	if(!$('#result').length)
+                	$('#manageContent').prepend("<span id='result' style='color:red;margin:0 10px;'>Unable to change status!</span>");
+                });
+		})
+	})
+</script>
