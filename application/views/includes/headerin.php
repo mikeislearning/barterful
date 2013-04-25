@@ -5,6 +5,12 @@
 	else $count_inbox = "";
 ?>
 <!-- This is the header that shows up when you are logged in -->
+<?php if(!$this->session->userdata('active')): ?>
+	<div style="width:90%;z-index:100;background-color:red;height:50px;color:black;font-size:1em;font-weight:bold;opacity:0.9;text-align:center;padding:1% 5%;">
+			Your account had been deactivated by our site administrators due to reports of offensive and/or inappropriate behaviour. Your postings will not be visible to other users.
+	</div>
+<?php endif; ?>
+
 	<div class="bgWrapper">
 	<section class="mainWrapper">
 		<header class="row">

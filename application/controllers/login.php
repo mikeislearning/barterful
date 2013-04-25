@@ -59,6 +59,8 @@ class Login extends CI_Controller {
 	function validate_credentials() {
 		$this->load->model('membership_model');
 		$query = $this->membership_model->validate();
+		$active = $this->membership_model->getType();
+		$active = $active[0]->m_active;
 
 		if($query)//if the user's credentials validated..
 			{
@@ -67,6 +69,7 @@ class Login extends CI_Controller {
 				'username'=> $this->input->post('username'),
 				'userid'=> $this->membership_model->getID(),
 				'usertype' => $this->membership_model->getType(),
+				'active' => $active,
 				'logged_in' => true
 			);
 			/*leave this!*/
