@@ -30,8 +30,13 @@
 
 define("FULL_RECORD_LENGTH",50);
 
-require_once 'geoip.inc';
-require_once 'geoipregionvars.php';
+
+$baseurl = base_url();
+	
+
+
+	require_once($baseurl."geo/geoip.inc");
+	require_once 'geoipregionvars.php';
 
 class geoiprecord {
   var $country_code;
