@@ -107,10 +107,11 @@ function getBarterspot(){
 	//include below to get info based on ip address//
 		$baseurl = base_url();
 	
-	include_once($baseurl."geo/geoip.inc");
-	include($baseurl."/geo/geoipcity.inc");
+	include_once("./geo/geoip.inc");
+	include("./geo/geoipcity.inc");
+$gi = geoip_open("./geo/GeoLiteCity.dat", GEOIP_STANDARD);
 	//("./geo/geoipregionvars.php");
-	$gi = geoip_open($baseurl . './geo/GeoLiteCity.dat', GEOIP_STANDARD);
+//	$gi = geoip_open($baseurl . './geo/GeoLiteCity.dat', GEOIP_STANDARD);
 
 	//when we put this on the server we have to change ti to SERVER_ADDR
 	$rsGeoData = geoip_record_by_addr($gi, '184.147.234.239');
