@@ -106,8 +106,15 @@ class superuser extends CI_Controller {
 				$name = $_POST['name'];
 			}
 
+			$default = "";
+
+			if(isset($_POST['ndefault']))
+			{
+				$default = $_POST['ndefault'];
+			}
+
 			$this->load->model('listings_model');
-		    $this->data['row'] = $this->listings_model->addSkill($name);
+		    $this->data['row'] = $this->listings_model->addSkill($name, $default);
 			$this->load->view('includes/adminSkills', $this->data);
 	   }
 	   else
@@ -125,6 +132,7 @@ class superuser extends CI_Controller {
 	   {
 			$sid = "";
 			$sname = "";
+			$default = "";
 
 			if(isset($_POST['hdf_id']))
 			{
@@ -136,8 +144,13 @@ class superuser extends CI_Controller {
 				$sname = $_POST['txt_name'];
 			}
 
+			if(isset($_POST['txt_default']))
+			{
+				$default = $_POST['txt_default'];
+			}
+
 			$this->load->model('listings_model');
-			$this->listings_model->updateSkill($sid,$sname);
+			$this->listings_model->updateSkill($sid,$sname,$default);
 			$this->index();
 	   }
 	   else

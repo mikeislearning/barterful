@@ -1,5 +1,7 @@
 <h1>Add New Skill:</h1>
-<input type="text" id="txt_new" name="txt_new" /><input type="button" value="Add Skill" onclick='newskill()' />
+Name: <input type="text" id="txt_new" name="txt_new" />
+Default Barter Unit: <input type="text" id="txt_default_new" name="txt_default_new" />
+<input type="button" value="Add Skill" onclick='newskill()' />
 
 <h1>Skills:</h1>
 
@@ -7,6 +9,7 @@
 	<form id='form_update_<?=$r->s_id?>' name='form_update_<?=$r->s_id?>' action='<?=base_url()?>superuser/updateSkill' method="POST">
 			<input type="hidden" id="hdf_id" name="hdf_id" value="<?=$r->s_id ?>" />
 			<input type="text" id="txt_name" name="txt_name" value="<?=$r->s_name ?>" />
+			<input type="text" id="txt_default" name="txt_default" value="<?=$r->s_default ?>" />
 		
 		<input type="submit" value="Update" />
 	</form>
@@ -41,6 +44,7 @@
 	function newskill()
 	{
 		var name = $('#txt_new').val();
+		var ndefault = $('#txt_default_new').val();
 		//determine which call to used based on whether user is logged in or not
 		ext_url = 'index.php/superuser/newSkill';
 
@@ -48,7 +52,7 @@
 		var send_url = '<?=base_url()?>' + ext_url;
 		
 		//send the variables through, and display appropriate success or error messages
-		$.post(send_url, { name: name}).done(function(msg){
+		$.post(send_url, { name: name,ndefault:ndefault}).done(function(msg){
 				$('#manageContent').html('<span style="color:red;font-size:1.2em;" >Skill was added successfully</span>' + msg);
             }).fail(function(){
             	$('#manageContent').prepend('<span style="color:red;font-size:1.2em;" >Unable to insert skill. Please try again later.</span>');

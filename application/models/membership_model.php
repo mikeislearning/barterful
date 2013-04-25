@@ -130,8 +130,6 @@ class Membership_model extends CI_Model {
         echo "Wrong Old Password";//incorrect old password
         }
 
-
-
 	}
 
 	function getUsers()

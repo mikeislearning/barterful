@@ -306,7 +306,7 @@ class listings_model extends CI_Model{
 	{
 		
 		$skillList = $this->db->query("
-			SELECT s_id, s_name FROM skills;
+			SELECT s_id, s_name, s_default FROM skills;
 			");
 
 		foreach($skillList->result() as $k=>$r)
@@ -318,18 +318,20 @@ class listings_model extends CI_Model{
 		
 	}
 
-	function updateSkill($id,$name)
+	function updateSkill($id,$name,$default)
 	{
 		$this->db->set('s_name', $name);
+		$this->db->set('s_default', $default);
 		$this->db->where('s_id', $id);
 		$this->db->update('skills');
 
 		return $this->skillList();
 	}
 
-	function addSkill($name)
+	function addSkill($name, $default)
 	{
 		$this->db->set('s_name', $name);
+		$this->db->set('s_default', $default);
 		$this->db->insert('skills');
 
 		return $this->skillList();
