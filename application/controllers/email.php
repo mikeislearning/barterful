@@ -93,11 +93,7 @@ function __construct()
 		//id name, name it prints out, the rules
 
 		//ZIS is the recaptcha check! yayyyyy!!!!
-		
-		
-		
-
-
+	
 		if($this->form_validation->run()==FALSE){
 		
 		$this->load->view('includes/template', $this->data);		

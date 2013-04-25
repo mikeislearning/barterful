@@ -51,7 +51,6 @@
 		var term = '<?php if($this->uri->segment(3)) echo $this->uri->segment(3); ?>';
 		if(term)
 		{
-			term = term.substring(0,term.length -2);
 			term = term.split("00");
 			term = term.join(" ");
 			$('#txt_search').val(term);
