@@ -4,7 +4,7 @@
             <main>
 
             	<h1>Reset your password</h1><br />
-<?=form_open('members/resetPasswordProcess');?>
+<?=form_open('login/resetPasswordProcess');?>
 
 	<label for="temp_password">Temporary Password </label>
 <?=form_password('temp_password', set_value('temp_password', ''),'placeholder="Temporary Password" '); ?>

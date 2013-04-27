@@ -153,14 +153,37 @@ class Membership_model extends CI_Model {
 		}
 	}
 
-	public function temp_reset_password($temp_pass){
+	public function set_temp_pass($temp_pass, $email){
+
+		$data = array('reset_pass' => $temp_pass);
+		//$sql = 'INSERT INTO members(reset_pass) VALUES ("'. $temp_pass . '") WHERE m_email = "'. $email.'"';
+		
+		$this->db->where('m_email', $email);
+		$query=$this->db->get('members');
+
+		//if such a row exists
+		if ($query->num_rows() > 0)
+		{
+		  $this->db->where('m_email', $email);
+		  $this->db->update('members',$data);
+		  echo $this->db->affected_rows();
+		}
+		else
+		{
+			echo "awww fuck";
+		}
+		
+	}
+
+	public function temp_reset_password($new_pass){
     $data =array(
-                'email' =>$this->input->post('email'),
-                'reset_pass'=>$temp_pass);
-                $email = $data['email'];
+                'm_email' =>$this->input->post('email'),
+                'm_password'=>md5($new_pass));
+                
+                $email = $data['m_email'];
 
     if($data){
-        $this->db->where('email', $email);
+        $this->db->where('m_email', $email);
         $this->db->update('members', $data);  
         return TRUE;
     }

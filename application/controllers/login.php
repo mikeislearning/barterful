@@ -112,7 +112,7 @@ class Login extends CI_Controller {
 	function create_member()
 	{
 		$this->load->library('form_validation');
-		$this->load->helper('captcha');
+		//$this->load->helper('captcha');
 		//validation rules
 
 		$this->form_validation->set_message('check_if_username_exists', "This Username is sadly already taken. Nice try though!.");
@@ -204,13 +204,9 @@ class Login extends CI_Controller {
 		$this->load->view('includes/template', $this->data);
 	}
 
-	function reset(){
-		$this->data['main_content'] = 'reset_password';
-		$this->load->view('includes/template', $this->data);
-	}
-
-	function recover_password()
+	function send_recovery_email()
 	{
+		$temp_pass = md5(uniqid());
 		$this->load->library('form_validation');
 		$this->form_validation->set_message('check_if_email_reset', "That email does not seem to be in our database!");
 		$this->form_validation->set_rules('email','Email Address','xss_clean|required|valid_email|callback_check_if_email_reset');
@@ -222,7 +218,7 @@ class Login extends CI_Controller {
 		}
 		else
 		{
-			$temp_pass = md5(uniqid());
+			
             //send email with #temp_pass as a link
 
 			$useremail = $this->input->post('email');
@@ -243,8 +239,9 @@ class Login extends CI_Controller {
 
             if($this->email->send())
             {
-            	echo $this->input->post('email');
-            	echo 'Please check your email to reset the password';
+            	$this->load->model('membership_model');
+            	$this->membership_model->set_temp_pass($temp_pass,$useremail);
+
             	$this->data['main_content']='contact_thanks';
 				$this->load->view('includes/template', $this->data);
             }
@@ -254,6 +251,11 @@ class Login extends CI_Controller {
 		}
 	}
 
+	function reset(){
+		$this->data['main_content'] = 'reset_password';
+		$this->load->view('includes/template', $this->data);
+	}
+
 	
  public function reset_password($temp_pass){
     $this->load->model('membership_model');
@@ -261,7 +263,8 @@ class Login extends CI_Controller {
 
         $this->load->view('reset_password');
 
-    }else{
+    }
+    else{
         echo "the key is not valid";    
     }
 
@@ -269,30 +272,44 @@ class Login extends CI_Controller {
 
  function resetPasswordProcess(){
 
-$this->load->library('form_validation');
+	$this->load->library('form_validation');
 
-$this->form_validation->set_rules('temp_password','Temporary Password','trim|required|min_length[4]|max_length[50]');
-$this->form_validation->set_rules('new_password','New Password','trim|required|min_length[4]|max_length[32]');
-$this->form_validation->set_rules('confirm_password','New Password Confirmation','trim|required|min_length[4]|max_length[32]|matches[new_password]');
+	$temp_pass = $this->input->post('temp_password');
+	$new_pass = $this->input->post('new_password');
 
-if ($this->form_validation->run() == FALSE)
+	$this->form_validation->set_rules('temp_password','Temporary Password','trim|required|min_length[4]|max_length[50]');
+	$this->form_validation->set_rules('new_password','New Password','trim|required|min_length[4]|max_length[32]');
+	$this->form_validation->set_rules('confirm_password','New Password Confirmation','trim|required|min_length[4]|max_length[32]|matches[new_password]');
+
+	if ($this->form_validation->run() == FALSE)
         {
-            $this->changePassword();
+        	echo "validation failed bitch!";
+            $this->reset();
 
         }
-        else {
-            $this->load->model('membership_model');
-            $query=$this->membership_model->change_password();
+    else
+    {
+        $this->load->model('membership_model');
 
-            $this->data['main_content'] ='change_password';
-            $this->data['query']=$query;
-            
-            $this->load->view('includes/template',$this->data);
+        if($this->membership_model->is_temp_pass_valid($temp_pass))
+        {
+            $this->membership_model->temp_reset_password($new_pass);
+        	echo "change successful bitch!";
+            $this->reset();
         }
+        else
+        {
+        	echo "change not at all successful bitch!";
+        	$this->reset();
+        }
+    }
+        
+        
+    }
 
 
 
- }
+ 
 
 }
 ?>

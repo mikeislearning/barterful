@@ -275,8 +275,8 @@ function GeoIP_record_by_addr ($gi,$addr){
 
 define("FULL_RECORD_LENGTH",50);
 
-require_once 'geoip.inc';
-require_once 'geoipregionvars.php';
+require_once './geo/geoip.inc';
+require_once './geo/geoipregionvars.php';
 
 class geoiprecord {
   var $country_code;

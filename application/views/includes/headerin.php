@@ -42,7 +42,8 @@
 			       <li><?php echo anchor('members/inbox', "<i class='general foundicon-mail'></i> " . $count_inbox, 'class="button1"');?> 
 
 			       </li>
-			       <li><?php echo anchor('Profile_crud/edit',"<i class='general foundicon-settings button1' style='padding-bottom:10px'></i>"); ?>
+			       <li><a href="#" class="general foundicon-settings button1" style="padding-bottom:10px;" ></a>
+
 
 				    	<ul>
 				    		<?php echo anchor('Profile_crud/edit','<li>Edit Profile</li>','class="button1"');?>
