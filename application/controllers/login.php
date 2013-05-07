@@ -265,7 +265,7 @@ class Login extends CI_Controller {
 
     }
     else{
-        echo "the key is not valid";    
+        echo "the key is not valid bitch!";    
     }
 
 }
@@ -283,7 +283,7 @@ class Login extends CI_Controller {
 
 	if ($this->form_validation->run() == FALSE)
         {
-        	echo "validation failed bitch!";
+        	echo "validation failed sir.";
             $this->reset();
 
         }
@@ -293,7 +293,7 @@ class Login extends CI_Controller {
 
         if($this->membership_model->is_temp_pass_valid($temp_pass))
         {
-            $this->membership_model->temp_reset_password($new_pass);
+            $this->membership_model->temp_reset_password($new_pass,$temp_pass);
         	echo "change successful bitch!";
             $this->reset();
         }

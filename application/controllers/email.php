@@ -56,13 +56,13 @@ function __construct()
 	//this function creates a rule for the captcha, so it can go with the other validation rules
 	function captcha_check()
 	{
-		 
+			 
 		 $privatekey = "6LdvIN8SAAAAAGcMHLQ0L_KlowuZTf6BeslFu6GR";
 		 $resp = recaptcha_check_answer ($privatekey,
 		                                 $_SERVER["REMOTE_ADDR"],
 		                                 $_POST["recaptcha_challenge_field"],
 		                                 $_POST["recaptcha_response_field"]);
-
+		 //if captcha is valid
 		 if($resp->is_valid){
 		 	return TRUE;
 		 }
@@ -84,18 +84,20 @@ function __construct()
 		//can set 3 parameters: field name, error message, validation rules separated by |'s
 		$this->data['main_content'] = 'contact';
 
+		//this is all the form validation with the rules
 		$this->form_validation->set_message('captcha_check', "The reCAPTCHA wasn't entered correctly. Captcha's suck. We know. Please try again.");
-		
 		$this->form_validation->set_rules('name','Name','required');
 		$this->form_validation->set_rules('email','Email','trim|required|valid_email');
 		$this->form_validation->set_rules('message','Message','required');
-		
+		//ZIS is the recaptcha check! yayyyyy!!!!
 		$this->form_validation->set_rules('recaptcha_challenge_field','reCAPTCHA','callback_captcha_check');
 
-		//ZIS is the recaptcha check! yayyyyy!!!!
+
 	
+		//this is the form validation
 		if($this->form_validation->run()==FALSE){
-		echo "Validation Error!";
+
+		echo "Server Side Validation Error!";
 		
 		$this->load->view('includes/template', $this->data);		
 		}
@@ -123,14 +125,14 @@ function __construct()
 
 				//$this->data['main_content']='contact_thanks';
 				//$this->load->view('includes/template', $this->data);	
-				echo "send success!";
+				echo " succeeded! We'll get back to you shortly.";
 				
 				
 			}
 			else
 			{
 				//$this->load->view('includes/template', $this->data);	
-				echo 'Send failed. Sorry :( ' ;
+				echo ' catastrophically failed. Sorry :( ' ;
 				show_error($this->email->print_debugger());
 			}
 		

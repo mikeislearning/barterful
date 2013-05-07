@@ -77,25 +77,20 @@
 
 
             $('#myForm').submit(function(e){
-              e.preventDefault();
+              //e.preventDefault();
 
                 var form = $(this);
+                //serialize gets all the form values, stores into post_data
                 var post_data = form.serialize();
 
 
-	            	// var name = $('#name').val();
-              //   var email = $('#email').val();
-              //   var message = $('#message').val();
-              //   var captcha = $('');
-
-                //somehow using serialize makes this all work right...or not
 	            $.ajax({
 		        	url:"<?php echo site_url('email/send');?>",
 		        	type: 'POST',
 		        	data: post_data
 	            }).done(function(msg)
               {
-                $("main").html("Blah ooblie meow " + msg);
+                $("main").html("Your send has " + msg);
               }).fail(function(){alert("Failed to send.");});
 	            return false;
             });

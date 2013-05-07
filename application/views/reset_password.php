@@ -5,11 +5,10 @@
 
             	<h1>Reset your password</h1><br />
 <?=form_open('login/resetPasswordProcess');?>
-
-	<label for="temp_password">Temporary Password </label>
-<?=form_password('temp_password', set_value('temp_password', ''),'placeholder="Temporary Password" '); ?>
+2
+<?=form_hidden('temp_password', set_value('temp_password', '$this->uri->segment(3)'),'placeholder="Temporary Password" '); ?>
 	<label for="new_password">New Password </label>
-<?=form_password('new_password', set_value('old_password', ''),'placeholder="New Password" '); ?>
+<?=form_password('new_password', set_value('new_password', ''),'placeholder="New Password" '); ?>
 
 	<label for="confirm_password">Confirm New Password </label>
 <?php echo form_password('confirm_password', '', 'placeholder="Password" ');

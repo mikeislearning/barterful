@@ -175,21 +175,11 @@ class Membership_model extends CI_Model {
 		
 	}
 
-	public function temp_reset_password($new_pass){
-    $data =array(
-                'm_email' =>$this->input->post('email'),
-                'm_password'=>md5($new_pass));
-                
-                $email = $data['m_email'];
-
-    if($data){
-        $this->db->where('m_email', $email);
-        $this->db->update('members', $data);  
-        return TRUE;
-    }
-    else{
-        return FALSE;
-    }
+	public function temp_reset_password($new_pass,$temp_pass){
+    $this->db->set('m_password', md5($new_pass));
+    $this->db->set('reset_pass', '');
+    $this->db->where('reset_pass', $temp_pass);
+    $this->db->update('members'); 
 
 	}
 	public function is_temp_pass_valid($temp_pass){
