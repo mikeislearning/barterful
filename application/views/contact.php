@@ -8,8 +8,9 @@
             <h1> Contact Us</h1><br />
         
             <?php
-             $form_attributes = array('id'=>'myForm');
-             echo form_open('email/send', $form_attributes); //this creates the following <form method="post" action="http://codeigniter/index.php/email/send"/> ?><?php
+             $form_attributes = array('id'=>'myForm','method'=>'POST');
+             echo form_open('', $form_attributes);?>
+             <?php
             //these arrays provide the inputs with data
             	$name_data=array('name'=>'name',
             	'id'=>'name',
@@ -35,7 +36,7 @@
                     'placeholder'=>'Message goes here'
                  );  ?><!-- this input uses an array to pass get its data -->
 
-            <p><label for="email">Name:</label></p>
+            <p><label for="name">Name:</label></p>
             <?php echo form_input($name_data);?>
             <p><label for="email">Email:</label></p>
             <?php echo form_input($email_data);?>
@@ -50,7 +51,8 @@
                         ?>
             
 
-            <p><?php echo form_submit('submit', 'Submit','id="submit"');//two parameters refer to name and value ?></p><?php echo form_close(); ?><?php echo validation_errors('<p class="error">'); ?><!-- Print out the validation errors -->
+            <p><?php echo form_submit('submit', 'Submit','id="submit"');//two parameters refer to name and value ?></p><?php echo form_close(); ?>
+            <?php echo validation_errors('<p class="error">'); ?><!-- Print out the validation errors -->
 
             
             </main>
@@ -71,27 +73,34 @@
 
             <script type="text/javascript">
             
-            $('#myForm').submit(function(event){
-            	//var form_data ={
-	            	var name = $('#name').val();
-                var email = $('#email').val();
-                var message = $('#message').val();
-	            	/*ajax:'1'
-	            	};*/
+            $(document).ready(function(){
+
+
+            $('#myForm').submit(function(e){
+              e.preventDefault();
+
+                var form = $(this);
+                var post_data = form.serialize();
+
+
+	            	// var name = $('#name').val();
+              //   var email = $('#email').val();
+              //   var message = $('#message').val();
+              //   var captcha = $('');
 
                 //somehow using serialize makes this all work right...or not
 	            $.ajax({
-		        	url:<?php echo site_url('email/send');?>,
+		        	url:"<?php echo site_url('email/send');?>",
 		        	type: 'POST',
-		        	data: name,
-		        	success: function(name){
-		        		$("main").html("Thanks for your message"+name);
-		        	} 
-	            });
+		        	data: post_data
+	            }).done(function(msg)
+              {
+                $("main").html("Blah ooblie meow " + msg);
+              }).fail(function(){alert("Failed to send.");});
 	            return false;
             });
             
-            
+            });
             
             </script>
          

@@ -89,12 +89,13 @@ function __construct()
 		$this->form_validation->set_rules('name','Name','required');
 		$this->form_validation->set_rules('email','Email','trim|required|valid_email');
 		$this->form_validation->set_rules('message','Message','required');
+		
 		$this->form_validation->set_rules('recaptcha_challenge_field','reCAPTCHA','callback_captcha_check');
-		//id name, name it prints out, the rules
 
 		//ZIS is the recaptcha check! yayyyyy!!!!
 	
 		if($this->form_validation->run()==FALSE){
+		echo "Validation Error!";
 		
 		$this->load->view('includes/template', $this->data);		
 		}
@@ -116,22 +117,19 @@ function __construct()
 			$this->email->subject('From our newest fan '.$name);
 			$this->email->message($message);
 			
-			//$path = $this->config->item('server_root');//creates a proper both on how you'd find a newsletter
 
 			if($this->email->send())
 			{	
-				//if($this->input->post('ajax')){
-				//attempting ajax here
+
 				//$this->data['main_content']='contact_thanks';
-				//}
-				$this->data['main_content']='contact_thanks';
-				$this->load->view('includes/template', $this->data);	
+				//$this->load->view('includes/template', $this->data);	
+				echo "send success!";
 				
 				
 			}
 			else
 			{
-				$this->load->view('includes/template', $this->data);	
+				//$this->load->view('includes/template', $this->data);	
 				echo 'Send failed. Sorry :( ' ;
 				show_error($this->email->print_debugger());
 			}
