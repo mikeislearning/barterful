@@ -64,7 +64,7 @@ class listings_model extends CI_Model{
 		{
 			case "skills":
 				$query = $this->db->query("
-				Select p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, sp_keywords, sp_details, s.s_id, sp_id, p.m_id as m_id
+				Select p_fname, p_last_updated, p_avg_rating, s_name, s_img, sp_heading, sp_keywords, sp_details, s.s_id, sp_id, p.m_id as m_id
 				FROM skill_profiles sp
 				JOIN profiles p on sp.p_id = p.p_id
 				JOIN members m on p.m_id = m.m_id
@@ -74,7 +74,7 @@ class listings_model extends CI_Model{
 				break;
 			case "wants":
 				$query = $this->db->query("
-				Select p_fname, p_last_updated, p_avg_rating, s_name, wp_expiry, wp_keywords as sp_keywords, wp_heading as sp_heading, wp_details as sp_details, s.s_id, wp_id as sp_id, p.m_id as m_id
+				Select p_fname, p_last_updated, p_avg_rating, s_name, s_img, wp_expiry, wp_keywords as sp_keywords, wp_heading as sp_heading, wp_details as sp_details, s.s_id, wp_id as sp_id, p.m_id as m_id
 				FROM want_profiles wp
 				JOIN profiles p on wp.p_id = p.p_id
 				JOIN members m on p.m_id = m.m_id
@@ -86,7 +86,7 @@ class listings_model extends CI_Model{
 				break;
 			case "projects":
 				$query = $this->db->query("
-				Select p_fname, p_last_updated, p_avg_rating, s_name, wp_expiry, wp_keywords as sp_keywords, wp_heading as sp_heading, wp_details as sp_details, s.s_id, wp_id as sp_id, p.m_id as m_id
+				Select p_fname, p_last_updated, p_avg_rating, s_name, s_img, wp_expiry, wp_keywords as sp_keywords, wp_heading as sp_heading, wp_details as sp_details, s.s_id, wp_id as sp_id, p.m_id as m_id
 				FROM want_profiles wp
 				JOIN profiles p on wp.p_id = p.p_id
 				JOIN members m on p.m_id = m.m_id
@@ -151,7 +151,7 @@ class listings_model extends CI_Model{
 		{
 			case "skills":
 				$query = $this->db->query("
-				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, sp_details, sp_id, p.m_id as m_id
+				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, s_img, sp_heading, sp_details, sp_id, p.m_id as m_id
 				FROM profiles p
 				JOIN members m on p.m_id = m.m_id
 				JOIN skill_profiles sp on p.p_id = sp.p_id
@@ -161,7 +161,7 @@ class listings_model extends CI_Model{
 				break;
 			case "wants":
 				$query = $this->db->query("
-				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, wp_heading as sp_heading, wp_details as sp_details, s.s_id, wp_id as sp_id, p.m_id as m_id
+				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, s_img, wp_heading as sp_heading, wp_details as sp_details, s.s_id, wp_id as sp_id, p.m_id as m_id
 				FROM profiles p
 				JOIN members m on p.m_id = m.m_id
 				JOIN want_profiles wp on p.p_id = wp.p_id
@@ -173,7 +173,7 @@ class listings_model extends CI_Model{
 				break;
 			case "projects":
 				$query = $this->db->query("
-				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, wp_expiry, wp_heading as sp_heading, wp_details as sp_details, s.s_id, wp_id as sp_id, p.m_id as m_id
+				Select p.p_id, p_fname, p_last_updated, p_avg_rating, s_name, s_img, wp_expiry, wp_heading as sp_heading, wp_details as sp_details, s.s_id, wp_id as sp_id, p.m_id as m_id
 				FROM profiles p
 				JOIN members m on p.m_id = m.m_id
 				JOIN want_profiles wp on p.p_id = wp.p_id
@@ -367,7 +367,7 @@ class listings_model extends CI_Model{
 		{
 			case "skills":
 				$query = $this->db->query("
-				Select p_fname, p_last_updated, p_avg_rating, s_name, sp_heading, sp_keywords, sp_details, s.s_id, sp_id, p.m_id as m_id
+				Select p_fname, p_last_updated, p_avg_rating, s_name, s_img, sp_heading, sp_keywords, sp_details, s.s_id, sp_id, p.m_id as m_id
 				FROM skill_profiles sp
 				JOIN profiles p on sp.p_id = p.p_id
 				JOIN members m on p.m_id = m.m_id
@@ -377,7 +377,7 @@ class listings_model extends CI_Model{
 				break;
 			case "wants":
 				$query = $this->db->query("
-				Select p_fname, p_last_updated, p_avg_rating, s_name, wp_expiry, wp_keywords as sp_keywords, wp_heading as sp_heading, wp_details as sp_details, s.s_id, wp_id as sp_id, p.m_id as m_id
+				Select p_fname, p_last_updated, p_avg_rating, s_name, s_img, wp_expiry, wp_keywords as sp_keywords, wp_heading as sp_heading, wp_details as sp_details, s.s_id, wp_id as sp_id, p.m_id as m_id
 				FROM want_profiles wp
 				JOIN profiles p on wp.p_id = p.p_id
 				JOIN members m on p.m_id = m.m_id
@@ -389,7 +389,7 @@ class listings_model extends CI_Model{
 				break;
 			case "projects":
 				$query = $this->db->query("
-				Select p_fname, p_last_updated, p_avg_rating, s_name, wp_expiry, wp_keywords as sp_keywords, wp_heading as sp_heading, wp_details as sp_details, s.s_id, wp_id as sp_id, p.m_id as m_id
+				Select p_fname, p_last_updated, p_avg_rating, s_name, s_img, wp_expiry, wp_keywords as sp_keywords, wp_heading as sp_heading, wp_details as sp_details, s.s_id, wp_id as sp_id, p.m_id as m_id
 				FROM want_profiles wp
 				JOIN profiles p on wp.p_id = p.p_id
 				JOIN members m on p.m_id = m.m_id

@@ -9,7 +9,7 @@
 	<span class="red-line"></span>
 	<ul id="lines">
 
-         <li>   <img src="<?php echo base_url('refs/_img/irrelephant.jpg');?>" class="left clearfix" alt="elephant" width="100" height="100" /></li>
+         <li>   <img src="<?php echo base_url('refs/_img/skills/' . $r->s_img);?>" class="left clearfix" alt="<?=$r->s_name?>" width="100" height="100" /></li>
 
 	            	<li></li>
 		            <li><?php echo $r->sp_heading ?></li>
